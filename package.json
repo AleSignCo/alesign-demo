@@ -1,0 +1,8 @@
+{
+  "name": "alesign-demo",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Mostra vie AleSign: un site demo per lead, randat din Supabase (demo.alesign.net/<slug>)",
+  "engines": { "node": ">=18" }
+}
