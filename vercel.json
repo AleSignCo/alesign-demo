@@ -1,6 +1,9 @@
 {
   "rewrites": [
     { "source": "/poze/(.*)", "destination": "/poze/$1" },
+    { "source": "/api/cerere", "destination": "/api/cerere" },
+    { "source": "/api/prelungire", "destination": "/api/prelungire" },
+    { "source": "/m/:slug", "destination": "/api/mostra?slug=:slug" },
     { "source": "/", "destination": "/api/site" },
     { "source": "/:slug", "destination": "/api/site?slug=:slug" }
   ],
