@@ -16,6 +16,6 @@ export default async function handler(req, res) {
     const r = await fetch(`${URL_SB}/rest/v1/rpc/dezabonare`, { method: 'POST', headers: { apikey: KEY_SB, Authorization: `Bearer ${KEY_SB}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_token: t }) });
     if (!r.ok) { res.status(404).send(pagina('Link expirat', 'Nu am găsit nimic pentru linkul ăsta. Dacă tot primești mesaje, scrie-mi la info@alesign.net.')); return; }
     const out = await r.json();
-    res.status(200).send(pagina('Gata, te-am scos.', `Nu mai primești niciun mesaj de la mine${out && out.firma ? ` pentru ${out.firma}` : ''}. Mulțumesc că mi-ai spus. Dacă te răzgândești vreodată, un mail ajunge.`));
+    res.status(200).send(pagina('Gata, nu îți mai scriu.', `Nu mai primești mesaje de la mine${out && out.firma ? ` pentru ${out.firma}` : ''}. Mulțumesc că mi-ai spus. Dacă te răzgândești, îmi scrii oricând la info@alesign.net.`));
   } catch (e) { res.status(500).send(pagina('A apărut o eroare', 'Scrie-mi la info@alesign.net și te scot manual, în aceeași zi.')); }
 }
