@@ -1,14 +1,67 @@
 {
   "rewrites": [
-    { "source": "/poze/(.*)", "destination": "/poze/$1" },
-    { "source": "/api/cerere", "destination": "/api/cerere" },
-    { "source": "/api/prelungire", "destination": "/api/prelungire" },
-    { "source": "/api/dezabonare", "destination": "/api/dezabonare" },
-    { "source": "/m/:slug", "destination": "/api/mostra?slug=:slug" },
-    { "source": "/", "destination": "/api/site" },
-    { "source": "/:slug", "destination": "/api/site?slug=:slug" }
+    {
+      "source": "/poze/(.*)",
+      "destination": "/poze/$1"
+    },
+    {
+      "source": "/api/cerere",
+      "destination": "/api/cerere"
+    },
+    {
+      "source": "/api/prelungire",
+      "destination": "/api/prelungire"
+    },
+    {
+      "source": "/api/dezabonare",
+      "destination": "/api/dezabonare"
+    },
+    {
+      "source": "/api/semneaza",
+      "destination": "/api/semneaza"
+    },
+    {
+      "source": "/api/plata",
+      "destination": "/api/plata"
+    },
+    {
+      "source": "/api/contract-pdf",
+      "destination": "/api/contract-pdf"
+    },
+    {
+      "source": "/api/onboarding-salveaza",
+      "destination": "/api/onboarding-salveaza"
+    },
+    {
+      "source": "/c/:slug",
+      "destination": "/api/contract?slug=:slug"
+    },
+    {
+      "source": "/o/:slug",
+      "destination": "/api/onboarding?slug=:slug"
+    },
+    {
+      "source": "/m/:slug",
+      "destination": "/api/mostra?slug=:slug"
+    },
+    {
+      "source": "/",
+      "destination": "/api/site"
+    },
+    {
+      "source": "/:slug",
+      "destination": "/api/site?slug=:slug"
+    }
   ],
   "headers": [
-    { "source": "/poze/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] }
+    {
+      "source": "/poze/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
   ]
 }
