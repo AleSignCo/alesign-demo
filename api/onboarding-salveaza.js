@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     let out;
     try { out = await rpc('onboarding_salveaza', { p_slug: slug, p_raspunsuri: b.raspunsuri ? curat(b.raspunsuri) : null, p_fisier: fisier, p_pasi_gata: b.pasi_gata == null ? null : Math.max(0, Math.min(5, Number(b.pasi_gata) || 0)), p_finalizat: b.finalizat === true }); }
     catch (e) { res.status(400).json({ ok: false, motiv: e.motiv || 'nu se poate' }); return; }
-    if (b.finalizat === true) await anunta({ tip: 'onboarding_complet', onboarding_id: out.id, contract_id: out.contract_id, lead_id: out.lead_id, slug });
+    if (b.finalizat === true && out.prima_finalizare !== false) await anunta({ tip: 'onboarding_complet', onboarding_id: out.id, contract_id: out.contract_id, lead_id: out.lead_id, slug });
     res.status(200).json({ ok: true, pasi_gata: out.pasi_gata, completat_la: out.completat_la });
   } catch (e) { res.status(500).json({ ok: false, motiv: String(e.message || e).slice(0, 200) }); }
 }
