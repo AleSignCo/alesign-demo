@@ -45,6 +45,10 @@
       "destination": "/api/mostra?slug=:slug"
     },
     {
+      "source": "/r/:slug",
+      "destination": "/api/raport?slug=:slug"
+    },
+    {
       "source": "/",
       "destination": "/api/site"
     },
