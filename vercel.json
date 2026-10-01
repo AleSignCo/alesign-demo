@@ -5,6 +5,10 @@
       "destination": "/poze/$1"
     },
     {
+      "source": "/p/:nume",
+      "destination": "/p/:nume.html"
+    },
+    {
       "source": "/api/cerere",
       "destination": "/api/cerere"
     },
