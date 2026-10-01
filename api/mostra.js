@@ -1,10 +1,11 @@
-// Vercel serverless: /m/<slug> → RPC mostra_date (Supabase, cheie publishable) → pagina Mostrei.
+// Vercel serverless: /m/<slug> → RPC mostra_date + mostra_vizualizare (blochează prețurile la prima deschidere) + catalog_public(slug) → pagina Mostrei.
 import { randeazaMostra, mostraExpirata } from '../lib/mostra.js';
 
 const URL_SB = process.env.SUPABASE_URL;
 const KEY_SB = process.env.SUPABASE_KEY;
 const H = () => ({ apikey: KEY_SB, Authorization: `Bearer ${KEY_SB}`, 'Content-Type': 'application/json' });
 const TERMEN = { beauty: 'salon', wellness: 'spa', spa: 'spa', barbershop: 'barbershop' };
+const rpc = async (fn, body) => { const r = await fetch(`${URL_SB}/rest/v1/rpc/${fn}`, { method: 'POST', headers: H(), body: JSON.stringify(body) }); return r.ok ? r.json() : null; };
 
 export default async function handler(req, res) {
   const slug = String(req.query.slug || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 80);
@@ -12,9 +13,12 @@ export default async function handler(req, res) {
   if (!slug) { res.status(404).send(mostraExpirata({})); return; }
   if (!URL_SB || !KEY_SB) { res.status(500).send('<p style="font-family:sans-serif">Lipsesc variabilele SUPABASE_URL / SUPABASE_KEY.</p>'); return; }
   try {
-    const r = await fetch(`${URL_SB}/rest/v1/rpc/mostra_date`, { method: 'POST', headers: H(), body: JSON.stringify({ p_slug: slug }) });
-    const m = r.ok ? await r.json() : null;
+    const m = await rpc('mostra_date', { p_slug: slug });
     if (!m || !m.lead_id) { res.status(404).send(mostraExpirata({})); return; }
+
+    // întâi vizualizarea (fixează prețurile 7 zile de la prima deschidere), apoi catalogul cu prețurile blocate
+    await rpc('mostra_vizualizare', { p_slug: slug });
+    const catalog = (await rpc('catalog_public', { p_slug: slug })) || { pachete: [], module: [], reguli: {}, setari: {}, blocat: {} };
 
     const scor = m.audit_scor == null ? null : Number(m.audit_scor);
     const ramura = !m.cu_site ? 'fara_site' : scor == null ? 'site_slab' : scor < 60 ? 'site_slab' : 'site_bun';
@@ -26,10 +30,13 @@ export default async function handler(req, res) {
       probleme: Array.isArray(m.audit_probleme) ? m.audit_probleme : [],
       demo_url: `https://${host}/${m.demo_slug}`,
       expira_la: m.mostra_expira, prelungita: !!m.mostra_prelungita,
+      cu_site: !!m.cu_site,
+      catalog,
+      // ramura decide ce recomand: fără site → Growth (cu Launch ca punct de pornire); site slab → Growth; site bun → Growth
+      recomandat: 'crestere',
     };
     if (ramura === 'site_slab' && scor == null) d.probleme = [{ vazut: 'Site-ul nu s-a încărcat când l-am testat.', costa: 'Un client care dă de o pagină moartă nu mai încearcă a doua oară.', facem: 'Îl repunem pe picioare în prima săptămână.' }, ...d.probleme];
 
-    fetch(`${URL_SB}/rest/v1/rpc/mostra_vizualizare`, { method: 'POST', headers: H(), body: JSON.stringify({ p_slug: slug }) }).catch(() => {});
     res.setHeader('Cache-Control', 'private, no-store');
     res.status(200).send(randeazaMostra(d));
   } catch (e) {
