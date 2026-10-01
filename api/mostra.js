@@ -5,7 +5,7 @@ const URL_SB = process.env.SUPABASE_URL;
 const KEY_SB = process.env.SUPABASE_KEY;
 const H = () => ({ apikey: KEY_SB, Authorization: `Bearer ${KEY_SB}`, 'Content-Type': 'application/json' });
 const TERMEN = { beauty: 'salon', wellness: 'spa', spa: 'spa', barbershop: 'barbershop' };
-const rpc = async (fn, body) => { const r = await fetch(`${URL_SB}/rest/v1/rpc/${fn}`, { method: 'POST', headers: H(), body: JSON.stringify(body) }); return r.ok ? r.json() : null; };
+const rpc = async (fn, body) => { const r = await fetch(`${URL_SB}/rest/v1/rpc/${fn}`, { method: 'POST', headers: H(), body: JSON.stringify(body) }); if (!r.ok) return null; const t = await r.text(); try { return t ? JSON.parse(t) : null; } catch { return null; } };
 
 export default async function handler(req, res) {
   const slug = String(req.query.slug || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 80);
