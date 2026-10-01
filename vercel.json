@@ -1,12 +1,9 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/poze/(.*)",
       "destination": "/poze/$1"
-    },
-    {
-      "source": "/p/:nume",
-      "destination": "/p/:nume.html"
     },
     {
       "source": "/api/cerere",
