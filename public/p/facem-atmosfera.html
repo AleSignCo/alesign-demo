@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Facem Atmosfera · o propunere de la AleSystem Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&family=Allura&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@1,600;1,700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#f5f2ec; --text:#141414; --muted:#6b675f; --soft:#a39e94; --surface:#fbf9f5; --line:#e2ddd3; --accent:#ff2a2e; --ink:#0c0c0d; --ink-text:#f4f1ea; }
+  .fa { font-family:"Great Vibes", cursive; font-weight:400; font-style:normal; font-size:1.6em; letter-spacing:.2px; white-space:nowrap; line-height:1; -webkit-text-stroke:.45px currentColor; }
+  h1 .fa, h2 .fa { font-size:1.25em; }
+  .eyebrow .fa { text-transform:none; letter-spacing:0; font-size:2.3em; vertical-align:-4px; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--text); font-family:Manrope, system-ui, sans-serif; line-height:1.65; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; text-decoration:none; }
+  h1,h2,h3 { font-family:'Cormorant Garamond', Georgia, serif; font-weight:600; letter-spacing:-0.01em; line-height:1.08; }
+  .wrap { width:min(1040px, 100% - 40px); margin:0 auto; }
+  .eyebrow { font-size:11.5px; letter-spacing:.24em; text-transform:uppercase; font-weight:700; color:var(--muted); display:flex; align-items:center; gap:10px; }
+  .eyebrow::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+  section { padding:84px 0; }
+  section + section { border-top:1px solid var(--line); }
+  .h2 { font-size:clamp(30px, 4vw, 44px); margin:14px 0 12px; }
+  .lead { color:var(--muted); font-size:17px; max-width:62ch; }
+  header.top { position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
+  header.top .wrap { display:flex; align-items:center; justify-content:space-between; height:64px; gap:16px; }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size:14px; }
+  .brand svg { width:22px; height:22px; }
+  .pentru { font-size:12.5px; color:var(--muted); text-align:right; }
+  .pentru b { color:var(--text); }
+
+  .scrisoare { padding:96px 0 72px; }
+  .scrisoare h1 { font-size:clamp(42px, 6vw, 74px); margin:18px 0 32px; max-width:17ch; }
+  .scrisoare .text { max-width:66ch; }
+  .scrisoare .text p { font-size:clamp(17px, 1.5vw, 19.5px); margin-bottom:18px; color:#2a2823; }
+  .scrisoare .text p.salut { font-family:'Cormorant Garamond', serif; font-size:clamp(24px, 2.6vw, 30px); font-weight:500; color:var(--text); }
+  .semn { display:flex; align-items:center; gap:14px; margin-top:30px; }
+  .semn .nume { font-family:'Cormorant Garamond', serif; font-style:italic; font-size:30px; font-weight:500; }
+  .semn .rol { font-size:12.5px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; }
+  .semn .rol::before { content:''; display:inline-block; width:22px; height:1px; background:var(--line); vertical-align:middle; margin-right:10px; }
+  .cifre { display:flex; gap:44px; flex-wrap:wrap; margin-top:52px; padding-top:30px; border-top:1px solid var(--line); }
+  .cifre div { min-width:120px; }
+  .cifre b { font-family:'Cormorant Garamond', serif; font-size:44px; font-weight:600; display:block; line-height:1; }
+  .cifre b small { font-size:20px; color:var(--soft); font-weight:500; }
+  .cifre span { font-size:12.5px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; }
+
+  .deceeu { border:1.5px solid var(--text); border-radius:24px; padding:40px 42px; background:#fff; }
+  .deceeu h2 { font-size:clamp(28px, 3.4vw, 38px); margin:12px 0 16px; }
+  .deceeu p { font-size:16.5px; color:#2a2823; max-width:66ch; margin-bottom:12px; }
+  .deceeu p b { color:var(--text); }
+  .sincer { background:var(--ink); color:var(--ink-text); border-radius:24px; padding:40px 42px; margin-top:0; }
+  .sincer .eyebrow { color:#a8a39a; }
+  .sincer h2 { font-size:clamp(28px, 3.4vw, 38px); margin:12px 0 16px; }
+  .sincer p { color:#d8d3c8; font-size:16.5px; max-width:66ch; margin-bottom:12px; }
+  .sincer p b { color:var(--ink-text); }
+
+  .obs { display:grid; grid-template-columns:repeat(3, 1fr); gap:18px; margin-top:38px; }
+  .obs article { background:var(--surface); border:1px solid var(--line); border-radius:20px; padding:28px 26px 26px; }
+  .obs .n { font-family:'Cormorant Garamond', serif; font-size:38px; line-height:1; color:var(--soft); font-weight:500; margin-bottom:16px; }
+  .obs h3 { font-size:23px; margin-bottom:14px; line-height:1.2; }
+  .obs p { font-size:14.5px; color:#3b3833; margin-bottom:10px; }
+  .obs p.facem { color:var(--text); font-weight:600; }
+  .obs dt { font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); font-weight:700; margin-top:12px; }
+
+  .ajutor { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:38px; }
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:22px; padding:32px 30px; }
+  .card h3 { font-size:30px; margin-bottom:8px; }
+  .card .sub { color:var(--muted); font-size:14.5px; margin-bottom:18px; }
+  .card ul { list-style:none; display:grid; gap:10px; }
+  .card li { padding-left:22px; position:relative; font-size:15px; color:#2a2823; }
+  .card li::before { content:''; position:absolute; left:0; top:.62em; width:8px; height:8px; border-radius:50%; background:var(--ink); }
+  .card.inchis { background:var(--ink); color:var(--ink-text); border-color:var(--ink); }
+  .card.inchis .sub { color:#a8a39a; }
+  .card.inchis li { color:#e4dfd4; }
+  .card.inchis li::before { background:var(--accent); }
+  .card .nota { margin-top:18px; font-size:13.5px; color:var(--muted); border-top:1px solid var(--line); padding-top:14px; }
+  .card.inchis .nota { color:#a8a39a; border-color:#2a2a2d; }
+
+  .pasi { display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; margin-top:38px; }
+  .pasi div { background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:24px 22px; }
+  .pasi .cand { font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); font-weight:700; margin-bottom:10px; }
+  .pasi h3 { font-size:22px; margin-bottom:8px; }
+  .pasi p { font-size:14px; color:#3b3833; }
+
+  .viziune p { font-size:clamp(17px, 1.5vw, 19px); color:#2a2823; max-width:66ch; margin-bottom:16px; }
+  .viziune p.mare { font-family:'Cormorant Garamond', serif; font-size:clamp(26px, 3vw, 36px); line-height:1.25; color:var(--text); max-width:24ch; margin:22px 0 26px; }
+
+  .live { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-top:34px; }
+  .live a, .live div { background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:24px 22px; display:block; }
+  .live h3 { font-size:22px; margin-bottom:8px; }
+  .live p { font-size:14px; color:#3b3833; }
+  .live .lnk { display:inline-block; margin-top:12px; font-size:13px; font-weight:700; border-bottom:1px solid currentColor; }
+
+  .final { background:var(--ink); color:var(--ink-text); }
+  .final .h2 { color:var(--ink-text); }
+  .final .lead { color:#b9b4aa; }
+  .final .eyebrow { color:#a8a39a; }
+  .cta { display:flex; gap:12px; flex-wrap:wrap; margin-top:30px; }
+  .btn { display:inline-flex; align-items:center; gap:10px; padding:15px 24px; border-radius:999px; background:var(--ink-text); color:var(--ink); font-weight:600; font-size:15px; }
+  .btn.ghost { background:transparent; color:var(--ink-text); border:1px solid #3a3a3d; }
+  footer { padding:34px 0 46px; color:var(--muted); font-size:12.5px; border-top:1px solid var(--line); }
+  footer .wrap { display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap; }
+
+  .rv { opacity:0; transform:translateY(14px); transition:opacity .7s ease, transform .7s ease; }
+  .rv.in { opacity:1; transform:none; }
+  @media (max-width: 880px) { .obs, .pasi, .live { grid-template-columns:1fr; } .ajutor { grid-template-columns:1fr; } .pentru { display:none; } section { padding:60px 0; } .sincer { padding:30px 26px; } .deceeu { padding:30px 26px; } }
+  @media (prefers-reduced-motion: reduce) { .rv { opacity:1; transform:none; transition:none; } }
+  @media print {
+    @page { size: A4; margin: 12mm 11mm; }
+    html { font-size: 13px; }
+    body { background:#fff; }
+    .rv { opacity:1 !important; transform:none !important; transition:none !important; }
+    header.top { position:static; backdrop-filter:none; background:#fff; }
+    header.top .wrap { height:44px; }
+    .wrap { width:100%; }
+    section { padding:22px 0; }
+    .scrisoare { padding:18px 0 16px; }
+    .scrisoare h1 { font-size:40px; margin:8px 0 14px; max-width:none; }
+    .scrisoare .text p { font-size:14px; margin-bottom:10px; }
+    .scrisoare .text p.salut { font-size:20px; }
+    .cifre { margin-top:18px; padding-top:12px; gap:28px; }
+    .cifre b { font-size:30px; }
+    .h2 { font-size:28px; margin:8px 0 6px; }
+    .lead { font-size:13.5px; }
+    .deceeu { padding:22px 24px; border-radius:16px; break-inside:avoid; } .deceeu h2 { font-size:24px; margin:8px 0 10px; } .deceeu p { font-size:13px; margin-bottom:8px; }
+    .sincer { padding:22px 24px; border-radius:16px; -webkit-print-color-adjust:exact; print-color-adjust:exact; break-inside:avoid; }
+    .sincer h2 { font-size:24px; margin:8px 0 10px; } .sincer p { font-size:13px; margin-bottom:8px; }
+    .obs, .pasi, .live, .ajutor { margin-top:16px; gap:10px; }
+    .obs article, .pasi div, .live a, .live div, .card { padding:16px 16px; border-radius:12px; break-inside:avoid; }
+    .obs .n { font-size:24px; margin-bottom:8px; } .obs h3 { font-size:17px; margin-bottom:8px; } .obs p { font-size:11.5px; margin-bottom:6px; }
+    .card h3 { font-size:22px; } .card li { font-size:12px; } .card .sub { font-size:12px; margin-bottom:10px; } .card .nota { font-size:11px; margin-top:10px; padding-top:8px; }
+    .card.inchis { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .pasi h3 { font-size:17px; } .pasi p { font-size:11.5px; } .pasi .cand { font-size:9.5px; }
+    .viziune p { font-size:13.5px; margin-bottom:9px; } .viziune p.mare { font-size:24px; margin:10px 0 12px; }
+    .live h3 { font-size:17px; } .live p { font-size:11.5px; }
+    .final { -webkit-print-color-adjust:exact; print-color-adjust:exact; break-inside:avoid; border-radius:16px; padding:26px 26px; }
+    .cta { margin-top:14px; } .btn { padding:10px 16px; font-size:12.5px; }
+    footer { padding:14px 0; font-size:10.5px; }
+    .pentru { display:block; }
+    section { break-inside:avoid; }
+    section.ajutor-s { break-inside:auto; }
+    section.ajutor-s .ajutor { break-inside:avoid; }
+    section.ajutor-s .cap { break-after:avoid; break-inside:avoid; }
+    .obs { grid-template-columns:repeat(3, 1fr); }
+    .ajutor { grid-template-columns:1fr 1fr; }
+    .pasi { grid-template-columns:repeat(4, 1fr); }
+    .live { grid-template-columns:repeat(3, 1fr); }
+    .scrisoare h1 { font-size:34px; margin:6px 0 10px; }
+    .scrisoare .text p { font-size:13px; margin-bottom:8px; }
+    .cifre { margin-top:12px; padding-top:10px; }
+    .cifre b { font-size:26px; } .cifre span { font-size:10.5px; }
+    .semn { margin-top:14px; } .semn .nume { font-size:22px; }
+    .sincer { padding:18px 20px; } .sincer h2 { font-size:21px; } .sincer p { font-size:12.5px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <a class="brand" href="https://alesign.net" target="_blank" rel="noopener"><svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><circle cx="28" cy="28" r="20"/><circle cx="28" cy="28" r="5" fill="currentColor" stroke="none"/><circle cx="42.1" cy="13.9" r="6" fill="#ff2a2e" stroke="none"/></svg><span>AleSystem Design</span></a>
+  <div class="pentru">Pregătit pentru <span class="fa">Facem Atmosfera</span> · octombrie 2026</div>
+</div></header>
+
+<section class="scrisoare"><div class="wrap">
+  <p class="eyebrow">O propunere pentru <span class="fa">Facem Atmosfera</span></p>
+  <h1>Atmosfera o faceți voi. Eu mă ocup să o vadă toată lumea.</h1>
+  <div class="text">
+    <p class="salut">Bună, Bogdan!</p>
+    <p>Sunt Alexandru, de la AleSign&amp;Co. Mi-ai cerut o prezentare, așa că am făcut-o cum fac tot ce iese de la mine: nu un PDF generic, ci o pagină pregătită doar pentru voi.</p>
+    <p>Înainte să scriu un rând, am trecut prin ce se vede public despre <span class="fa">Facem Atmosfera</span>, exact cum ar face-o un cuplu care își caută trupa: site-ul, cele nouă trupe, recenziile. Ce am găsit e un business cu o dovadă rară: peste 1.500 de evenimente și 4,9 stele din 149 de recenzii, în care oamenii repetă aceeași idee, ringul de dans plin până la final. Asta nu se cumpără. Se muncește.</p>
+    <p>Mai jos găsești ce am observat, cu ce te pot ajuta concret, cum ar arăta prima lună și, sincer, de unde pornesc eu.</p>
+  </div>
+  <div class="semn"><span class="nume">Alexandru</span><span class="rol">AleSign&amp;Co</span></div>
+  <div class="cifre">
+    <div><b>1.500<small>+</small></b><span>evenimente</span></div>
+    <div><b>9</b><span>trupe, fiecare cu stilul ei</span></div>
+    <div><b>4,9</b><span>stele din 149 de recenzii</span></div>
+    <div><b>2</b><span>baze: București și Barcelona</span></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sincer rv">
+    <p class="eyebrow">Sincer, de la început</p>
+    <h2>Nu vin cu zece ani de agenție. Vin cu un sistem pe care l-am construit cu mâinile mele.</h2>
+    <p>AleSign&amp;Co există din 2024, pe web design și branding, cu câțiva clienți pentru care am construit site-uri și identități. De ceva vreme, însă, aproape tot timpul meu merge într-un singur lucru: <b>un ecosistem automat care face treaba unei agenții de marketing</b>: găsește clienți, le pregătește o propunere, trimite mesajele de urmărire, generează contractul, publică, raportează. Îl folosesc eu, pentru firma mea, în fiecare zi.</p>
+    <p>Sistemul de postări pe care mi l-ai descris, un calendar care se face singur și pe care doar îl aprobi, e exact una dintre piesele acestui ecosistem. <b>Nu trebuie să-l inventez pentru tine. Trebuie să-l adaptez pe trupele și pe sezoanele voastre.</b></p>
+    <p>Am preferat să-ți spun asta direct, decât să-l afli singur. Ce pot promite nu e vechime, ci atenție, gust și un sistem pe care ți-l pot arăta rulând, nu pe slide-uri.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow rv">Ce am observat</p>
+  <h2 class="h2 rv">Trei lucruri care mi-au sărit în ochi.</h2>
+  <p class="lead rv">Nu sunt reproșuri. Sunt locurile unde, din ce văd, cel mai puțin efort ar aduce cel mai mult.</p>
+  <div class="obs">
+    <article class="rv"><div class="n">01</div><h3>Aveți nouă trupe. Pe social, asta înseamnă nouă personaje.</h3><p>Level Up, HeartBeat, Spotlight, UpBeat, Fain, Lov, Showtime, Hitlist, Icebreakers. Fiecare are un nume, o promisiune și un public al ei. Un cuplu nu alege „o trupă”, alege <em>trupa lui</em>.</p><dt>Ce aș face</dt><p class="facem">Un fir de conținut pentru fiecare trupă: clipul, povestea, mirii care au ales-o. Săptămână de săptămână, prin rotație, ca lumea să le știe pe nume.</p></article>
+    <article class="rv"><div class="n">02</div><h3>Dovada există deja. Lipsește doar ritmul.</h3><p>149 de recenzii, sute de nunți filmate, invitați care „dansează printre mese”. Pentru majoritatea firmelor, asta e partea grea. La voi e deja făcută.</p><dt>Ce aș face</dt><p class="facem">Fiecare recenzie devine o postare. Fiecare moment de pe ring, un clip scurt. Un calendar care transformă ce aveți deja în prezență constantă, fără să mai depindă de cine are timp să posteze.</p></article>
+    <article class="rv"><div class="n">03</div><h3>Două publicuri, două calendare.</h3><p>Mirii aleg trupa cu luni bune înainte, de obicei în sezonul rece, pentru vara următoare. Firmele decid toamna pentru petrecerile de Crăciun și primăvara pentru evenimentele lor. Iar Barcelona deschide o a treia ușă: nunțile la destinație.</p><dt>Ce aș face</dt><p class="facem">Un singur calendar, dar cu două voci și cu sezoanele puse pe hartă: ce postăm pentru miri, ce postăm pentru companii și când.</p></article>
+  </div>
+</div></section>
+
+<section class="ajutor-s"><div class="wrap">
+  <div class="cap"><p class="eyebrow rv">Cu ce te pot ajuta</p>
+  <h2 class="h2 rv">Două lucruri, care merg împreună.</h2>
+  <p class="lead rv">Primul e munca de zi cu zi. Al doilea e sistemul care o face să nu mai depindă de nimeni.</p></div>
+  <div class="ajutor">
+    <div class="card rv">
+      <h3>Social media, condus de mine</h3>
+      <p class="sub">Instagram, TikTok, Facebook, YouTube Shorts</p>
+      <ul>
+        <li>Strategie și poziționare pe fiecare trupă și pe fiecare public</li>
+        <li>Calendar lunar: ce postăm, când, pe ce canal și de ce</li>
+        <li>Texte, concepte vizuale și montaj pentru clipurile scurte, din materialul vostru</li>
+        <li>Publicare la ore bune, răspuns la comentarii și mesaje</li>
+        <li>Raport lunar, pe înțelesul oricui: ce a mers, ce nu, ce urmează</li>
+      </ul>
+      <p class="nota">Tu aprobi tot înainte să apară. Nimic nu se publică în numele <span class="fa">Facem Atmosfera</span> fără OK-ul tău.</p>
+    </div>
+    <div class="card inchis rv">
+      <h3>Sistemul automat de postări</h3>
+      <p class="sub">Ce m-ai întrebat. Așa funcționează, pe scurt.</p>
+      <ul>
+        <li><b>Memoria de brand.</b> O dată, la început: trupele, tonul, ce nu apare niciodată în numele vostru.</li>
+        <li><b>Calendarul se generează singur</b>, în fiecare lună, pentru luna următoare: fiecare postare cu text, format și trupa din rol.</li>
+        <li><b>Îl aprobi cu un click</b>, pe telefon. Schimbi ce vrei, scoți ce nu-ți place.</li>
+        <li><b>Postările se publică singure</b>, la orele stabilite, pe toate canalele.</li>
+        <li><b>Raportul vine singur</b>, lunar, cu cifrele reale.</li>
+      </ul>
+      <p class="nota">Nu e un tool pe care îl configurezi tu. Îl construiesc, îl pornesc și îl țin eu în funcțiune. Tu rămâi cu decizia, nu cu operarea.</p>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow rv">Cum ar arăta prima lună</p>
+  <h2 class="h2 rv">Patru săptămâni, fără ședințe lungi.</h2>
+  <div class="pasi">
+    <div class="rv"><p class="cand">Săptămâna 1</p><h3>Vorbim 45 de minute.</h3><p>Îmi spui cum vindeți, ce trupă merge cui, ce v-a adus clienți și ce nu. Primesc accesele și materialul existent: clipuri, poze, recenzii.</p></div>
+    <div class="rv"><p class="cand">Săptămâna 2</p><h3>Strategia și primul calendar.</h3><p>Îți trimit poziționarea pe trupe și publicuri, plus calendarul pentru prima lună. Îl aprobi sau îl schimbăm.</p></div>
+    <div class="rv"><p class="cand">Săptămânile 3–4</p><h3>Primele postări, în ritm.</h3><p>Pornim publicarea. În paralel pun în funcțiune sistemul automat, pe memoria de brand a <span class="fa">Facem Atmosfera</span>.</p></div>
+    <div class="rv"><p class="cand">Ziua 30</p><h3>Primul raport.</h3><p>Ce s-a întâmplat, cu cifre, și ce urmează. De aici, sistemul generează calendarul lunar, iar tu doar îl aprobi.</p></div>
+  </div>
+</div></section>
+
+<section class="viziune"><div class="wrap">
+  <p class="eyebrow rv">Viziunea mea</p>
+  <h2 class="h2 rv">De ce fac asta.</h2>
+  <p class="mare rv">Construiesc compania din spatele companiei tale.</p>
+  <p class="rv">Știu că „vreau să schimb felul în care se face marketing” e un cuvânt mare. Mi-l asum. Cred că o agenție clasică vinde, în cea mai mare parte, ore de om pentru lucruri pe care un sistem bine construit le face mai constant, mai repede și fără să obosească: calendarul, publicarea, urmărirea, raportarea.</p>
+  <p class="rv">Ce rămâne, și ce merită plătit, e judecata: ce spui, cui, când și de ce. Asta e partea mea. Restul rulează singur, iar tu vezi rezultatul într-un raport pe care îl citești în două minute.</p>
+  <p class="rv"><span class="fa">Facem Atmosfera</span> ar fi un început pe care l-aș trata cu grija unui prim client important. Pentru că asta ar fi.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="deceeu rv">
+    <p class="eyebrow">Întrebarea pe care probabil ți-o pui</p>
+    <h2>De ce eu, și nu o agenție cu portofoliu?</h2>
+    <p>Îți răspund cum aș vrea să mi se răspundă și mie.</p>
+    <p>O agenție cu portofoliu are douăzeci de conturi și un om care postează pentru tine între două ședințe. Portofoliul e al agenției. Atenția, de cele mai multe ori, nu e a ta.</p>
+    <p>Eu sunt la început de drum cu sistemul ăsta și tocmai de aceea am ceva ce ei nu mai au: <b>foame</b>. Vreau să cresc, vreau să demonstrez că marketingul se poate face altfel, și vreau ca <span class="fa">Facem Atmosfera</span> să fie dovada. Dacă voi creșteți, cresc și eu. Nu cunosc o motivație mai sinceră.</p>
+    <p>Nu-ți promit vechime. Îți promit că o să știu trupele voastre pe nume, că răspund în aceeași zi și că tratez business-ul vostru ca pe al meu. Pentru că, sincer, așa îl și simt.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow rv">Ce pot să-ți arăt live</p>
+  <h2 class="h2 rv">Rulează acum, pentru firma mea.</h2>
+  <p class="lead rv">Nu capturi de ecran. La o cafea sau pe un apel, îți arăt sistemul în funcțiune, cap-coadă.</p>
+  <div class="live">
+    <div class="rv"><h3>Propunerea personalizată</h3><p>Pagina pe care o primește un potențial client la câteva ore după un apel, cu ce am observat la el și cu un site demo făcut în aceeași seară. Cam ca pagina asta.</p></div>
+    <div class="rv"><h3>Mesajele care urmăresc singure</h3><p>Secvența de emailuri care pleacă automat, la ritmul potrivit, și se oprește singură când omul răspunde sau cere ceva.</p></div>
+    <a class="rv" href="https://demo.alesign.net/r/9adaf472ae7c48b19bac3be4569a54cd" target="_blank" rel="noopener"><h3>Raportul lunar al clientului</h3><p>Exact ce ai primi tu la finalul fiecărei luni. Exemplul de aici are cifre demonstrative, pe un salon fictiv.</p><span class="lnk">Vezi un exemplu →</span></a>
+  </div>
+</div></section>
+
+<section class="final"><div class="wrap">
+  <p class="eyebrow rv">Următorul pas</p>
+  <h2 class="h2 rv">Hai să vorbim 30 de minute.</h2>
+  <p class="lead rv">Am lăsat intenționat prețul în afara acestei pagini. Vreau să înțeleg întâi exact ce ai nevoie și cât de mult vrei să preia sistemul, ca să venim amândoi cu o cifră corectă, nu cu una de catalog. Spune-mi când ai timp și te sun eu.</p>
+  <div class="cta rv">
+    <a class="btn" href="https://wa.me/40755367084?text=Salut%2C%20Alexandru!%20Am%20citit%20propunerea%20pentru%20Facem%20Atmosfera." target="_blank" rel="noopener">Scrie-mi pe WhatsApp</a>
+    <a class="btn ghost" href="mailto:info@alesign.net?subject=Facem%20Atmosfera%20%C2%B7%20propunere">info@alesign.net</a>
+    <a class="btn ghost" href="tel:+40755367084">0755 367 084</a>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div>Alexandru Pavăl · AleSign&amp;Co · <a href="https://alesign.net" target="_blank" rel="noopener">alesign.net</a></div>
+  <div>Pagină pregătită pentru <span class="fa">Facem Atmosfera</span>. Nu e indexată de Google.</div>
+</div></footer>
+
+<script>
+(function(){ var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); }); })();
+</script>
+</body>
+</html>
