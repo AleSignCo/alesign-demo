@@ -34,6 +34,14 @@
       "destination": "/api/onboarding-salveaza"
     },
     {
+      "source": "/api/spatiu-decizie",
+      "destination": "/api/spatiu-decizie"
+    },
+    {
+      "source": "/api/spatiu-mesaj",
+      "destination": "/api/spatiu-mesaj"
+    },
+    {
       "source": "/c/:slug",
       "destination": "/api/contract?slug=:slug"
     },
@@ -48,6 +56,10 @@
     {
       "source": "/r/:slug",
       "destination": "/api/raport?slug=:slug"
+    },
+    {
+      "source": "/s/:token",
+      "destination": "/api/spatiu?token=:token"
     },
     {
       "source": "/",
