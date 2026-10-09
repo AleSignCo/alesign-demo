@@ -58,6 +58,14 @@
       "destination": "/api/raport?slug=:slug"
     },
     {
+      "source": "/s/:token/site/:id",
+      "destination": "/api/site-preview?token=:token&id=:id"
+    },
+    {
+      "source": "/api/site-preview",
+      "destination": "/api/site-preview"
+    },
+    {
       "source": "/s/:token",
       "destination": "/api/spatiu?token=:token"
     },
