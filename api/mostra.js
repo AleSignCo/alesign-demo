@@ -1,5 +1,5 @@
 // Vercel serverless: /m/<slug> → RPC mostra_date + mostra_vizualizare (blochează prețurile la prima deschidere) + catalog_public(slug) → pagina Mostrei.
-import { randeazaMostra, mostraExpirata } from '../lib/mostra.js';
+import { randeazaMostra, mostraExpirata, mostraDejaClient } from '../lib/mostra.js';
 
 const URL_SB = process.env.SUPABASE_URL;
 const KEY_SB = process.env.SUPABASE_KEY;
@@ -15,6 +15,8 @@ export default async function handler(req, res) {
   try {
     const m = await rpc('mostra_date', { p_slug: slug });
     if (!m || !m.lead_id) { res.status(404).send(mostraExpirata({})); return; }
+    // clientul care apasă iar pe linkul Mostrei (SQL 26: mostra_date dă și statusul): fără configurator, fără cerere nouă; îl trimitem la spațiul lui
+    if (m.status === 'Client') { res.setHeader('Cache-Control', 'private, no-store'); res.status(200).send(mostraDejaClient({ firma: m.firma })); return; }
 
     // întâi vizualizarea (fixează prețurile 7 zile de la prima deschidere), apoi catalogul cu prețurile blocate
     await rpc('mostra_vizualizare', { p_slug: slug });
