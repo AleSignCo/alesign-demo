@@ -34,6 +34,7 @@ export default async function handler(req, res) {
     const d = await r.json();
     if (!d || !d.firma) { res.status(404).send(spatiuInchis()); return; }
     await semneazaPoze(d);
-    res.status(200).send(randeazaSpatiu(d, token));
+    const meta = String(req.query.meta || '').replace(/[^a-z_]/g, '').slice(0, 20);
+    res.status(200).send(randeazaSpatiu(d, token, meta ? { meta, m: String(req.query.m || '').slice(0, 80) } : {}));
   } catch (e) { res.status(500).send(spatiuInchis()); }
 }
