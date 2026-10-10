@@ -2,6 +2,8 @@
 const URL_SB = process.env.SUPABASE_URL;
 const KEY_SB = process.env.SUPABASE_KEY;
 const WEBHOOK = process.env.N8N_WEBHOOK_LIVRARE || 'https://alesignco.app.n8n.cloud/webhook/livrare';
+const SECRET = process.env.N8N_WEBHOOK_SECRET || '';
+const HW = () => ({ 'Content-Type': 'application/json', ...(SECRET ? { 'x-alesign-secret': SECRET } : {}) }); // antetul secret al webhook-urilor n8n (pasul 7)
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') { res.status(405).json({ ok: false }); return; }
@@ -21,7 +23,7 @@ export default async function handler(req, res) {
     if (!r.ok) { res.status(400).json({ ok: false, motiv: 'nu am putut salva' }); return; }
     const out = await r.json();
     if (WEBHOOK) {
-      await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ tip: decizie === 'aprob' ? 'client_aprobat' : 'client_modificare', lead_id: out.lead_id, sarcina_id: id, n: out.n, motiv: decizie === 'modificare' ? motiv : '' }) }).catch(() => {});
+      await fetch(WEBHOOK, { method: 'POST', headers: HW(), body: JSON.stringify({ tip: decizie === 'aprob' ? 'client_aprobat' : 'client_modificare', lead_id: out.lead_id, sarcina_id: id, n: out.n, motiv: decizie === 'modificare' ? motiv : '' }) }).catch(() => {});
     }
     res.status(200).json({ ok: true, n: out.n });
   } catch (e) { res.status(500).json({ ok: false, motiv: 'eroare' }); }
