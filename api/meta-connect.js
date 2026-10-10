@@ -33,7 +33,8 @@ export default async function handler(req, res) {
   const token = tokenCurat(req.query.token);
   res.setHeader('Cache-Control', 'private, no-store');
   if (!token || token.length < 16) { res.status(404).send('Linkul nu e valabil.'); return; }
-  if (!APP_SECRET) { res.status(500).send('Conectarea Meta nu e încă pornită (lipsește META_APP_SECRET).'); return; }
+  // fără secret (conectarea nu e pornită încă): clientul se întoarce în spațiul lui cu un mesaj omenesc, nu pe o pagină albă
+  if (!APP_SECRET) { res.statusCode = 302; res.setHeader('Location', `/s/${token}?meta=eroare&m=${encodeURIComponent('conectarea nu e pornită încă')}#conturi`); res.end(); return; }
   let l;
   try { l = await rpc('spatiu_lead', { p_token: token }); } catch { l = null; }
   if (!l || !l.lead_id) { res.status(404).send('Linkul nu e valabil.'); return; }
