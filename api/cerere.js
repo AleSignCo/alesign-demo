@@ -2,6 +2,8 @@
 const URL_SB = process.env.SUPABASE_URL;
 const KEY_SB = process.env.SUPABASE_KEY;
 const WEBHOOK = process.env.N8N_WEBHOOK_CERERE || 'https://alesignco.app.n8n.cloud/webhook/cereri'; // n8n „Cereri · Mostra”; re-citește cererea din Supabase
+const SECRET = process.env.N8N_WEBHOOK_SECRET || '';
+const HW = () => ({ 'Content-Type': 'application/json', ...(SECRET ? { 'x-alesign-secret': SECRET } : {}) }); // antetul secret al webhook-urilor n8n (pasul 7)
 
 // Selecția acceptată de la client: doar tip/cod/cantitate; prețurile le pune serverul (valideaza_linii)
 function selectieCurata(s) {
@@ -41,7 +43,7 @@ export default async function handler(req, res) {
     }
     const out = await r.json();
     if (WEBHOOK && !out.dubla) {
-      await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ tip: 'cerere', cerere_id: out.id, lead_id: out.lead_id, firma: out.firma, slug, nume, telefon, email, canal: b.canal, interval: b.interval, pachet: b.pachet, altceva: b.altceva || '', rezumat }) }).catch(() => {});
+      await fetch(WEBHOOK, { method: 'POST', headers: HW(), body: JSON.stringify({ tip: 'cerere', cerere_id: out.id, lead_id: out.lead_id, firma: out.firma, slug, nume, telefon, email, canal: b.canal, interval: b.interval, pachet: b.pachet, altceva: b.altceva || '', rezumat }) }).catch(() => {});
     }
     res.status(200).json({ ok: true, id: out.id });
   } catch (e) { res.status(500).json({ ok: false, motiv: 'eroare' }); }
