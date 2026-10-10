@@ -66,6 +66,18 @@
       "destination": "/api/site-preview"
     },
     {
+      "source": "/api/meta-connect",
+      "destination": "/api/meta-connect"
+    },
+    {
+      "source": "/api/meta-callback",
+      "destination": "/api/meta-callback"
+    },
+    {
+      "source": "/api/meta-deconectare",
+      "destination": "/api/meta-deconectare"
+    },
+    {
       "source": "/s/:token",
       "destination": "/api/spatiu?token=:token"
     },
