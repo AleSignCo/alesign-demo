@@ -1,4 +1,5 @@
-// POST /api/semneaza {slug, client{denumire,cui,regcom,adresa,reprezentant,email,telefon}, nume, plata_mod, acord}
+// POST /api/semneaza {slug, client{denumire,cui,regcom,adresa,reprezentant,email,telefon,tip,incepere}, nume, plata_mod, acord}
+// tip: 'firma' | 'persoana_fizica' (consumator: fără CUI; incepere = cererea expresă de începere în termenul de retragere, SQL 75)
 // → RPC semneaza_contract → webhook n8n (tip: semnat) → dacă e card și Stripe e activ: {url} către Checkout.
 import { rpc, anunta, slugCurat, ipDin, bodyDin } from '../lib/sb.js';
 import { sesiuneCheckout, stripeConfigurat } from '../lib/stripe.js';
@@ -9,7 +10,7 @@ export default async function handler(req, res) {
     const b = bodyDin(req);
     const slug = slugCurat(b.slug);
     const c = b.client || {};
-    const client = { denumire: String(c.denumire || '').trim().slice(0, 200), cui: String(c.cui || '').trim().slice(0, 40), regcom: String(c.regcom || '').trim().slice(0, 40), adresa: String(c.adresa || '').trim().slice(0, 300), reprezentant: String(c.reprezentant || '').trim().slice(0, 120), email: String(c.email || '').trim().slice(0, 160), telefon: String(c.telefon || '').trim().slice(0, 40) };
+    const client = { denumire: String(c.denumire || '').trim().slice(0, 200), cui: String(c.cui || '').trim().slice(0, 40), regcom: String(c.regcom || '').trim().slice(0, 40), adresa: String(c.adresa || '').trim().slice(0, 300), reprezentant: String(c.reprezentant || '').trim().slice(0, 120), email: String(c.email || '').trim().slice(0, 160), telefon: String(c.telefon || '').trim().slice(0, 40), tip: c.tip === 'persoana_fizica' ? 'persoana_fizica' : 'firma', incepere: c.incepere === true || c.incepere === 'on' };
     const nume = String(b.nume || '').trim().slice(0, 120);
     const mod = b.plata_mod === 'card' ? 'card' : 'transfer';
     if (!slug || b.acord !== true || nume.length < 3 || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(client.email)) { res.status(400).json({ ok: false, motiv: 'date lipsa' }); return; }

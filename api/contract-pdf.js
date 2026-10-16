@@ -8,6 +8,7 @@ export default async function handler(req, res) {
   try {
     const d = await rpc('contract_date', { p_slug: slug });
     if (!d || !d.id) { res.status(404).send('Contractul nu e disponibil.'); return; }
+    if (d.status === 'trimis' && ['pf', 'firma'].includes(req.query.ca)) d.client_tip = req.query.ca === 'pf' ? 'persoana_fizica' : 'firma';
     const bytes = await contractPdf(d);
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `inline; filename="Contract-${d.numar || slug}${d.status !== 'trimis' ? '-semnat' : ''}.pdf"`);

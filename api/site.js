@@ -18,6 +18,15 @@ export default async function handler(req, res) {
     const site = rows[0];
     if (!site || (site.expira_la && new Date(site.expira_la) < new Date())) { res.status(404).send(paginaExpirata({ firma: site?.firma })); return; }
 
+    // G10 (SQL 78): după publicare, demo-ul trimite 301 spre domeniul clientului
+    try {
+      const ac = new AbortController(); const t = setTimeout(() => ac.abort(), 1500);
+      const rl = await fetch(`${URL_SB}/rest/v1/rpc/demo_site_live`, { method: 'POST', signal: ac.signal, headers: { apikey: KEY_SB, Authorization: `Bearer ${KEY_SB}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_slug: slug }) });
+      clearTimeout(t);
+      const live = rl.ok ? await rl.json() : null;
+      if (typeof live === 'string' && /^[a-z0-9.-]+\.[a-z]{2,}$/.test(live)) { res.statusCode = 301; res.setHeader('Location', `https://${live}/`); res.setHeader('Cache-Control', 'public, max-age=3600'); res.end(); return; }
+    } catch (e) { /* fără răspuns: demo-ul rămâne, ca până acum */ }
+
     // vizualizare (best effort, nu blochează pagina)
     fetch(`${URL_SB}/rest/v1/rpc/vizualizare_demo`, { method: 'POST', headers: { apikey: KEY_SB, Authorization: `Bearer ${KEY_SB}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_slug: slug }) }).catch(() => {});
 

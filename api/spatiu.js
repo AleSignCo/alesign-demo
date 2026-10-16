@@ -1,4 +1,5 @@
-// Vercel serverless: /s/<token> → RPC spatiu_date → spațiul clientului (aprobări, calendar, materiale, contracte, mesaje). Fără login: tokenul e cheia.
+// Vercel serverless: /s/<token> → RPC spatiu_date → spațiul clientului (Site-ul meu, aprobări, calendar, materiale, contracte, mesaje). Fără login: tokenul e cheia.
+// SEC6: fiecare deschidere intră în spatiu_jurnal (oră, IP); tokenul revocat din Founder OS dă 404 imediat (pagina e no-store).
 import { randeazaSpatiu, spatiuInchis } from '../lib/spatiu.js';
 
 const URL_SB = process.env.SUPABASE_URL;
@@ -34,6 +35,13 @@ export default async function handler(req, res) {
     const d = await r.json();
     if (!d || !d.firma) { res.status(404).send(spatiuInchis()); return; }
     await semneazaPoze(d);
+    // „Contract și facturi” (SQL 67): facturile emise ale clientului; lista lipsă nu oprește pagina
+    // „Încheie colaborarea” (SQL 71): abonamentele active, cu data efectului dacă încheie azi
+    try { const f = await fetch(`${URL_SB}/rest/v1/rpc/spatiu_incheiere_stare`, { method: 'POST', headers: { apikey: KEY_SB, Authorization: `Bearer ${KEY_SB}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_token: token }) }); d.incheiere = f.ok ? await f.json() : []; } catch (e) { d.incheiere = []; }
+    try { const f = await fetch(`${URL_SB}/rest/v1/rpc/spatiu_facturi`, { method: 'POST', headers: { apikey: KEY_SB, Authorization: `Bearer ${KEY_SB}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_token: token }) }); d.facturi = f.ok ? await f.json() : []; } catch (e) { d.facturi = []; }
+    // SEC6: fiecare deschidere a spațiului intră în jurnal (oră, IP); jurnalul nu oprește pagina dacă nu răspunde
+    const ip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim().slice(0, 64) || null;
+    await fetch(`${URL_SB}/rest/v1/rpc/spatiu_jurnal_adauga`, { method: 'POST', headers: { apikey: KEY_SB, Authorization: `Bearer ${KEY_SB}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_token: token, p_ip: ip, p_ce: 'deschis', p_ua: String(req.headers['user-agent'] || '').slice(0, 200) }) }).catch(() => {});
     const meta = String(req.query.meta || '').replace(/[^a-z_]/g, '').slice(0, 20);
     res.status(200).send(randeazaSpatiu(d, token, meta ? { meta, m: String(req.query.m || '').slice(0, 80) } : {}));
   } catch (e) { res.status(500).send(spatiuInchis()); }

@@ -12,6 +12,8 @@ export default async function handler(req, res) {
     const d = await rpc('contract_date', { p_slug: slug });
     if (!d || !d.id) { res.status(404).send(contractIndisponibil({})); return; }
     d.slug = slug;
+    // „Semnezi ca persoană fizică?”: cât contractul e nesemnat, pagina arată varianta aleasă; statutul se salvează la semnare
+    if (d.status === 'trimis' && ['pf', 'firma'].includes(req.query.ca)) d.client_tip = req.query.ca === 'pf' ? 'persoana_fizica' : 'firma';
     fetch(`${URL_SB}/rest/v1/rpc/contract_vizualizare`, { method: 'POST', headers: H(), body: JSON.stringify({ p_slug: slug }) }).catch(() => {});
     res.status(200).send(randeazaContract(d));
   } catch (e) {

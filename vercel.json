@@ -26,6 +26,14 @@
       "destination": "/api/plata"
     },
     {
+      "source": "/api/site-fisiere",
+      "destination": "/api/site-fisiere"
+    },
+    {
+      "source": "/api/retragere",
+      "destination": "/api/retragere"
+    },
+    {
       "source": "/api/contract-pdf",
       "destination": "/api/contract-pdf"
     },
@@ -78,6 +86,34 @@
       "destination": "/api/meta-deconectare"
     },
     {
+      "source": "/api/site-build",
+      "destination": "/api/site-build"
+    },
+    {
+      "source": "/api/qa-dovada",
+      "destination": "/api/qa-dovada"
+    },
+    {
+      "source": "/api/spatiu-comentariu",
+      "destination": "/api/spatiu-comentariu"
+    },
+    {
+      "source": "/api/spatiu-aproba",
+      "destination": "/api/spatiu-aproba"
+    },
+    {
+      "source": "/api/transe-plan",
+      "destination": "/api/transe-plan"
+    },
+    {
+      "source": "/t/:token",
+      "destination": "/api/transa?token=:token"
+    },
+    {
+      "source": "/e/:slug",
+      "destination": "/api/raport-site?slug=:slug"
+    },
+    {
       "source": "/s/:token",
       "destination": "/api/spatiu?token=:token"
     },
@@ -88,6 +124,22 @@
     {
       "source": "/:slug",
       "destination": "/api/site?slug=:slug"
+    },
+    {
+      "source": "/api/monitor",
+      "destination": "/api/monitor"
+    },
+    {
+      "source": "/api/factura",
+      "destination": "/api/factura"
+    },
+    {
+      "source": "/care/:token",
+      "destination": "/api/care?token=:token"
+    },
+    {
+      "source": "/api/spatiu-incheie",
+      "destination": "/api/spatiu-incheie"
     }
   ],
   "headers": [
