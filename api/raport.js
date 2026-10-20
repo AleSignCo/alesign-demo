@@ -12,7 +12,10 @@ export default async function handler(req, res) {
     const d = await rpc('raport_date', { p_slug: slug });
     if (!d || !d.id) { res.status(404).send(raportIndisponibil()); return; }
     fetch(`${URL_SB}/rest/v1/rpc/raport_vizualizare`, { method: 'POST', headers: H(), body: JSON.stringify({ p_slug: slug }) }).catch(() => {});
-    res.status(200).send(randeazaRaport(d));
+    // sursa fiecărei cifre (SQL 88): doar etichetele cifrelor măsurate; dacă funcția lipsește încă, raportul se vede ca înainte
+    let surse = {};
+    try { surse = (await rpc('raport_surse', { p_slug: slug })) || {}; } catch { surse = {}; }
+    res.status(200).send(randeazaRaport({ ...d, surse }));
   } catch (e) {
     res.status(500).send(raportIndisponibil());
   }
