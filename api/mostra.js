@@ -10,6 +10,7 @@ const rpc = async (fn, body) => { const r = await fetch(`${URL_SB}/rest/v1/rpc/$
 export default async function handler(req, res) {
   const slug = String(req.query.slug || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 80);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('X-Robots-Tag', 'noindex, nofollow');
   if (!slug) { res.status(404).send(mostraExpirata({})); return; }
   if (!URL_SB || !KEY_SB) { res.status(500).send('<p style="font-family:sans-serif">Lipsesc variabilele SUPABASE_URL / SUPABASE_KEY.</p>'); return; }
   try {

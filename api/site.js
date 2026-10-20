@@ -7,6 +7,7 @@ const KEY_SB = process.env.SUPABASE_KEY;
 export default async function handler(req, res) {
   const slug = String(req.query.slug || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 80);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('X-Robots-Tag', 'noindex, nofollow'); // mostra nu se indexează (și <meta robots> în pagină); la fel pe 404 / eroare
   if (!slug) { res.status(404).send(paginaExpirata({})); return; }
   if (!URL_SB || !KEY_SB) { res.status(500).send('<p style="font-family:sans-serif">Lipsesc variabilele SUPABASE_URL / SUPABASE_KEY.</p>'); return; }
 
