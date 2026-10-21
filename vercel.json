@@ -126,6 +126,18 @@
       "destination": "/api/panou-date"
     },
     {
+      "source": "/liber",
+      "destination": "/liber.html"
+    },
+    {
+      "source": "/dovada",
+      "destination": "/dovada.html"
+    },
+    {
+      "source": "/api/aplicare",
+      "destination": "/api/aplicare"
+    },
+    {
       "source": "/",
       "destination": "/api/site"
     },
