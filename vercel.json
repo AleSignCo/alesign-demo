@@ -118,6 +118,14 @@
       "destination": "/api/spatiu?token=:token"
     },
     {
+      "source": "/panou",
+      "destination": "/panou.html"
+    },
+    {
+      "source": "/api/panou-date",
+      "destination": "/api/panou-date"
+    },
+    {
       "source": "/",
       "destination": "/api/site"
     },

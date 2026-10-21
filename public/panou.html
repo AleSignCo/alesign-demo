@@ -1,0 +1,1215 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AleSign&amp;Co · Sistemul</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Ecosistemul AleSign&amp;Co: 15 boți și un creier care nu ghicește. Găsesc clienți, construiesc site-ul, scriu, publică și raportează. Tu decizi direcția. Restul rulează singur.">
+<meta property="og:title" content="AleSign&amp;Co · Compania din spatele companiei tale">
+<meta property="og:description" content="15 boți, un creier determinist și un om care decide. Vezi cum lucrează sistemul, ce primești și cât costă.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0c0c0d">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+  /* Layout: pagini editoriale pe ivoriu, tăiate de benzi „consolă” negre în care sistemul se vede rulând. */
+  :root {
+    --ivoriu: #f5f2ec; --hartie: #fbf9f5; --linie: #e2ddd3; --text: #141414; --gri: #6b675f; --gri2: #a39e94;
+    --cerneala: #0c0c0d; --consola: #0f1116; --consola2: #171a21; --consola-linie: #2a2e38; --consola-text: #f4f1ea; --consola-gri: #9ba1b0;
+    --rosu: #ff2a2e; --aur: #c9a227; --aur-l: #e8c468; --turcoaz: #4fd1c5; --turcoaz-d: #1f7f76;
+    --f-display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+    --f-text: Manrope, 'Segoe UI', system-ui, sans-serif;
+    --f-date: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --raza: 18px;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ivoriu); color: var(--text); font-family: var(--f-text); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--cerneala); }
+  a { color: inherit; }
+  h1, h2, h3, h4, p, ol, ul, figure { margin: 0; }
+  .live-t b, .foaie-kpi b, .treapta .p b, .nisa-cifre b, .combo .pr, .verdict .nota { font-variant-numeric: lining-nums tabular-nums; }
+  h1, h2, h3 { font-family: var(--f-display); font-weight: 600; letter-spacing: -0.01em; line-height: 1.06; text-wrap: balance; }
+  :focus-visible { outline: 2px solid var(--rosu); outline-offset: 3px; border-radius: 6px; }
+  .wrap { width: min(1180px, 100%); margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .banda { padding-block: clamp(64px, 9vw, 112px); }
+  .banda--hartie { background: var(--hartie); border-block: 1px solid var(--linie); }
+  .banda--consola { background: var(--consola); color: var(--consola-text); }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gri); }
+  .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--rosu); flex: none; }
+  .banda--consola .eyebrow { color: var(--consola-gri); }
+  .h2 { font-size: clamp(34px, 5vw, 58px); margin-top: 16px; max-width: 18ch; }
+  .h2 em { font-style: italic; font-weight: 500; color: var(--rosu); }
+  .lead { margin-top: 18px; font-size: clamp(16.5px, 1.4vw, 18.5px); color: var(--gri); max-width: 60ch; }
+  .banda--consola .lead { color: var(--consola-gri); }
+  .cap { display: grid; gap: 0; margin-bottom: clamp(36px, 5vw, 56px); }
+  .mono { font-family: var(--f-date); font-size: 12px; letter-spacing: 0.04em; }
+
+  /* ---------- butoane ---------- */
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 999px; font: inherit; font-size: 15px; font-weight: 600; text-decoration: none; cursor: pointer; border: 1px solid transparent; transition: transform 0.25s, box-shadow 0.25s, background 0.25s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn--rosu { background: var(--rosu); color: #fff; box-shadow: 0 10px 30px -10px rgba(255, 42, 46, 0.7); }
+  .btn--rosu:hover { box-shadow: 0 16px 40px -12px rgba(255, 42, 46, 0.85); }
+  .btn--contur { border-color: rgba(244, 241, 234, 0.28); color: var(--consola-text); background: transparent; }
+  .btn--contur:hover { border-color: var(--consola-text); }
+  .btn--inchis { background: var(--cerneala); color: var(--consola-text); }
+  .btn .sag { transition: transform 0.25s; }
+  .btn:hover .sag { transform: translateX(3px); }
+
+  /* ---------- antet ---------- */
+  .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: rgba(12, 12, 13, 0.86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(244, 241, 234, 0.08); color: var(--consola-text); }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 18px; height: 64px; }
+  .marca { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 14.5px; text-decoration: none; letter-spacing: 0.01em; }
+  .marca svg { width: 26px; height: 26px; flex: none; }
+  .marca .punct { transform-box: view-box; transform-origin: 28px 28px; }
+  .meniu { display: flex; align-items: center; gap: 26px; font-size: 14px; }
+  .meniu a { text-decoration: none; color: var(--consola-gri); transition: color 0.2s; }
+  .meniu a:hover { color: var(--consola-text); }
+  .meniu .btn { padding: 9px 16px; font-size: 13.5px; color: #fff; }
+  @media (max-width: 860px) { .meniu a:not(.btn) { display: none; } }
+
+  /* ---------- erou ---------- */
+  .erou { position: relative; overflow: hidden; background: radial-gradient(900px 520px at 78% 40%, rgba(255, 42, 46, 0.13), transparent 62%), radial-gradient(700px 480px at 10% 0%, rgba(201, 162, 39, 0.12), transparent 60%), var(--cerneala); color: var(--consola-text); padding-block: clamp(48px, 7vw, 96px) clamp(40px, 6vw, 72px); }
+  .erou-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; align-items: center; }
+  @media (min-width: 980px) { .erou-grid { grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr); } }
+  .erou h1 { font-size: clamp(46px, 7.4vw, 92px); line-height: 0.98; margin-top: 22px; max-width: 13ch; }
+  .erou h1 em { display: block; font-style: italic; font-weight: 500; color: var(--rosu); }
+  .erou .lead { color: #c9c5bb; max-width: 50ch; }
+  .erou-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .promisiuni { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 30px; padding: 0; list-style: none; font-size: 13.5px; color: var(--consola-gri); }
+  .promisiuni li { display: inline-flex; align-items: center; gap: 8px; }
+  .promisiuni li::before { content: ""; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle, var(--turcoaz) 0 3px, transparent 3.5px), rgba(79, 209, 197, 0.16); flex: none; }
+  .orbita { position: relative; width: 100%; aspect-ratio: 1 / 1; max-width: 100%; max-height: 620px; margin-inline: auto; }
+  .orbita canvas { display: block; width: 100%; height: 100%; cursor: crosshair; }
+  .orbita-tip { position: absolute; pointer-events: none; z-index: 3; padding: 9px 13px; border-radius: 12px; background: rgba(23, 26, 33, 0.95); border: 1px solid var(--consola-linie); box-shadow: 0 14px 34px -12px rgba(0, 0, 0, 0.8); font-size: 13px; line-height: 1.45; max-width: 240px; }
+  .orbita-tip b { display: block; font-family: var(--f-display); font-size: 19px; font-weight: 600; }
+  .orbita-tip span { color: var(--consola-gri); }
+  .legenda { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; margin-top: 8px; padding: 0; list-style: none; font-size: 12.5px; color: var(--consola-gri); }
+  .legenda li { display: inline-flex; align-items: center; gap: 8px; }
+  .legenda i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); box-shadow: 0 0 10px var(--c); }
+
+  /* ---------- cifre ---------- */
+  .cifre { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1px; background: var(--linie); border: 1px solid var(--linie); border-radius: var(--raza); overflow: hidden; }
+  @media (max-width: 1100px) { .cifre { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 700px) { .cifre { grid-template-columns: repeat(2, minmax(0, 1fr)); } .cifra { padding: 20px 16px; } }
+  @media (max-width: 340px) { .cifre { grid-template-columns: minmax(0, 1fr); } }
+  .cifra { background: var(--hartie); padding: 26px 22px 24px; display: grid; gap: 8px; align-content: start; }
+  .cifra b { font-family: var(--f-display); font-weight: 600; font-size: clamp(44px, 5vw, 60px); line-height: 0.95; font-variant-numeric: lining-nums tabular-nums; color: var(--text); }
+  .cifra b small { font-size: 0.42em; font-weight: 600; color: var(--gri); margin-left: 2px; }
+  .cifra > span { font-size: 14px; font-weight: 600; line-height: 1.35; }
+  .cifra p { font-size: 13px; color: var(--gri); line-height: 1.5; }
+  .live { margin-top: 22px; display: grid; gap: 14px; }
+  .live-cap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; font-size: 13px; color: var(--gri); }
+  .live-cap b { display: inline-flex; align-items: center; gap: 8px; color: var(--text); font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; font-size: 11.5px; }
+  .live-cap b::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--rosu); box-shadow: 0 0 0 0 rgba(255, 42, 46, 0.6); animation: puls 2s infinite; }
+  .live-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); gap: 12px; }
+  .live-t { border-radius: 14px; background: var(--cerneala); color: var(--consola-text); padding: 16px 18px; display: grid; gap: 4px; }
+  .live-t b { font-family: var(--f-display); font-size: 36px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+  .live-t span { font-size: 12.5px; color: var(--consola-gri); }
+
+  /* ---------- echipa ---------- */
+  .grupe { display: grid; gap: clamp(28px, 4vw, 44px); }
+  .grupa-cap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--linie); }
+  .grupa-cap h3 { font-size: 30px; display: inline-flex; align-items: center; gap: 12px; }
+  .grupa-cap h3::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 18%, transparent); }
+  .grupa-cap p { color: var(--gri); font-size: 15px; }
+  .boti { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 14px; }
+  .bot { --c: var(--rosu); position: relative; display: grid; gap: 10px; align-content: start; padding: 20px 20px 18px; border-radius: var(--raza); background: var(--hartie); border: 1px solid var(--linie); transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s; min-width: 0; }
+  .bot:hover { border-color: color-mix(in srgb, var(--c) 55%, var(--linie)); box-shadow: 0 18px 40px -26px color-mix(in srgb, var(--c) 80%, transparent); transform: translateY(-2px); }
+  .bot.aprins { border-color: var(--c); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 22%, transparent); }
+  .bot-post { font-family: var(--f-date); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c); }
+  .bot h4 { font-family: var(--f-display); font-size: 27px; font-weight: 600; line-height: 1.05; }
+  .bot > p { font-size: 14.5px; color: #3a3832; line-height: 1.55; }
+  .bot-om { display: flex; align-items: flex-start; gap: 8px; font-size: 12.5px; color: var(--gri); padding-top: 10px; border-top: 1px dashed var(--linie); }
+  .bot-om::before { content: ""; width: 8px; height: 8px; margin-top: 6px; border-radius: 50%; background: var(--om, var(--turcoaz-d)); flex: none; }
+  .bot-om[data-om="om"] { --om: var(--rosu); }
+  .bot-om[data-om="tu"] { --om: var(--aur); }
+  .bot-om b { color: var(--text); font-weight: 600; }
+  .bot-mai { justify-self: start; font: inherit; font-size: 12.5px; font-weight: 600; color: var(--text); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--gri2); }
+  .bot-det { display: grid; gap: 6px; font-size: 13px; color: #3a3832; padding: 12px 14px; border-radius: 12px; background: var(--ivoriu); }
+  .bot-det b { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gri); }
+  .bot-det ul { padding-left: 18px; display: grid; gap: 3px; }
+  .bot-stare { position: absolute; top: 16px; right: 16px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gri); border: 1px solid var(--linie); border-radius: 999px; padding: 2px 9px; }
+
+  /* ---------- consolă: scor + ritm ---------- */
+  .duo { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 18px; }
+  .panou { background: linear-gradient(180deg, var(--consola2), #12141a); border: 1px solid var(--consola-linie); border-radius: 22px; padding: clamp(20px, 3vw, 30px); display: grid; gap: 16px; align-content: start; min-width: 0; }
+  .panou h3 { font-size: clamp(28px, 3vw, 36px); }
+  .panou > p { color: var(--consola-gri); font-size: 15px; max-width: 52ch; }
+  .comutator { display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(244, 241, 234, 0.06); border: 1px solid var(--consola-linie); width: fit-content; }
+  .comutator button { font: inherit; font-size: 13px; font-weight: 600; padding: 7px 14px; border-radius: 999px; border: 0; background: transparent; color: var(--consola-gri); cursor: pointer; }
+  .comutator button[aria-pressed="true"] { background: var(--consola-text); color: var(--cerneala); }
+  .cadran { width: 100%; max-width: 420px; margin-inline: auto; }
+  .cadran svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .contoare { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr)); gap: 10px; padding: 0; list-style: none; }
+  .contoare li { --c: var(--turcoaz); padding: 12px 14px; border-radius: 14px; background: rgba(244, 241, 234, 0.04); border: 1px solid var(--consola-linie); display: grid; gap: 2px; }
+  .contoare b { font-family: var(--f-date); font-size: 22px; font-weight: 500; color: var(--c); font-variant-numeric: tabular-nums; }
+  .contoare span { font-size: 12.5px; color: var(--consola-gri); line-height: 1.4; }
+  .scala svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .verdict { display: grid; gap: 6px; padding: 16px 18px; border-radius: 16px; background: rgba(244, 241, 234, 0.04); border: 1px solid var(--consola-linie); min-height: 112px; }
+  .verdict .ce { font-size: 13px; color: var(--consola-gri); }
+  .verdict .nota { font-family: var(--f-display); font-size: 34px; font-weight: 600; line-height: 1; color: var(--c, var(--turcoaz)); }
+  .verdict .dec { font-size: 15px; }
+  .praguri { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 0; list-style: none; font-size: 12.5px; color: var(--consola-gri); }
+  .praguri li { display: grid; gap: 2px; padding-left: 12px; border-left: 3px solid var(--c); }
+  .praguri b { font-family: var(--f-date); color: var(--consola-text); font-weight: 500; }
+  .notate { display: grid; gap: 10px; }
+  .notate p { font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--consola-gri); }
+  .notate ul { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; list-style: none; }
+  .notate li { font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--consola-linie); color: var(--consola-text); background: rgba(244, 241, 234, 0.04); }
+
+  /* ---------- drumul ---------- */
+  .drum { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 26px 14px; padding: 0; list-style: none; counter-reset: pas; }
+  @media (max-width: 900px) { .drum { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 340px) { .drum { grid-template-columns: minmax(0, 1fr); } }
+  .drum li { counter-increment: pas; position: relative; display: grid; gap: 6px; padding: 18px 16px 16px; border-radius: 16px; border: 1px solid var(--linie); background: var(--hartie); transition: border-color 0.4s, box-shadow 0.4s, transform 0.4s; }
+  .drum li::before { content: counter(pas, decimal-leading-zero); font-family: var(--f-date); font-size: 12px; color: var(--gri2); }
+  .drum li b { font-family: var(--f-display); font-size: 23px; font-weight: 600; line-height: 1.1; }
+  .drum li span { font-size: 13.5px; color: var(--gri); line-height: 1.5; }
+  .drum li .cine { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c, var(--turcoaz-d)); }
+  .drum li.acum { border-color: var(--rosu); box-shadow: 0 16px 36px -22px rgba(255, 42, 46, 0.9); transform: translateY(-3px); }
+  .drum li.acum::before { color: var(--rosu); }
+  .progres { height: 4px; border-radius: 999px; background: var(--linie); margin: 28px 0 0; overflow: hidden; }
+  .progres i { display: block; height: 100%; width: 10%; border-radius: 999px; background: linear-gradient(90deg, var(--aur), var(--rosu)); transition: width 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .zile { margin-top: clamp(44px, 6vw, 72px); display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 32px; align-items: start; }
+  @media (max-width: 860px) { .zile { grid-template-columns: minmax(0, 1fr); } }
+  .zile h3 { font-size: clamp(30px, 3.4vw, 42px); }
+  .zile-lista { display: grid; gap: 0; padding: 0; list-style: none; border-left: 2px solid var(--linie); }
+  .zile-lista li { position: relative; display: grid; grid-template-columns: 7.2rem minmax(0, 1fr); gap: 14px; padding: 0 0 22px 22px; }
+  .zile-lista li::before { content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--hartie); border: 2px solid var(--aur); }
+  .zile-lista li:last-child::before { background: var(--rosu); border-color: var(--rosu); }
+  .zile-lista b { font-family: var(--f-date); font-size: 13px; font-weight: 500; color: var(--aur); padding-top: 2px; }
+  .zile-lista span { font-size: 15px; }
+  .zile-lista span small { display: block; font-size: 13.5px; color: var(--gri); }
+
+  /* ---------- controlul ---------- */
+  .control { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  @media (max-width: 900px) { .control { grid-template-columns: minmax(0, 1fr); } }
+  .coloana { --c: var(--turcoaz-d); display: grid; gap: 14px; align-content: start; padding: 24px; border-radius: 20px; border: 1px solid var(--linie); background: var(--ivoriu); }
+  .coloana--auto { background: var(--cerneala); color: var(--consola-text); border-color: var(--cerneala); }
+  .coloana-cap { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .coloana h3 { font-size: 30px; }
+  .coloana .nr { font-family: var(--f-date); font-size: 12px; color: var(--c); }
+  .coloana ul { padding: 0; list-style: none; display: grid; gap: 9px; font-size: 14.5px; }
+  .coloana li { display: grid; grid-template-columns: 10px minmax(0, 1fr); gap: 10px; align-items: baseline; }
+  .coloana li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c); transform: translateY(-1px); }
+  .coloana--auto li::before { box-shadow: 0 0 8px var(--c); }
+  .principii { margin-top: clamp(36px, 5vw, 56px); display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; padding: 0; list-style: none; }
+  @media (max-width: 1000px) { .principii { grid-template-columns: minmax(0, 1fr); } }
+  .principii li { display: grid; gap: 8px; align-content: start; padding: 18px 18px 20px; border-top: 2px solid var(--text); }
+  .principii li b { font-family: var(--f-date); font-size: 12px; color: var(--rosu); font-weight: 500; }
+  .principii li span { font-family: var(--f-display); font-size: 22px; font-weight: 600; line-height: 1.18; }
+
+  /* ---------- raportul ---------- */
+  .raport { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr); gap: 22px; align-items: start; }
+  @media (max-width: 960px) { .raport { grid-template-columns: minmax(0, 1fr); } }
+  .foaie { background: #fff; border: 1px solid var(--linie); border-radius: 24px; padding: clamp(18px, 3vw, 28px); box-shadow: 0 40px 80px -50px rgba(20, 20, 20, 0.45); display: grid; gap: 18px; min-width: 0; }
+  .foaie-cap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
+  .foaie-cap h3 { font-size: 28px; }
+  .foaie-cap p { font-size: 13px; color: var(--gri); }
+  .eticheta-demo { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--aur); border: 1px solid color-mix(in srgb, var(--aur) 45%, transparent); background: color-mix(in srgb, var(--aur) 10%, transparent); border-radius: 999px; padding: 3px 10px; }
+  .foaie-kpi { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  @media (max-width: 560px) { .foaie-kpi { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .foaie-kpi div { padding: 14px; border-radius: 14px; background: var(--ivoriu); display: grid; gap: 2px; }
+  .foaie-kpi span { font-size: 12px; color: var(--gri); }
+  .foaie-kpi b { font-family: var(--f-display); font-size: 34px; font-weight: 600; line-height: 1.05; font-variant-numeric: tabular-nums; }
+  .foaie-kpi i { font-style: normal; font-size: 12.5px; font-weight: 600; color: var(--turcoaz-d); }
+  .grafic svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .foaie-nota { font-size: 12.5px; color: var(--gri); }
+  .spatiu { display: grid; gap: 14px; }
+  .spatiu h3 { font-size: 30px; }
+  .spatiu ul { padding: 0; list-style: none; display: grid; gap: 10px; }
+  .spatiu li { display: grid; gap: 2px; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--linie); background: var(--hartie); }
+  .spatiu li b { font-size: 15px; }
+  .spatiu li span { font-size: 13.5px; color: var(--gri); }
+  .link-sag { display: inline-flex; gap: 8px; align-items: center; font-weight: 600; font-size: 14.5px; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--rosu); }
+
+  /* ---------- prețuri ---------- */
+  .pret-cap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px; }
+  .comutator--deschis { background: #fff; border-color: var(--linie); }
+  .comutator--deschis button { color: var(--gri); }
+  .comutator--deschis button[aria-pressed="true"] { background: var(--cerneala); color: var(--consola-text); }
+  .trepte { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 30px; align-items: stretch; }
+  .treapta { position: relative; display: grid; grid-template-rows: auto auto auto 1fr auto; gap: 12px; padding: 26px 24px 22px; border-radius: 22px; border: 1px solid var(--linie); background: var(--hartie); min-width: 0; }
+  .treapta--rec { background: var(--cerneala); color: var(--consola-text); border-color: var(--cerneala); box-shadow: 0 40px 80px -46px rgba(255, 42, 46, 0.55); }
+  .treapta .et { position: absolute; top: -12px; left: 24px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; background: var(--rosu); color: #fff; padding: 4px 12px; border-radius: 999px; }
+  .treapta h3 { font-size: 34px; }
+  .treapta .sub { font-size: 14px; color: var(--gri); min-height: 2.6em; }
+  .treapta--rec .sub, .treapta--rec .min { color: var(--consola-gri); }
+  .treapta .p { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; line-height: 1; }
+  .treapta .p b { font-family: var(--f-display); font-size: 56px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+  .treapta .p span { font-size: 13.5px; color: var(--gri); }
+  .treapta--rec .p span { color: var(--consola-gri); }
+  .treapta .min { font-size: 12.5px; color: var(--gri); margin-top: 6px; }
+  .treapta ul { padding: 0; list-style: none; display: grid; gap: 7px; font-size: 14px; align-content: start; }
+  .treapta li { display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 8px; }
+  .treapta li::before { content: "✓"; font-weight: 700; color: var(--turcoaz-d); }
+  .treapta--rec li::before { color: var(--turcoaz); }
+  .treapta .btn { justify-content: center; }
+  .treapta .astept { font-size: 12.5px; color: var(--aur); font-weight: 600; }
+  .combo-uri { margin-top: 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 860px) { .trepte, .combo-uri { grid-template-columns: minmax(0, 1fr); } }
+  .combo { display: grid; gap: 4px; padding: 18px 20px; border-radius: 16px; border: 1px dashed var(--gri2); background: transparent; }
+  .combo b { font-family: var(--f-display); font-size: 24px; font-weight: 600; }
+  .combo span { font-size: 13px; color: var(--gri); }
+  .combo .pr { font-size: 15px; font-weight: 700; }
+  .combo .pr s { color: var(--gri2); font-weight: 500; margin-left: 6px; }
+  .usi { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 14px; color: var(--gri); }
+  .usi b { color: var(--text); }
+  .pret-note { margin-top: 22px; display: grid; gap: 6px; font-size: 13.5px; color: var(--gri); }
+  .pret-gol { margin-top: 28px; padding: 26px; border-radius: 20px; border: 1px dashed var(--gri2); font-size: 16px; }
+
+  /* ---------- garanții ---------- */
+  .garantii { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 1px; background: var(--consola-linie); border: 1px solid var(--consola-linie); border-radius: 22px; overflow: hidden; }
+  .garantie { background: var(--consola); padding: 26px 24px; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 16px; align-items: start; }
+  .garantie svg { width: 40px; height: 40px; }
+  .garantie b { display: block; font-family: var(--f-display); font-size: 24px; font-weight: 600; line-height: 1.15; margin-bottom: 6px; }
+  .garantie span { font-size: 14px; color: var(--consola-gri); }
+
+  /* ---------- sincer ---------- */
+  .sincer { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+  @media (max-width: 900px) { .sincer { grid-template-columns: minmax(0, 1fr); } }
+  .scrisoare { display: grid; gap: 16px; font-size: clamp(16.5px, 1.4vw, 18.5px); color: #2a2823; max-width: 62ch; }
+  .scrisoare .salut { font-family: var(--f-display); font-size: clamp(25px, 2.6vw, 31px); color: var(--text); }
+  .semn { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
+  .semn .nume { font-family: var(--f-display); font-style: italic; font-size: 34px; font-weight: 500; }
+  .semn .rol { font-size: 13px; color: var(--gri); }
+  .nisa { display: grid; gap: 16px; padding: 26px; border-radius: 22px; background: var(--hartie); border: 1px solid var(--linie); }
+  .nisa h3 { font-size: 30px; }
+  .nisa p { font-size: 14.5px; color: var(--gri); }
+  .nisa-cifre { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .nisa-cifre div { display: grid; gap: 2px; }
+  .nisa-cifre b { font-family: var(--f-display); font-size: 44px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+  .nisa-cifre span { font-size: 12.5px; color: var(--gri); }
+  .nisa-cifre b span, .nisa-cifre b small { font-size: inherit; color: inherit; }
+  .nisa-cifre b small { font-size: 0.5em; color: var(--gri); }
+  .sursa { font-size: 11.5px; color: var(--gri2); }
+
+  /* ---------- contact ---------- */
+  .final { position: relative; overflow: hidden; background: radial-gradient(800px 420px at 50% 120%, rgba(255, 42, 46, 0.22), transparent 65%), var(--cerneala); color: var(--consola-text); text-align: center; padding-block: clamp(72px, 10vw, 128px); }
+  .final h2 { font-size: clamp(44px, 7vw, 88px); margin: 18px auto 0; max-width: 14ch; }
+  .final h2 em { font-style: italic; font-weight: 500; color: var(--rosu); }
+  .final .lead { margin: 20px auto 0; color: #c9c5bb; }
+  .final .erou-cta { justify-content: center; }
+  .contacte { margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 26px; font-size: 15px; color: var(--consola-gri); }
+  .contacte span { user-select: all; color: var(--consola-text); }
+  .subsol { background: var(--cerneala); color: var(--consola-gri); border-top: 1px solid rgba(244, 241, 234, 0.08); padding-block: 26px; font-size: 13px; }
+  .subsol .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 20px; }
+  .subsol a { color: var(--consola-text); text-decoration: none; }
+
+  /* ---------- mișcare ---------- */
+  @keyframes puls { 0% { box-shadow: 0 0 0 0 rgba(255, 42, 46, 0.55); } 100% { box-shadow: 0 0 0 10px rgba(255, 42, 46, 0); } }
+  @keyframes rotire { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: no-preference) {
+    .marca .punct { animation: rotire 9s linear infinite; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .live-cap b::before { animation: none; }
+    .btn, .bot, .drum li, .progres i { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="marca" href="https://alesign.net">
+      <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><circle cx="28" cy="28" r="20"/><circle cx="28" cy="28" r="5" fill="currentColor" stroke="none"/><g class="punct"><circle cx="42.1" cy="13.9" r="6" fill="#ff2a2e" stroke="none"/></g></svg>
+      <span>AleSign&amp;Co</span>
+    </a>
+    <nav class="meniu" aria-label="Secțiuni">
+      <a href="#echipa">Echipa</a>
+      <a href="#drum">Cum lucrăm</a>
+      <a href="#raport">Raportul</a>
+      <a href="#preturi">Prețuri</a>
+      <a class="btn btn--rosu" href="#contact">Vreau mostra mea</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ===================== EROU ===================== -->
+  <section class="erou" id="sus">
+    <div class="wrap erou-grid">
+      <div>
+        <p class="eyebrow">AleSystem Design · ecosistemul AleSign&amp;Co</p>
+        <h1>Compania din spatele companiei tale. <em>Construită din boți.</em></h1>
+        <p class="lead">Un ecosistem de 15 boți și un creier care nu ghicește. Găsesc clienți, îți fac site-ul, scriu și publică, urmăresc și raportează. Non-stop, fără concedii. Tu decizi direcția. Restul rulează singur.</p>
+        <div class="erou-cta">
+          <a class="btn btn--rosu" href="#contact">Vreau mostra mea <span class="sag" aria-hidden="true">→</span></a>
+          <a class="btn btn--contur" href="#echipa">Vezi cine lucrează pentru tine</a>
+        </div>
+        <ul class="promisiuni">
+          <li>Domeniul rămâne pe numele tău</li>
+          <li>Aprobi tot înainte să apară</li>
+          <li>Preț fix, termen scris</li>
+        </ul>
+      </div>
+      <div>
+        <div class="orbita" id="orbita">
+          <canvas id="orbita-canvas" role="img" aria-label="Ecosistemul AleSign: creierul în centru, botul de scor pe orbita apropiată, apoi boții de achiziție, de creștere și de fundal. Punctele care circulă sunt datele trimise între boți și creier."></canvas>
+          <div class="orbita-tip" id="orbita-tip" hidden></div>
+        </div>
+        <ul class="legenda" aria-label="Legenda orbitei">
+          <li style="--c: #f4f1ea"><i></i>Creierul</li>
+          <li style="--c: #ff2a2e"><i></i>Scorul și achiziția</li>
+          <li style="--c: #e8c468"><i></i>Creșterea</li>
+          <li style="--c: #4fd1c5"><i></i>Fundalul</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CIFRE ===================== -->
+  <section class="banda banda--hartie" id="cifre">
+    <div class="wrap">
+      <div class="cap">
+        <p class="eyebrow">Sistemul, în cifre</p>
+        <h2 class="h2">Ce primești, măsurat.</h2>
+      </div>
+      <div class="cifre">
+        <div class="cifra"><b data-num="15">15</b><span>boți specializați</span><p>Fiecare cu o singură meserie: research, site, conținut, reclame, raport, suport.</p></div>
+        <div class="cifra"><b><span data-num="100">100</span><small>%</small></b><span>din postări trec pe la tine</span><p>Nimic nu apare în numele tău fără OK-ul tău. De fiecare dată.</p></div>
+        <div class="cifra"><b data-num="12">12</b><span>puncte unde decide un om</span><p>Fixe și scrise. Tot ce nu e pe listă rulează singur.</p></div>
+        <div class="cifra"><b><span data-num="8">8</span><small>–</small><span data-num="24">24</span></b><span>postări pe lună</span><p>8, 16 sau 24, după pachet. Calendarul lunii următoare e gata pe 23.</p></div>
+        <div class="cifra"><b data-num="30">30</b><span>de zile până la primul raport</span><p>Cu cifre reale și sursa fiecăreia. Unde nu sunt date scrie „fără date”, nu 0.</p></div>
+        <div class="cifra"><b data-num="24">24<small>h</small></b><span>ca să-ți închidem accesele</span><p>La final de colaborare, fiecare acces dat sistemului se închide într-o zi.</p></div>
+      </div>
+      <div class="live" id="live" hidden>
+        <div class="live-cap"><b>Live din sistem</b><span id="live-la"></span></div>
+        <div class="live-grid" id="live-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ECHIPA ===================== -->
+  <section class="banda" id="echipa">
+    <div class="wrap">
+      <div class="cap">
+        <p class="eyebrow">Echipa ta</p>
+        <h2 class="h2">Nu ai nevoie de o echipă. Ai nevoie de boți care <em>nu iau concediu.</em></h2>
+        <p class="lead">Fiecare bot ține locul unui post dintr-o agenție. Fiecare are reguli scrise pe care nu le poate ocoli, iar unde contează gustul sau banii tăi, decide un om.</p>
+      </div>
+
+      <div class="grupe">
+        <div class="grupa" style="--c: var(--cerneala)">
+          <div class="grupa-cap"><h3>Centrul</h3><p>Decide ce urmează și notează tot ce iese.</p></div>
+          <div class="boti">
+            <article class="bot" id="bot-creier" style="--c: var(--cerneala)">
+              <span class="bot-post">Operations Director</span>
+              <h4>Creierul</h4>
+              <p>Mașina de stări care rutează totul: cine lucrează, ce urmează, ce așteaptă aprobare. Rulează pe reguli, fără AI în decizii.</p>
+              <button class="bot-mai" type="button" aria-expanded="false">Ce verifică</button>
+              <div class="bot-det" hidden><b>Reguli fixe</b><ul><li>Niciun output nu trece fără notă înregistrată.</li><li>Nicio tranziție fără o regulă explicită.</li><li>Verificare de siguranță la fiecare 15 minute.</li></ul></div>
+              <p class="bot-om" data-om="auto"><span><b>Automat.</b> Toate aprobările trec prin el.</span></p>
+            </article>
+            <article class="bot" id="bot-scor" style="--c: var(--rosu)">
+              <span class="bot-post">QA Lead</span>
+              <h4>Botul de Scor</h4>
+              <p>Notează orice output de la 0 la 10, față de exemple aprobate pe nișa ta. Peste 8 trece, între 5 și 8 merge la om, sub 5 se refă.</p>
+              <button class="bot-mai" type="button" aria-expanded="false">Ce verifică</button>
+              <div class="bot-det" hidden><b>Înainte de notă</b><ul><li>Verificări dure, da sau nu: una picată înseamnă respins, cu motiv.</li><li>Maxim 2 refaceri, apoi decide omul.</li><li>Primii clienți: 100% verificați manual.</li></ul></div>
+              <p class="bot-om" data-om="om"><span><b>Alex</b> stabilește criteriile și pragurile.</span></p>
+            </article>
+          </div>
+        </div>
+
+        <div class="grupa">
+          <div class="grupa-cap" style="--c: var(--rosu)"><h3>Achiziția</h3><p>Găsește clientul și îi arată, pe datele lui, ce poți face pentru el.</p></div>
+          <div class="boti">
+            <article class="bot" id="bot-research" style="--c: var(--rosu)">
+              <span class="bot-post">Lead Generation</span>
+              <h4>Research</h4>
+              <p>Caută firme premium pe nișă și oraș la fiecare 30 de minute. Telefon valid, fără duplicate, cu un scor de potrivire pe fiecare.</p>
+              <button class="bot-mai" type="button" aria-expanded="false">Ce verifică</button>
+              <div class="bot-det" hidden><b>Înainte să predea</b><ul><li>Telefon valid din România.</li><li>Nu e duplicat, nu e pe lista „nu contacta”.</li><li>„Premium” doar din semnale măsurabile: rating, recenzii, Instagram activ, zonă.</li></ul></div>
+              <p class="bot-om" data-om="om"><span><b>Alex</b> aprobă listele, pe loturi.</span></p>
+            </article>
+            <article class="bot" id="bot-audit" style="--c: var(--rosu)">
+              <span class="bot-post">Technical SEO Auditor</span>
+              <h4>Audit Site</h4>
+              <p>Testează viteza, mobilul, HTTPS, titlurile, butonul de apel, Google Business și formularul. Scorul e măsurat, nu estimat.</p>
+              <button class="bot-mai" type="button" aria-expanded="false">Ce verifică</button>
+              <div class="bot-det" hidden><b>Înainte să predea</b><ul><li>Site-ul a răspuns; altfel reîncearcă în 24 de ore.</li><li>Scorul de viteză e numeric, din PageSpeed.</li></ul></div>
+              <p class="bot-om" data-om="auto"><span><b>Automat.</b></span></p>
+            </article>
+            <article class="bot" id="bot-website" style="--c: var(--rosu)">
+              <span class="bot-post">Web Developer</span>
+              <h4>Website</h4>
+              <p>Construiește site-ul demo cu numele, telefonul și adresa ta reală, pe șablonul nișei. Îl vezi înainte să plătești ceva.</p>
+              <button class="bot-mai" type="button" aria-expanded="false">Ce verifică</button>
+              <div class="bot-det" hidden><b>Înainte să predea</b><ul><li>Zero texte de umplutură, zero „[nume]”.</li><li>Se încarcă sub 3 secunde pe mobil.</li><li>Exact un buton principal.</li></ul></div>
+              <p class="bot-om" data-om="om"><span><b>Alex</b> aprobă mostra înainte să plece la tine.</span></p>
+            </article>
+            <article class="bot" id="bot-landing" style="--c: var(--rosu)">
+              <span class="bot-post">Landing Page Designer</span>
+              <h4>Landing Page</h4>
+              <p>O pagină lungă, un singur buton, legată de o campanie. Există doar când rulează o campanie.</p>
+              <button class="bot-mai" type="button" aria-expanded="false">Ce verifică</button>
+              <div class="bot-det" hidden><b>Înainte să predea</b><ul><li>Oferta din pagină e oferta din reclamă, cuvânt cu cuvânt.</li><li>Formular testat, pixel instalat.</li></ul></div>
+              <p class="bot-om" data-om="tu"><span><b>Tu</b> aprobi pagina înainte de campanie.</span></p>
+            </article>
+            <article class="bot" id="bot-comunicare" style="--c: var(--rosu)">
+              <span class="bot-stare">În așteptare</span>
+              <span class="bot-post">BDR</span>
+              <h4>Comunicare Multicanal</h4>
+              <p>Mesajele de urmărire, pe email sau WhatsApp. Pornește doar după verificarea de conformitate și doar cu acordul explicit al omului.</p>
+              <button class="bot-mai" type="button" aria-expanded="false">Ce verifică</button>
+              <div class="bot-det" hidden><b>Condiții de pornire</b><ul><li>Verificare GDPR și Legea 506/2004, cu un specialist.</li><li>Dezabonare în fiecare mesaj.</li><li>Până atunci, sună un om.</li></ul></div>
+              <p class="bot-om" data-om="om"><span><b>Alex</b> aprobă șabloanele, o dată.</span></p>
+            </article>
+          </div>
+        </div>
+
+        <div class="grupa">
+          <div class="grupa-cap" style="--c: var(--aur)"><h3>Creșterea</h3><p>Construiește prezența, lună de lună, pe memoria brandului tău.</p></div>
+          <div class="boti">
+            <article class="bot" id="bot-strategie" style="--c: var(--aur)">
+              <span class="bot-post">CSO</span>
+              <h4>Strategie &amp; Poziționare</h4>
+              <p>Analizează primii 10 concurenți pe o rază de 3 km și scrie ce te face diferit. Documentul devine memoria brandului tău.</p>
+              <button class="bot-mai" type="button" aria-expanded="false">Ce verifică</button>
+              <div class="bot-det" hidden><b>Înainte să predea</b><ul><li>Ce te diferențiază nu apare la niciun concurent din top 10.</li><li>Nu recomandă niciodată să-ți scazi prețurile.</li><li>Pe date sărace, strategia o face omul.</li></ul></div>
+              <p class="bot-om" data-om="tu"><span><b>Alex</b> citește tot. <b>Tu</b> semnezi poziționarea.</span></p>
+            </article>
+            <article class="bot" id="bot-plan" style="--c: var(--aur)">
+              <span class="bot-post">Marketing Strategist</span>
+              <h4>Plan de Marketing</h4>
+              <p>Alege canalele, bugetul și calendarul pe 90 de zile. Fiecare canal are un obiectiv în cifre.</p>
+              <button class="bot-mai" type="button" aria-expanded="false">Ce verifică</button>
+              <div class="bot-det" hidden><b>Înainte să predea</b><ul><li>Bugetul nu trece de limita ta.</li><li>Canalele sunt doar cele din pachetul tău.</li></ul></div>
+              <p class="bot-om" data-om="tu"><span><b>Tu</b> aprobi planul. Alex verifică bugetul.</span></p>
+            </article>
+            <article class="bot" id="bot-continut" style="--c: var(--aur)">
+              <span class="bot-post">Social Media Manager</span>
+              <h4>Conținut &amp; Calendar</h4>
+              <p>Scrie calendarul lunii următoare, cu text, format și vizual pentru fiecare postare. Programează doar ce ai aprobat.</p>
+              <button class="bot-mai" type="button" aria-expanded="false">Ce verifică</button>
+              <div class="bot-det" hidden><b>Înainte să predea</b><ul><li>Nicio poză neaprobată, nicio promisiune de rezultat.</li><li>Nu repetă un unghi din ultimele 30 de zile.</li><li>Fiecare postare are contactul tău real.</li></ul></div>
+              <p class="bot-om" data-om="tu"><span><b>Tu</b> aprobi fiecare calendar. Mereu.</span></p>
+            </article>
+            <article class="bot" id="bot-reclame" style="--c: var(--aur)">
+              <span class="bot-post">Paid Media Specialist</span>
+              <h4>Reclame Plătite</h4>
+              <p>Propune campania, audiența pe rază și bugetul zilnic, apoi citește rezultatele în fiecare zi și propune ajustări.</p>
+              <button class="bot-mai" type="button" aria-expanded="false">Ce verifică</button>
+              <div class="bot-det" hidden><b>Înainte să predea</b><ul><li>Buget zilnic de cel mult o treizecime din cel lunar.</li><li>Audiență locală, pe o rază de maxim 15 km.</li><li>Contul de reclame e al tău, nu al AleSign.</li></ul></div>
+              <p class="bot-om" data-om="om"><span><b>Alex apasă lansarea.</b> Niciun bot nu cheltuie banii tăi.</span></p>
+            </article>
+          </div>
+        </div>
+
+        <div class="grupa">
+          <div class="grupa-cap" style="--c: var(--turcoaz-d)"><h3>Fundalul</h3><p>Ține totul în ordine, fără să-l vezi.</p></div>
+          <div class="boti">
+            <article class="bot" id="bot-crm" style="--c: var(--turcoaz-d)">
+              <span class="bot-post">Systems Administrator</span>
+              <h4>CRM</h4>
+              <p>Sursa unică de adevăr: fiecare firmă, apel, contract și plată, cu sursă și oră. Backup zilnic.</p>
+              <button class="bot-mai" type="button" aria-expanded="false">Ce verifică</button>
+              <div class="bot-det" hidden><b>Reguli fixe</b><ul><li>Orice scriere are sursa și ora ei.</li><li>Niciun client fără memoria de brand.</li></ul></div>
+              <p class="bot-om" data-om="auto"><span><b>Automat.</b></span></p>
+            </article>
+            <article class="bot" id="bot-suport" style="--c: var(--turcoaz-d)">
+              <span class="bot-post">Customer Success</span>
+              <h4>Suport Clienți</h4>
+              <p>Răspunde la întrebările cunoscute: când se publică, cum aprobi, ce s-a livrat. Orice e neclar ajunge la Alex.</p>
+              <button class="bot-mai" type="button" aria-expanded="false">Ce verifică</button>
+              <div class="bot-det" hidden><b>Reguli fixe</b><ul><li>Nu ghicește: la orice dubiu escaladează.</li><li>Nu promite termene care nu sunt în contract.</li><li>Nu discută prețuri.</li></ul></div>
+              <p class="bot-om" data-om="om"><span><b>Alex</b> preia tot ce e ambiguu.</span></p>
+            </article>
+            <article class="bot" id="bot-raportare" style="--c: var(--turcoaz-d)">
+              <span class="bot-post">Data Analyst</span>
+              <h4>Raportare &amp; Analiză</h4>
+              <p>Adună cifrele din reclame, Google Business și Instagram și scrie raportul lunar. Semnalează orice scădere bruscă.</p>
+              <button class="bot-mai" type="button" aria-expanded="false">Ce verifică</button>
+              <div class="bot-det" hidden><b>Reguli fixe</b><ul><li>Fiecare cifră are sursă.</li><li>Fără date se scrie „fără date”, nu 0.</li></ul></div>
+              <p class="bot-om" data-om="auto"><span><b>Automat.</b> Alex îl citește înainte de call-ul lunar.</span></p>
+            </article>
+            <article class="bot" id="bot-reputatie" style="--c: var(--turcoaz-d)">
+              <span class="bot-post">Reputation Manager</span>
+              <h4>Monitorizare Reputație</h4>
+              <p>Citește recenziile tale noi la fiecare 6 ore, vede ce se repetă și propune răspunsuri.</p>
+              <button class="bot-mai" type="button" aria-expanded="false">Ce verifică</button>
+              <div class="bot-det" hidden><b>Reguli fixe</b><ul><li>Răspunsul nu recunoaște vină și nu promite compensații.</li><li>Nu conține date personale.</li></ul></div>
+              <p class="bot-om" data-om="om"><span><b>Alex</b> aprobă orice răspuns la o recenzie negativă.</span></p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONSOLA: RITM + SCOR ===================== -->
+  <section class="banda banda--consola" id="ritm">
+    <div class="wrap">
+      <div class="cap">
+        <p class="eyebrow">Sub capotă</p>
+        <h2 class="h2">Un sistem cu ceas. <em>Și cu notă.</em></h2>
+        <p class="lead">Boții nu așteaptă să-și aducă aminte cineva de ei. Fiecare rulează după program, iar tot ce produc trece printr-o notă înainte să ajungă la tine.</p>
+      </div>
+      <div class="duo">
+        <div class="panou" id="panou-ritm">
+          <h3>Ritmul unei zile</h3>
+          <p>Cercul e o zi întreagă. Punctele turcoaz sunt verificările creierului, cele roșii căutările de firme noi, cele aurii citirile recenziilor.</p>
+          <div class="comutator" role="group" aria-label="Modul ceasului">
+            <button type="button" data-mod="zi" aria-pressed="true">O zi în 24 de secunde</button>
+            <button type="button" data-mod="acum" aria-pressed="false">Ora reală</button>
+          </div>
+          <div class="cadran" id="cadran"></div>
+          <ul class="contoare">
+            <li style="--c: var(--turcoaz)"><b id="c-creier">0</b><span>verificări ale creierului, la 15 minute</span></li>
+            <li style="--c: var(--rosu)"><b id="c-research">0</b><span>căutări de firme noi, la 30 de minute</span></li>
+            <li style="--c: var(--aur-l)"><b id="c-reputatie">0</b><span>citiri ale recenziilor, la 6 ore</span></li>
+          </ul>
+        </div>
+        <div class="panou" id="panou-scor">
+          <h3>Nimic nu pleacă fără notă</h3>
+          <p>Botul de Scor notează fiecare postare, site sau reclamă față de exemple aprobate pe nișa ta. Iată mecanismul, pe câteva exemple.</p>
+          <div class="scala" id="scala"></div>
+          <div class="verdict" id="verdict" aria-live="polite">
+            <span class="ce">O postare din calendarul lunii</span>
+            <span class="nota">8,6</span>
+            <span class="dec">Trece. Merge la aprobarea ta.</span>
+          </div>
+          <ul class="praguri">
+            <li style="--c: var(--turcoaz)"><b>≥ 8</b>trece la tine</li>
+            <li style="--c: var(--aur-l)"><b>5 – 7,9</b>îl verifică Alex</li>
+            <li style="--c: var(--rosu)"><b>&lt; 5</b>se refă, cu motiv</li>
+          </ul>
+          <div class="notate">
+            <p>Primesc notă</p>
+            <ul><li>site-urile demo</li><li>auditurile</li><li>strategiile</li><li>planurile</li><li>postările</li><li>reclamele</li><li>paginile de campanie</li><li>răspunsurile la recenzii</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DRUMUL ===================== -->
+  <section class="banda" id="drum">
+    <div class="wrap">
+      <div class="cap">
+        <p class="eyebrow">Cum lucrăm</p>
+        <h2 class="h2">De la primul apel la primul raport.</h2>
+        <p class="lead">Vezi totul înainte să plătești: auditul site-ului tău, un site demo cu numele tău și ce aș face în prima lună. Abia apoi semnăm.</p>
+      </div>
+      <ol class="drum" id="drum-pasi">
+        <li style="--c: var(--rosu)"><span class="cine">Research</span><b>Te găsim</b><span>Firma ta apare în căutările botului, pe nișă și oraș.</span></li>
+        <li style="--c: var(--rosu)"><span class="cine">Audit Site</span><b>Îți citim site-ul</b><span>Viteză, mobil, butonul de apel, formularul.</span></li>
+        <li style="--c: var(--rosu)"><span class="cine">Website</span><b>Îți facem demo-ul</b><span>Site-ul tău, cu numele și datele tale reale.</span></li>
+        <li style="--c: var(--rosu)"><span class="cine">Mostra vie</span><b>Primești mostra</b><span>O pagină doar pentru tine, deschisă 14 zile.</span></li>
+        <li style="--c: var(--turcoaz-d)"><span class="cine">Alex</span><b>Vorbim</b><span>30 de minute, despre ce ai nevoie, nu despre catalog.</span></li>
+        <li style="--c: var(--turcoaz-d)"><span class="cine">Online</span><b>Semnezi și plătești</b><span>Contract online, preț fix, plata și în tranșe.</span></li>
+        <li style="--c: var(--aur)"><span class="cine">Onboarding</span><b>Ne cunoaștem brandul</b><span>Poze, accese și un chestionar, într-un singur loc.</span></li>
+        <li style="--c: var(--aur)"><span class="cine">Strategie</span><b>Îți scriem poziționarea</b><span>O citești, o semnezi, devine memoria brandului.</span></li>
+        <li style="--c: var(--aur)"><span class="cine">Conținut</span><b>Aprobi calendarul</b><span>Din telefon. Se publică singur, la ore bune.</span></li>
+        <li style="--c: var(--turcoaz-d)"><span class="cine">Raportare</span><b>Citești raportul</b><span>Ce a mers, ce nu, ce urmează. În două minute.</span></li>
+      </ol>
+      <div class="progres" aria-hidden="true"><i id="drum-progres"></i></div>
+
+      <div class="zile">
+        <div>
+          <p class="eyebrow">Primele 30 de zile</p>
+          <h3 style="margin-top: 14px">O lună, fără ședințe lungi.</h3>
+          <p class="lead">Apoi, în fiecare lună: pe 23 primești calendarul lunii următoare, îl aprobi, se publică, iar la final vine raportul.</p>
+        </div>
+        <ol class="zile-lista">
+          <li><b>Ziua 0</b><span>Contractul și plata<small>Contractul se generează singur, cu datele noastre și pachetul tău. Fără el nu se cere niciun acces.</small></span></li>
+          <li><b>Zilele 1–3</b><span>Call-ul de pornire<small>Vorbim, primesc accesele în seif și completezi chestionarul de brand.</small></span></li>
+          <li><b>Zilele 4–10</b><span>Strategia<small>Poziționarea trece pe la Alex, apoi pe la tine. Memoria brandului e completă.</small></span></li>
+          <li><b>Zilele 10–14</b><span>Planul și primul calendar<small>Prima ta aprobare de conținut.</small></span></li>
+          <li><b>Ziua 30</b><span>Primul raport<small>Și un call scurt despre ce urmează.</small></span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTROLUL ===================== -->
+  <section class="banda banda--hartie" id="control">
+    <div class="wrap">
+      <div class="cap">
+        <p class="eyebrow">Cine decide</p>
+        <h2 class="h2">Tu decizi direcția. <em>Restul rulează singur.</em></h2>
+        <p class="lead">Harta controlului e fixă. Nu se adaugă verificări „de siguranță” peste noapte și nu se scot ca să meargă mai repede.</p>
+      </div>
+      <div class="control">
+        <div class="coloana" style="--c: var(--aur)">
+          <div class="coloana-cap"><h3>Tu</h3><span class="nr">aprobi</span></div>
+          <ul>
+            <li>Poziționarea brandului, o dată, cu semnătură</li>
+            <li>Planul de marketing și bugetul</li>
+            <li>Fiecare calendar de postări</li>
+            <li>Fiecare pagină legată de o reclamă</li>
+          </ul>
+        </div>
+        <div class="coloana" style="--c: var(--rosu)">
+          <div class="coloana-cap"><h3>Alex</h3><span class="nr">execută și aprobă</span></div>
+          <ul>
+            <li>Call-urile de vânzare și onboarding-ul</li>
+            <li>Mostra, înainte să ajungă la tine</li>
+            <li>Lansarea reclamelor, cu un click</li>
+            <li>Răspunsurile la recenziile negative</li>
+            <li>Criteriile de notare, pe nișa ta</li>
+          </ul>
+        </div>
+        <div class="coloana coloana--auto" style="--c: var(--turcoaz)">
+          <div class="coloana-cap"><h3>Sistemul</h3><span class="nr">rulează singur</span></div>
+          <ul>
+            <li>Căutarea de firme și auditul site-urilor</li>
+            <li>Site-ul demo și mostra</li>
+            <li>Calendarul de conținut și publicarea</li>
+            <li>Raportul lunar și alertele</li>
+            <li>Citirea recenziilor și suportul</li>
+            <li>Contractul, facturile, evidența</li>
+          </ul>
+        </div>
+      </div>
+      <ol class="principii">
+        <li><b>Principiul 2</b><span>Nimic complet fără plată. Mostra întâi, totul după.</span></li>
+        <li><b>Principiul 4</b><span>Niciun bot nu cheltuie banii tăi fără click uman.</span></li>
+        <li><b>Principiul 5</b><span>Aprobi înainte de publicare. De fiecare dată.</span></li>
+        <li><b>Principiul 6</b><span>Memoria brandului tău precede orice text generat.</span></li>
+        <li><b>Principiul 8</b><span>Dovada live bate promisiunea.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===================== RAPORTUL ===================== -->
+  <section class="banda" id="raport">
+    <div class="wrap">
+      <div class="cap">
+        <p class="eyebrow">Ce vezi tu</p>
+        <h2 class="h2">Un raport pe care îl citești în două minute.</h2>
+        <p class="lead">La final de lună primești cifrele tale reale, cu sursa fiecăreia, și ce urmează. Așa arată, pe un exemplu.</p>
+      </div>
+      <div class="raport">
+        <figure class="foaie" id="foaie">
+          <div class="foaie-cap">
+            <div><h3>Raport lunar · Salon exemplu</h3><p>septembrie 2026 · comparat cu luna dinaintea startului</p></div>
+            <span class="eticheta-demo">Cifre demonstrative</span>
+          </div>
+          <div class="foaie-kpi">
+            <div><span>Programări din online</span><b data-num="84">84</b><i>de la 38</i></div>
+            <div><span>Vizite pe site</span><b data-num="3180">3.180</b><i>de la 920</i></div>
+            <div><span>Recenzii Google</span><b data-num="151">151</b><i>+63 noi</i></div>
+            <div><span>Rating</span><b>4,8</b><i>de la 4,5</i></div>
+          </div>
+          <div class="grafic" id="grafic-raport"></div>
+          <figcaption class="foaie-nota">Exemplu pe un salon fictiv, cu cifre inventate, ca să vezi forma raportului. Nu e o promisiune de rezultat: raportul tău arată cifrele tale, cu sursă.</figcaption>
+        </figure>
+        <div class="spatiu">
+          <p class="eyebrow">Spațiul tău</p>
+          <h3>Un singur link, tot ce ține de tine.</h3>
+          <ul>
+            <li><b>Aprobi de pe telefon</b><span>Postările, site-ul și schimbările, cu un click sau un comentariu.</span></li>
+            <li><b>Vezi site-ul înainte să fie live</b><span>Așezat pe șablonul tău, cu textele tale.</span></li>
+            <li><b>Îți conectezi singur conturile</b><span>Facebook și Instagram, cu acces pe care îl retragi oricând.</span></li>
+            <li><b>Plăți și facturi la vedere</b><span>Tranșele, scadențele și facturile, într-un loc.</span></li>
+          </ul>
+          <a class="link-sag" href="https://demo.alesign.net/r/9adaf472ae7c48b19bac3be4569a54cd" target="_blank" rel="noopener">Vezi un raport exemplu complet <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PREȚURI ===================== -->
+  <section class="banda banda--hartie" id="preturi">
+    <div class="wrap">
+      <div class="pret-cap">
+        <div class="cap" style="margin-bottom: 0">
+          <p class="eyebrow">Prețuri publice</p>
+          <h2 class="h2">Cât costă. Fără asteriscuri.</h2>
+          <p class="lead">Abonamentul e produsul. Orice serviciu o dată e o ușă spre el. Site-ul refăcut e dăruit la orice abonament.</p>
+        </div>
+        <div class="comutator comutator--deschis" id="comutator-plata" role="group" aria-label="Mod de plată" hidden>
+          <button type="button" data-plata="lunar" aria-pressed="true">Lunar</button>
+          <button type="button" data-plata="anual" aria-pressed="false">Anual <span id="reducere"></span></button>
+        </div>
+      </div>
+      <div id="trepte-loc">
+        <p class="pret-gol">Prețurile exacte le primești în mostra ta, fixe 7 zile de la prima deschidere. <a class="link-sag" href="#contact">Cere mostra <span aria-hidden="true">→</span></a></p>
+      </div>
+      <div class="pret-note">
+        <span>Prețurile din mostra ta rămân fixe <b id="zile-blocat">7</b> zile de la prima deschidere.</span>
+        <span>AleSign 1:1 (branding, web design custom, filmare): cel mult 2 proiecte pe lună, ca fiecare să primească atenția cuvenită.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== GARANȚII ===================== -->
+  <section class="banda banda--consola" id="garantii">
+    <div class="wrap">
+      <div class="cap">
+        <p class="eyebrow">Proprietate</p>
+        <h2 class="h2">Ce e al tău <em>rămâne al tău.</em></h2>
+        <p class="lead">Un site tăiat la plecare înseamnă o recenzie proastă pe care o vede următorul client. Așa că plecarea e scrisă din prima zi.</p>
+      </div>
+      <div class="garantii">
+        <div class="garantie"><svg viewBox="0 0 40 40" fill="none" stroke="#4fd1c5" stroke-width="1.6" aria-hidden="true"><circle cx="20" cy="20" r="15"/><path d="M5 20h30M20 5c4.5 4 6.5 9 6.5 15s-2 11-6.5 15c-4.5-4-6.5-9-6.5-15s2-11 6.5-15z"/></svg><div><b>Domeniul e mereu al tău</b><span>Pe numele tău, de la început până la final.</span></div></div>
+        <div class="garantie"><svg viewBox="0 0 40 40" fill="none" stroke="#e8c468" stroke-width="1.6" aria-hidden="true"><rect x="8" y="5" width="24" height="30" rx="3"/><path d="M14 13h12M14 19h12M14 25h7"/></svg><div><b>Conținutul plătit e al tău</b><span>Tot ce s-a produs și s-a plătit, exportat la cerere.</span></div></div>
+        <div class="garantie"><svg viewBox="0 0 40 40" fill="none" stroke="#ff2a2e" stroke-width="1.6" aria-hidden="true"><rect x="5" y="8" width="30" height="22" rx="3"/><path d="M5 14h30M16 35h8M20 30v5"/></svg><div><b>Site-ul nou, plătit integral, e al tău</b><span>La plecare primești exportul complet.</span></div></div>
+        <div class="garantie"><svg viewBox="0 0 40 40" fill="none" stroke="#4fd1c5" stroke-width="1.6" aria-hidden="true"><rect x="9" y="18" width="22" height="16" rx="3"/><path d="M14 18v-5a6 6 0 0 1 12 0v5M20 25v3"/></svg><div><b>Accesele se închid în 24 de ore</b><span>Fiecare acces stă criptat într-un seif și se revocă la final.</span></div></div>
+        <div class="garantie"><svg viewBox="0 0 40 40" fill="none" stroke="#e8c468" stroke-width="1.6" aria-hidden="true"><circle cx="20" cy="21" r="13"/><path d="M20 13v8l5 4"/></svg><div><b>30 de zile de grație</b><span>Site-ul rămâne găzduit o lună după ultima plată.</span></div></div>
+        <div class="garantie"><svg viewBox="0 0 40 40" fill="none" stroke="#ff2a2e" stroke-width="1.6" aria-hidden="true"><path d="M8 20a12 12 0 0 1 21-8M32 20a12 12 0 0 1-21 8"/><path d="M29 6v6h-6M11 34v-6h6"/></svg><div><b>Refresh-ul se poate răscumpăra</b><span>Site-ul refăcut, dăruit la abonament, îl poți păstra cu 900 RON. Altfel revine la versiunea ta de dinainte.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SINCER ===================== -->
+  <section class="banda" id="sincer">
+    <div class="wrap sincer">
+      <div>
+        <p class="eyebrow">Cine e în spate</p>
+        <h2 class="h2">Sincer, de la început.</h2>
+        <div class="scrisoare" style="margin-top: 26px">
+          <p class="salut">Nu vin cu zece ani de agenție. Vin cu un sistem pe care l-am construit cu mâinile mele.</p>
+          <p>AleSign&amp;Co există din 2024, pe web design și branding. De ceva vreme, aproape tot timpul meu merge într-un singur lucru: un ecosistem care face treaba unei agenții de marketing. Găsește clienți, le pregătește o propunere, generează contractul, publică, raportează. Îl folosesc pentru firma mea, în fiecare zi.</p>
+          <p>O agenție clasică vinde ore de om pentru lucruri pe care un sistem bine construit le face mai constant și fără să obosească. Ce rămâne, și ce merită plătit, e judecata: ce spui, cui, când și de ce. Asta e partea mea.</p>
+          <p>Nu-ți promit vechime. Îți promit că răspund în aceeași zi și că îți arăt sistemul rulând, nu pe slide-uri.</p>
+        </div>
+        <div class="semn"><span class="nume">Alexandru Pavăl</span><span class="rol">fondator, AleSign&amp;Co</span></div>
+      </div>
+      <aside class="nisa">
+        <p class="eyebrow">Unde lucrez acum</p>
+        <h3>Beauty &amp; Wellness premium, în București.</h3>
+        <p>Saloane, barbershop-uri, spa-uri, studiouri de unghii și sprâncene. O nișă, adânc, înainte de a doua: fiecare regulă a sistemului se scrie din clienți reali.</p>
+        <div class="nisa-cifre">
+          <div><b><small>~</small><span data-num="12000">12.000</span></b><span>firme de coafură și înfrumusețare în România</span></div>
+          <div><b><small>~</small><span data-num="25">25</span><small>%</small></b><span>din saloanele active sunt în București</span></div>
+        </div>
+        <p class="sursa">Estimări AleSign din datele publice pe codul CAEN 9602.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="final" id="contact">
+    <div class="wrap">
+      <p class="eyebrow">Următorul pas</p>
+      <h2>Primește <em>mostra ta.</em></h2>
+      <p class="lead">Îți pregătesc o pagină doar pentru firma ta: ce am observat, un site demo cu numele tău și cum ar arăta prima lună. Fără cost și fără obligații.</p>
+      <div class="erou-cta">
+        <a class="btn btn--rosu" href="https://wa.me/40755367084?text=Salut%2C%20Alexandru!%20Vreau%20o%20mostr%C4%83%20pentru%20firma%20mea." target="_blank" rel="noopener">Scrie-mi pe WhatsApp <span class="sag" aria-hidden="true">→</span></a>
+        <a class="btn btn--contur" href="mailto:info@alesign.net?subject=Vreau%20o%20mostr%C4%83">Trimite un email</a>
+      </div>
+      <div class="contacte"><span>info@alesign.net</span><span>0755 367 084</span><span>alesign.net</span></div>
+    </div>
+  </section>
+</main>
+
+<footer class="subsol">
+  <div class="wrap">
+    <span>Alexandru Pavăl · AleSign&amp;Co · <a href="https://alesign.net">alesign.net</a></span>
+    <span>Construit de AleSystem Design</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var MISCARE = !window.matchMedia || window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+  var RON = new Intl.NumberFormat('ro-RO', { maximumFractionDigits: 0 });
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var NS = 'http://www.w3.org/2000/svg';
+  var svgEl = function (tag, attrs, parinte) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (parinte) parinte.appendChild(e); return e; };
+  // când un element intră în ecran, o singură dată
+  var laVedere = function (el, fn, prag) {
+    if (!('IntersectionObserver' in window)) { fn(); return; }
+    var o = new IntersectionObserver(function (intrari) { intrari.forEach(function (i) { if (i.isIntersecting) { o.disconnect(); fn(); } }); }, { threshold: prag || 0.35 });
+    o.observe(el);
+  };
+
+  // ---------- cifrele urcă de la zero când ajung pe ecran (la repaus arată deja valoarea finală) ----------
+  function numara(el) {
+    var tinta = Number(el.dataset.num);
+    var sufix = el.querySelector('small') ? el.querySelector('small').outerHTML : '';
+    if (!MISCARE || !isFinite(tinta)) return;
+    var t0 = null;
+    var pas = function (t) {
+      if (t0 === null) t0 = t;
+      var k = Math.min(1, (t - t0) / 1400);
+      var v = Math.round(tinta * (1 - Math.pow(1 - k, 3)));
+      el.innerHTML = RON.format(v) + sufix;
+      if (k < 1) requestAnimationFrame(pas);
+    };
+    requestAnimationFrame(pas);
+  }
+  $$('[data-num]').forEach(function (el) { laVedere(el, function () { numara(el); }, 0.6); });
+
+  // ---------- orbita ecosistemului ----------
+  var ORB = (function () {
+    var box = $('#orbita');
+    var cv = $('#orbita-canvas');
+    var tipEl = $('#orbita-tip');
+    if (!cv || !cv.getContext) return null;
+    var ctx = cv.getContext('2d');
+    var CUL = { creier: '#f4f1ea', rosu: '#ff2a2e', aur: '#e8c468', turcoaz: '#4fd1c5' };
+    var INELE = [
+      { k: 0.30, v: 0.62, cul: CUL.rosu, boti: [['Botul de Scor', 'Notează tot ce iese, de la 0 la 10.', 'bot-scor']] },
+      { k: 0.52, v: 0.07, cul: CUL.rosu, boti: [['Research', 'Găsește firme noi la 30 de minute.', 'bot-research'], ['Audit Site', 'Citește site-ul: viteză, mobil, formular.', 'bot-audit'], ['Website', 'Face site-ul demo cu datele tale.', 'bot-website'], ['Landing Page', 'O pagină, un buton, o campanie.', 'bot-landing'], ['Comunicare', 'Urmărirea, doar cu acord. În așteptare.', 'bot-comunicare']] },
+      { k: 0.74, v: -0.045, cul: CUL.aur, boti: [['Strategie', 'Ce te face diferit, pe 3 km.', 'bot-strategie'], ['Plan de Marketing', 'Canale, buget, 90 de zile.', 'bot-plan'], ['Conținut', 'Calendarul lunii, gata pe 23.', 'bot-continut'], ['Reclame', 'Propune; lansarea o face un om.', 'bot-reclame']] },
+      { k: 0.95, v: 0.03, cul: CUL.turcoaz, boti: [['CRM', 'Sursa unică de adevăr.', 'bot-crm'], ['Suport', 'Răspunde la ce știe, escaladează restul.', 'bot-suport'], ['Raportare', 'Raportul lunar, cu sursă la fiecare cifră.', 'bot-raportare'], ['Reputație', 'Citește recenziile la 6 ore.', 'bot-reputatie']] }
+    ];
+    var noduri = [];
+    INELE.forEach(function (inel, i) { inel.boti.forEach(function (b, j) { noduri.push({ inel: i, a0: (j / inel.boti.length) * Math.PI * 2 + i * 0.7 + 0.4, nume: b[0], rol: b[1], id: b[2], cul: inel.cul, lum: 0 }); }); });
+    var W = 0, H = 0, R = 0, cx = 0, cy = 0, dpr = 1, timp = 0, ultim = null, pachete = [], urmPachet = 0, pulsCentru = 0, peste = null, activ = true, cadru = null;
+
+    function dimensiune() {
+      var r = box.getBoundingClientRect();
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = r.width; H = r.height;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cx = W / 2; cy = H / 2; R = Math.min(W, H) / 2 - (W > 420 ? 44 : 14);
+    }
+    function poz(n) { var inel = INELE[n.inel]; var a = n.a0 + inel.v * timp; return [cx + Math.cos(a) * R * inel.k, cy + Math.sin(a) * R * inel.k]; }
+    var activi = noduri.filter(function (n) { return n.id !== 'bot-comunicare'; });
+    function pachetNou() {
+      var n = activi[Math.floor(Math.random() * activi.length)];
+      pachete.push({ n: n, spre: Math.random() < 0.55, t: 0, d: 1.1 + Math.random() * 0.6, curb: (Math.random() - 0.5) * 0.9 });
+    }
+    function punctPeDrum(p, k) {
+      var a = poz(p.n), b = [cx, cy];
+      if (!p.spre) { var x = a; a = b; b = x; }
+      var mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2;
+      var nx = -(b[1] - a[1]) * p.curb, ny = (b[0] - a[0]) * p.curb;
+      var qx = mx + nx * 0.5, qy = my + ny * 0.5;
+      var u = 1 - k;
+      return [u * u * a[0] + 2 * u * k * qx + k * k * b[0], u * u * a[1] + 2 * u * k * qy + k * k * b[1]];
+    }
+    function deseneaza() {
+      ctx.clearRect(0, 0, W, H);
+      // inelele
+      INELE.forEach(function (inel, i) {
+        ctx.beginPath(); ctx.arc(cx, cy, R * inel.k, 0, Math.PI * 2);
+        ctx.strokeStyle = i === 0 ? 'rgba(255,42,46,0.28)' : 'rgba(244,241,234,' + (0.12 - i * 0.015) + ')';
+        ctx.lineWidth = 1; ctx.setLineDash(i === 3 ? [2, 6] : []); ctx.stroke(); ctx.setLineDash([]);
+      });
+      // spițele: legătura fiecărui bot cu creierul, abia vizibilă
+      noduri.forEach(function (n) { var p = poz(n); ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(p[0], p[1]); ctx.strokeStyle = 'rgba(244,241,234,' + (0.035 + n.lum * 0.25) + ')'; ctx.stroke(); });
+      // pachetele de date, cu coadă
+      pachete.forEach(function (p) {
+        for (var s = 0; s < 7; s++) {
+          var k = Math.max(0, p.t / p.d - s * 0.025);
+          var q = punctPeDrum(p, k);
+          ctx.beginPath(); ctx.arc(q[0], q[1], Math.max(0.6, 2.6 - s * 0.32), 0, Math.PI * 2);
+          ctx.fillStyle = p.spre ? p.n.cul : CUL.creier; ctx.globalAlpha = (1 - s / 7) * 0.9; ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+      });
+      // creierul
+      var rc = Math.max(16, R * 0.12);
+      var g = ctx.createRadialGradient(cx, cy, rc * 0.2, cx, cy, rc * 3.4);
+      g.addColorStop(0, 'rgba(244,241,234,0.32)'); g.addColorStop(1, 'rgba(244,241,234,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, rc * 3.4, 0, Math.PI * 2); ctx.fill();
+      if (pulsCentru > 0) { ctx.beginPath(); ctx.arc(cx, cy, rc * (1 + (1 - pulsCentru) * 1.6), 0, Math.PI * 2); ctx.strokeStyle = 'rgba(244,241,234,' + pulsCentru * 0.5 + ')'; ctx.lineWidth = 1.5; ctx.stroke(); }
+      ctx.beginPath(); ctx.arc(cx, cy, rc * 1.55, 0, Math.PI * 2); ctx.strokeStyle = 'rgba(244,241,234,0.55)'; ctx.lineWidth = 2; ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx, cy, rc, 0, Math.PI * 2); ctx.fillStyle = CUL.creier; ctx.fill();
+      ctx.fillStyle = '#0c0c0d'; ctx.font = '700 ' + Math.round(Math.max(9, rc * 0.36)) + 'px Manrope, system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('CREIER', cx, cy + 1);
+      // boții
+      var etichete = W > 420;
+      noduri.forEach(function (n) {
+        var p = poz(n);
+        var r = (n.inel === 0 ? 7 : 6) + n.lum * 3 + (peste === n ? 3 : 0);
+        ctx.shadowColor = n.cul; ctx.shadowBlur = 14 + n.lum * 18;
+        ctx.globalAlpha = n.id === 'bot-comunicare' ? 0.45 : 1;
+        ctx.beginPath(); ctx.arc(p[0], p[1], r, 0, Math.PI * 2); ctx.fillStyle = n.cul; ctx.fill();
+        ctx.shadowBlur = 0; ctx.globalAlpha = 1;
+        if (n.id === 'bot-comunicare') { ctx.beginPath(); ctx.arc(p[0], p[1], r + 4, 0, Math.PI * 2); ctx.strokeStyle = 'rgba(255,42,46,0.45)'; ctx.setLineDash([2, 3]); ctx.lineWidth = 1; ctx.stroke(); ctx.setLineDash([]); }
+        if (etichete || peste === n) {
+          var dr = p[0] >= cx;
+          ctx.font = (peste === n ? '700 ' : '600 ') + '11.5px Manrope, system-ui, sans-serif';
+          var lw = ctx.measureText(n.nume).width;
+          if (dr && p[0] + r + 7 + lw > W - 4) dr = false; else if (!dr && p[0] - r - 7 - lw < 4) dr = true;
+          ctx.textAlign = dr ? 'left' : 'right'; ctx.textBaseline = 'middle';
+          ctx.fillStyle = peste === n ? '#f4f1ea' : 'rgba(244,241,234,0.62)';
+          ctx.fillText(n.nume, p[0] + (dr ? r + 7 : -(r + 7)), p[1]);
+        }
+      });
+    }
+    function cadruNou(t) {
+      cadru = null;
+      if (!activ) return;
+      var dt = ultim === null ? 0 : Math.min(0.05, (t - ultim) / 1000);
+      ultim = t;
+      if (peste === null) timp += dt;
+      urmPachet -= dt;
+      if (urmPachet <= 0) { pachetNou(); urmPachet = 0.18 + Math.random() * 0.22; }
+      pachete = pachete.filter(function (p) {
+        p.t += dt;
+        if (p.t >= p.d) { if (p.spre) pulsCentru = 1; else p.n.lum = 1; return false; }
+        return true;
+      });
+      noduri.forEach(function (n) { n.lum = Math.max(0, n.lum - dt * 1.6); });
+      pulsCentru = Math.max(0, pulsCentru - dt * 1.4);
+      deseneaza();
+      cadru = requestAnimationFrame(cadruNou);
+    }
+    function porneste() { if (MISCARE && !cadru) { ultim = null; cadru = requestAnimationFrame(cadruNou); } }
+    function cautaNod(ev) {
+      var r = cv.getBoundingClientRect(); var x = ev.clientX - r.left, y = ev.clientY - r.top; var best = null, dist = 18;
+      noduri.forEach(function (n) { var p = poz(n); var d = Math.hypot(p[0] - x, p[1] - y); if (d < dist) { dist = d; best = n; } });
+      return { n: best, x: x, y: y };
+    }
+    cv.addEventListener('mousemove', function (ev) {
+      var c = cautaNod(ev); peste = c.n;
+      if (c.n) {
+        tipEl.innerHTML = '<b>' + esc(c.n.nume) + '</b><span>' + esc(c.n.rol) + '</span>';
+        tipEl.hidden = false;
+        var x = c.x + 16, y = c.y - tipEl.offsetHeight - 12;
+        if (x + tipEl.offsetWidth > W) x = c.x - tipEl.offsetWidth - 16;
+        if (y < 0) y = c.y + 16;
+        tipEl.style.left = Math.max(0, x) + 'px'; tipEl.style.top = y + 'px';
+        cv.style.cursor = 'pointer';
+      } else { tipEl.hidden = true; cv.style.cursor = 'crosshair'; }
+      if (!MISCARE) deseneaza();
+    });
+    cv.addEventListener('mouseleave', function () { peste = null; tipEl.hidden = true; if (!MISCARE) deseneaza(); });
+    cv.addEventListener('click', function (ev) { var c = cautaNod(ev); if (c.n) aprindeBot(c.n.id); });
+    window.addEventListener('resize', function () { dimensiune(); deseneaza(); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (i) { activ = i[0].isIntersecting; if (activ) porneste(); }, { threshold: 0 }).observe(box);
+    dimensiune(); deseneaza(); porneste();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (!MISCARE) deseneaza(); });
+    return { deseneaza: deseneaza };
+  })();
+
+  // ---------- echipa: detalii și botul aprins din orbită ----------
+  $$('.bot-mai').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var det = b.nextElementSibling; var des = det.hidden;
+      det.hidden = !des; b.setAttribute('aria-expanded', String(des)); b.textContent = des ? 'Ascunde' : 'Ce verifică';
+    });
+  });
+  function aprindeBot(id) {
+    var el = document.getElementById(id); if (!el) return;
+    $$('.bot.aprins').forEach(function (b) { b.classList.remove('aprins'); });
+    el.classList.add('aprins');
+    el.scrollIntoView({ behavior: MISCARE ? 'smooth' : 'auto', block: 'center' });
+    setTimeout(function () { el.classList.remove('aprins'); }, 2600);
+  }
+
+  // ---------- ceasul unei zile ----------
+  (function () {
+    var box = $('#cadran'); if (!box) return;
+    var S = 400, C = 200;
+    var svg = svgEl('svg', { viewBox: '0 0 ' + S + ' ' + S, role: 'img', 'aria-label': 'Cadran de 24 de ore cu programul boților' }, box);
+    var defs = svgEl('defs', {}, svg);
+    var f = svgEl('filter', { id: 'stral', x: '-50%', y: '-50%', width: '200%', height: '200%' }, defs);
+    svgEl('feGaussianBlur', { stdDeviation: 3, result: 'b' }, f);
+    var m = svgEl('feMerge', {}, f); svgEl('feMergeNode', { in: 'b' }, m); svgEl('feMergeNode', { in: 'SourceGraphic' }, m);
+    svgEl('circle', { cx: C, cy: C, r: 188, fill: 'none', stroke: 'rgba(244,241,234,0.08)' }, svg);
+    var unghi = function (min) { return (min / 1440) * Math.PI * 2 - Math.PI / 2; };
+    var la = function (min, r) { var a = unghi(min); return [C + Math.cos(a) * r, C + Math.sin(a) * r]; };
+    var serii = [
+      { pas: 15, r: 176, raza: 1.7, cul: '#4fd1c5', el: [] },
+      { pas: 30, r: 152, raza: 2.8, cul: '#ff2a2e', el: [] },
+      { pas: 360, r: 124, raza: 6.5, cul: '#e8c468', el: [] }
+    ];
+    serii.forEach(function (s) {
+      for (var min = 0; min < 1440; min += s.pas) { var p = la(min, s.r); s.el.push({ min: min, e: svgEl('circle', { cx: p[0].toFixed(1), cy: p[1].toFixed(1), r: s.raza, fill: s.cul, opacity: 0.22 }, svg) }); }
+    });
+    [['00', 0], ['06', 360], ['12', 720], ['18', 1080]].forEach(function (o) {
+      var p = la(o[1], 96);
+      var t = svgEl('text', { x: p[0].toFixed(1), y: p[1].toFixed(1), 'text-anchor': 'middle', 'dominant-baseline': 'middle', fill: 'rgba(244,241,234,0.4)', 'font-family': 'JetBrains Mono, ui-monospace, monospace', 'font-size': 12 }, svg);
+      t.textContent = o[0];
+    });
+    var arc = svgEl('path', { fill: 'none', stroke: 'rgba(255,42,46,0.35)', 'stroke-width': 3, 'stroke-linecap': 'round' }, svg);
+    var limba = svgEl('line', { x1: C, y1: C, stroke: '#ff2a2e', 'stroke-width': 2.5, 'stroke-linecap': 'round', filter: 'url(#stral)' }, svg);
+    var varf = svgEl('circle', { r: 5, fill: '#ff2a2e', filter: 'url(#stral)' }, svg);
+    svgEl('circle', { cx: C, cy: C, r: 58, fill: '#0f1116', stroke: 'rgba(244,241,234,0.12)' }, svg);
+    var ora = svgEl('text', { x: C, y: C - 2, 'text-anchor': 'middle', 'dominant-baseline': 'middle', fill: '#f4f1ea', 'font-family': 'Cormorant Garamond, Georgia, serif', 'font-size': 40, 'font-weight': 600, style: 'font-variant-numeric: lining-nums tabular-nums' }, svg);
+    var sub = svgEl('text', { x: C, y: C + 26, 'text-anchor': 'middle', fill: 'rgba(244,241,234,0.5)', 'font-family': 'Manrope, system-ui, sans-serif', 'font-size': 10.5, 'letter-spacing': '1.5' }, svg);
+    var cC = $('#c-creier'), cR = $('#c-research'), cP = $('#c-reputatie');
+    var mod = MISCARE ? 'zi' : 'acum', t0 = null, activ = true, cadru = null, ultimaSecunda = 0;
+    var oraRo = function () {
+      var p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Bucharest', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).formatToParts(new Date());
+      var g = function (t) { return Number((p.find(function (x) { return x.type === t; }) || {}).value || 0); };
+      return (g('hour') % 24) * 60 + g('minute') + g('second') / 60;
+    };
+    function pune(min) {
+      var p = la(min, 188);
+      limba.setAttribute('x2', p[0].toFixed(1)); limba.setAttribute('y2', p[1].toFixed(1));
+      varf.setAttribute('cx', p[0].toFixed(1)); varf.setAttribute('cy', p[1].toFixed(1));
+      var a0 = la(0, 188);
+      arc.setAttribute('d', min < 0.5 ? '' : 'M' + a0[0].toFixed(1) + ' ' + a0[1].toFixed(1) + ' A188 188 0 ' + (min > 720 ? 1 : 0) + ' 1 ' + p[0].toFixed(1) + ' ' + p[1].toFixed(1));
+      serii.forEach(function (s) { s.el.forEach(function (d) { var trecut = d.min <= min; var recent = trecut && min - d.min < (s.pas >= 360 ? 90 : 75); d.e.setAttribute('opacity', recent ? 1 : trecut ? 0.62 : 0.18); d.e.setAttribute('filter', recent ? 'url(#stral)' : ''); }); });
+      var hh = Math.floor(min / 60) % 24, mm = Math.floor(min % 60);
+      ora.textContent = (hh < 10 ? '0' : '') + hh + ':' + (mm < 10 ? '0' : '') + mm;
+      sub.textContent = mod === 'zi' ? 'ZI SIMULATĂ' : 'ORA ROMÂNIEI';
+      cC.textContent = Math.floor(min / 15) + 1; cR.textContent = Math.floor(min / 30) + 1; cP.textContent = Math.floor(min / 360) + 1;
+    }
+    function bucla(t) {
+      cadru = null;
+      if (!activ) return;
+      if (mod === 'zi') { if (t0 === null) t0 = t; pune(((t - t0) / 24000 % 1) * 1440); }
+      else if (t - ultimaSecunda > 1000) { ultimaSecunda = t; pune(oraRo()); }
+      cadru = requestAnimationFrame(bucla);
+    }
+    function porneste() { if (!cadru && (MISCARE || mod === 'acum')) cadru = requestAnimationFrame(bucla); }
+    $$('#panou-ritm [data-mod]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        mod = b.dataset.mod; t0 = null; ultimaSecunda = 0;
+        $$('#panou-ritm [data-mod]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        if (!MISCARE) pune(mod === 'zi' ? 1439 : oraRo());
+        porneste();
+      });
+    });
+    if (!MISCARE) { $$('#panou-ritm [data-mod]').forEach(function (x) { x.setAttribute('aria-pressed', String(x.dataset.mod === 'acum')); }); }
+    pune(mod === 'zi' ? 0 : oraRo());
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (i) { activ = i[0].isIntersecting; if (activ) porneste(); }, { threshold: 0 }).observe(box);
+    else porneste();
+  })();
+
+  // ---------- scara notei ----------
+  (function () {
+    var box = $('#scala'); if (!box) return;
+    var svg = svgEl('svg', { viewBox: '0 0 520 96', role: 'img', 'aria-label': 'Scara de la 0 la 10: sub 5 respins, 5 până la 7,9 verificat de om, de la 8 trece' }, box);
+    var x = function (v) { return 16 + (v / 10) * 488; };
+    [[0, 5, '#ff2a2e'], [5, 8, '#e8c468'], [8, 10, '#4fd1c5']].forEach(function (z) { svgEl('rect', { x: x(z[0]), y: 40, width: x(z[1]) - x(z[0]) - 2, height: 12, rx: 6, fill: z[2], opacity: 0.85 }, svg); });
+    for (var v = 0; v <= 10; v++) { var t = svgEl('text', { x: x(v), y: 76, 'text-anchor': 'middle', fill: 'rgba(244,241,234,0.45)', 'font-family': 'JetBrains Mono, ui-monospace, monospace', 'font-size': 11 }, svg); t.textContent = v; }
+    var ac = svgEl('g', {}, svg);
+    svgEl('path', { d: 'M0 34 L-7 22 L7 22 Z', fill: '#f4f1ea' }, ac);
+    svgEl('line', { x1: 0, x2: 0, y1: 34, y2: 58, stroke: '#f4f1ea', 'stroke-width': 2 }, ac);
+    var EX = [
+      { v: 8.6, ce: 'O postare din calendarul lunii', dec: 'Trece. Merge la aprobarea ta.', c: '#4fd1c5' },
+      { v: 6.4, ce: 'Un text pentru o reclamă', dec: 'Îl verifică Alex înainte să meargă mai departe.', c: '#e8c468' },
+      { v: 3.9, ce: 'O variantă de site demo', dec: 'Se refă, cu motivul scris. De cel mult 2 ori, apoi decide omul.', c: '#ff2a2e' },
+      { v: 9.2, ce: 'Un răspuns la o recenzie pozitivă', dec: 'Trece. Ajunge la tine sau, după probă, se publică singur.', c: '#4fd1c5' }
+    ];
+    var ver = $('#verdict'), i = 0, curent = EX[0].v;
+    var fmt = function (n) { return n.toLocaleString('ro-RO', { minimumFractionDigits: 1, maximumFractionDigits: 1 }); };
+    var pune = function (v) { ac.setAttribute('transform', 'translate(' + x(v).toFixed(1) + ' 0)'); };
+    function arata(e) {
+      ver.style.setProperty('--c', e.c);
+      ver.innerHTML = '<span class="ce">' + esc(e.ce) + '</span><span class="nota">' + fmt(e.v) + '</span><span class="dec">' + esc(e.dec) + '</span>';
+    }
+    function mergi() {
+      var e = EX[i % EX.length]; var din = curent, t0 = null;
+      if (!MISCARE) { pune(e.v); curent = e.v; arata(e); return; }
+      var pas = function (t) { if (t0 === null) t0 = t; var k = Math.min(1, (t - t0) / 900); var u = 1 - Math.pow(1 - k, 3); var v = din + (e.v - din) * u; pune(v); ver.querySelector('.nota').textContent = fmt(v); if (k < 1) requestAnimationFrame(pas); else { curent = e.v; arata(e); } };
+      requestAnimationFrame(pas);
+    }
+    pune(curent); arata(EX[0]);
+    if (MISCARE) laVedere(box, function () { setInterval(function () { i += 1; mergi(); }, 3400); }, 0.5);
+  })();
+
+  // ---------- drumul clientului: pasul curent se mută singur ----------
+  (function () {
+    var pasi = $$('#drum-pasi li'), bara = $('#drum-progres'); if (!pasi.length) return;
+    var i = 0;
+    var arata = function () { pasi.forEach(function (p, j) { p.classList.toggle('acum', j === i); }); bara.style.width = ((i + 1) / pasi.length * 100) + '%'; };
+    arata();
+    if (MISCARE) laVedere($('#drum-pasi'), function () { setInterval(function () { i = (i + 1) % pasi.length; arata(); }, 1500); }, 0.25);
+    pasi.forEach(function (p, j) { p.addEventListener('mouseenter', function () { i = j; arata(); }); });
+  })();
+
+  // ---------- graficul raportului (cifre demonstrative) ----------
+  (function () {
+    var box = $('#grafic-raport'); if (!box) return;
+    var D = [['apr.', 38], ['mai', 47], ['iun.', 63], ['iul.', 71], ['aug.', 79], ['sep.', 84]];
+    var W = 640, H = 210, m = { l: 34, r: 18, t: 22, b: 30 };
+    var max = 100;
+    var x = function (i) { return m.l + (i / (D.length - 1)) * (W - m.l - m.r); };
+    var y = function (v) { return H - m.b - (v / max) * (H - m.t - m.b); };
+    var svg = svgEl('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': 'Programări din online pe luni, de la 38 în aprilie la 84 în septembrie, cifre demonstrative' }, box);
+    var defs = svgEl('defs', {}, svg);
+    var g = svgEl('linearGradient', { id: 'gr-rap', x1: 0, x2: 0, y1: 0, y2: 1 }, defs);
+    svgEl('stop', { offset: 0, 'stop-color': '#ff2a2e', 'stop-opacity': 0.28 }, g); svgEl('stop', { offset: 1, 'stop-color': '#ff2a2e', 'stop-opacity': 0 }, g);
+    [0, 25, 50, 75, 100].forEach(function (v) {
+      svgEl('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: '#e2ddd3' }, svg);
+      var t = svgEl('text', { x: m.l - 8, y: y(v), 'text-anchor': 'end', 'dominant-baseline': 'middle', fill: '#a39e94', 'font-size': 11, 'font-family': 'JetBrains Mono, ui-monospace, monospace' }, svg); t.textContent = v;
+    });
+    var xs = (x(0) + x(1)) / 2;
+    svgEl('rect', { x: m.l, y: m.t, width: xs - m.l, height: H - m.t - m.b, fill: '#f5f2ec' }, svg);
+    var st = svgEl('text', { x: xs + 6, y: m.t + 2, fill: '#6b675f', 'font-size': 10.5, 'font-family': 'Manrope, system-ui, sans-serif', 'letter-spacing': '1.2' }, svg); st.textContent = 'START';
+    svgEl('line', { x1: xs, x2: xs, y1: m.t - 6, y2: H - m.b, stroke: '#a39e94', 'stroke-dasharray': '3 5' }, svg);
+    D.forEach(function (d, i) { var t = svgEl('text', { x: x(i), y: H - 8, 'text-anchor': 'middle', fill: '#6b675f', 'font-size': 11.5, 'font-family': 'Manrope, system-ui, sans-serif' }, svg); t.textContent = d[0]; });
+    var pts = D.map(function (d, i) { return [x(i), y(d[1])]; });
+    var linie = 'M' + pts.map(function (p) { return p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' L');
+    var arie = svgEl('path', { d: linie + ' L' + x(D.length - 1) + ' ' + y(0) + ' L' + x(0) + ' ' + y(0) + ' Z', fill: 'url(#gr-rap)' }, svg);
+    var l = svgEl('path', { d: linie, fill: 'none', stroke: '#ff2a2e', 'stroke-width': 3, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, svg);
+    var puncte = pts.map(function (p, i) { return svgEl('circle', { cx: p[0], cy: p[1], r: i === pts.length - 1 ? 6 : 4, fill: i === 0 ? '#a39e94' : '#fff', stroke: i === 0 ? '#a39e94' : '#ff2a2e', 'stroke-width': 2.5 }, svg); });
+    var et = svgEl('text', { x: pts[pts.length - 1][0], y: pts[pts.length - 1][1] - 14, 'text-anchor': 'end', fill: '#141414', 'font-size': 14, 'font-weight': 700, 'font-family': 'Manrope, system-ui, sans-serif' }, svg); et.textContent = '84 programări';
+    if (MISCARE) laVedere(box, function () {
+      var L = l.getTotalLength(); l.style.strokeDasharray = L; l.style.strokeDashoffset = L; arie.style.opacity = 0; et.style.opacity = 0;
+      puncte.forEach(function (p) { p.style.opacity = 0; });
+      requestAnimationFrame(function () {
+        l.style.transition = 'stroke-dashoffset 1.6s cubic-bezier(.45,0,.2,1)'; l.style.strokeDashoffset = 0;
+        arie.style.transition = 'opacity 1s ease .6s'; arie.style.opacity = 1;
+        et.style.transition = 'opacity .5s ease 1.5s'; et.style.opacity = 1;
+        puncte.forEach(function (p, i) { p.style.transition = 'opacity .3s ease ' + (0.2 + i * 0.26) + 's'; p.style.opacity = 1; });
+      });
+    }, 0.4);
+  })();
+
+  // ---------- prețuri: din catalogul public, live ----------
+  var stare = { plata: 'lunar', catalog: null };
+  function randeazaPreturi(cat) {
+    var P = (cat && cat.pachete) || [];
+    var lunare = P.filter(function (p) { return p.categorie === 'lunar' && p.cod !== 'custom'; }).sort(function (a, b) { return a.pret - b.pret; });
+    if (!lunare.length) return;
+    stare.catalog = cat;
+    var S = cat.setari || {};
+    var red = Number(S.anual_reducere_procent || 0);
+    var comb = P.filter(function (p) { return p.categorie === 'combo'; });
+    var unice = P.filter(function (p) { return p.categorie === 'unic'; });
+    var rec = lunare.find(function (p) { return p.eticheta; }) || lunare[Math.floor(lunare.length / 2)];
+    var html = '<div class="trepte">' + lunare.map(function (p) {
+      var pret = stare.plata === 'anual' && red ? Math.round(p.pret * (100 - red) / 100) : p.pret;
+      var e = p === rec;
+      return '<div class="treapta' + (e ? ' treapta--rec' : '') + '">' + (e ? '<span class="et">' + esc(p.eticheta || 'Recomandat') + '</span>' : '') +
+        '<h3>' + esc(p.nume) + '</h3><p class="sub">' + esc(p.subtitlu || '') + '</p>' +
+        '<div><div class="p"><b>' + RON.format(pret) + '</b><span>RON / lună' + (stare.plata === 'anual' && red ? ', plătit anual' : '') + '</span></div>' +
+        (p.perioada_minima_luni ? '<p class="min">minim ' + esc(p.perioada_minima_luni) + ' luni, apoi lunar</p>' : '') + '</div>' +
+        '<ul>' + (p.include || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' +
+        (p.disponibil === false ? '<p class="astept">Listă de așteptare: se deschide pe măsură ce cresc.</p>' : '<a class="btn ' + (e ? 'btn--rosu' : 'btn--inchis') + '" href="#contact">Vreau ' + esc(p.nume) + ' <span class="sag" aria-hidden="true">→</span></a>') +
+        '</div>';
+    }).join('') + '</div>';
+    if (comb.length) html += '<div class="combo-uri">' + comb.map(function (c) { var sep = c.conditii && c.conditii.separat; return '<div class="combo"><b>' + esc(c.nume) + '</b><span>' + esc(c.subtitlu || '') + '</span><span class="pr">' + RON.format(c.pret) + ' RON' + (sep ? '<s>' + RON.format(sep) + '</s>' : '') + '</span></div>'; }).join('') + '</div>';
+    if (unice.length) html += '<p class="usi">' + unice.map(function (u) { return '<span>' + esc(u.nume) + ' <b>' + RON.format(u.pret) + ' RON</b>' + (u.unitate === 'zi' ? ' / zi' : u.unitate === 'ora' ? ' / oră' : '') + '</span>'; }).join('') + '</p>';
+    $('#trepte-loc').innerHTML = html;
+    if (S.pret_blocat_zile) $('#zile-blocat').textContent = S.pret_blocat_zile;
+    var com = $('#comutator-plata');
+    if (red) { com.hidden = false; $('#reducere').textContent = '−' + red + '%'; }
+  }
+  $$('#comutator-plata [data-plata]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      stare.plata = b.dataset.plata;
+      $$('#comutator-plata [data-plata]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      if (stare.catalog) randeazaPreturi(stare.catalog);
+    });
+  });
+
+  // ---------- cifrele live din sistem (totaluri, fără date personale) ----------
+  var ETICHETE_LIVE = [['firme_analizate', 'firme analizate de Research'], ['audituri', 'site-uri auditate'], ['mostre', 'mostre trimise'], ['apeluri', 'apeluri logate'], ['clienti_activi', 'clienți activi']];
+  function randeazaLive(c, la) {
+    if (!c) return;
+    var t = ETICHETE_LIVE.filter(function (e) { return typeof c[e[0]] === 'number'; });
+    if (!t.length) return;
+    $('#live-grid').innerHTML = t.map(function (e) { return '<div class="live-t"><b data-num="' + c[e[0]] + '">' + RON.format(c[e[0]]) + '</b><span>' + esc(e[1]) + '</span></div>'; }).join('');
+    var cand = c.actualizat_la || la;
+    $('#live-la').textContent = cand ? 'actualizat ' + new Date(cand).toLocaleString('ro-RO', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Bucharest' }) : '';
+    $('#live').hidden = false;
+    $$('#live-grid [data-num]').forEach(function (el) { laVedere(el, function () { numara(el); }, 0.6); });
+  }
+
+  // datele de previzualizare (dacă pagina le are) sau cele live de pe server
+  if (window.PANOU_DATE) { randeazaPreturi(window.PANOU_DATE.catalog); randeazaLive(window.PANOU_DATE.cifre); }
+  else if (window.fetch && location.protocol.indexOf('http') === 0) {
+    fetch('/api/panou-date', { headers: { accept: 'application/json' } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) { if (!d) return; randeazaPreturi(d.catalog); randeazaLive(d.cifre, d.la); })
+      .catch(function () {});
+  }
+})();
+</script>
+</body>
+</html>
