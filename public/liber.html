@@ -3,22 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Serile înapoi · AleSign&amp;Co</title>
+<title>AleSystem Design · Mostra ta</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Ai deschis afacerea ca să fii liber. Eu construiesc compania din spatele ei, din boți: clienți, site, postări, reclame, raport. Tu doar aprobi. Cere mostra ta gratuită.">
-<meta property="og:title" content="Ai scăpat de 9–5. Acum lucrezi 9–23?">
-<meta property="og:description" content="Un sistem care îți face marketingul cât dormi. Tu doar aprobi. Cere mostra ta gratuită.">
+<meta name="description" content="Ultima clientă pleacă la 8 și abia apoi te apuci de postat? AleSystem Design face partea asta în locul tău. Tu doar zici da sau nu. Cere o mostră gratuită.">
+<meta property="og:title" content="Vrei clienți noi fără să mai stai pe Instagram până noaptea?">
+<meta property="og:description" content="AleSystem Design postează, îți ține site-ul la zi și îți spune lunar ce a adus clienți. Tu doar aprobi, de pe telefon.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#f5f2ec">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
-  /* Layout: o scrisoare caldă pe ivoriu, cu un telefon care trece de la noapte la dimineață; un singur fir până la formular. */
+  /* Layout: o scrisoare caldă pe ivoriu; sus, un telefon real pe marmură, între noapte și dimineață. */
   :root {
     --ivoriu: #f5f2ec; --hartie: #fbf9f5; --linie: #e2ddd3; --text: #141414; --gri: #6b675f; --gri2: #a39e94;
-    --cerneala: #0c0c0d; --noapte: #151827; --noapte2: #232842; --rosu: #ff2a2e; --rosu-palid: #ffe9e7; --aur: #b08a1c; --aur-l: #e8c468; --verde: #1f7a4d;
+    --cerneala: #0c0c0d; --rosu: #ff2a2e; --rosu-palid: #ffe9e7; --aur: #b08a1c; --aur-l: #e8c468; --verde: #1f7a4d;
+    --foto: url('/lp/fundal-liber.jpg');
     --f-display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
     --f-text: Manrope, 'Segoe UI', system-ui, sans-serif;
+    --f-ios: -apple-system, 'SF Pro Display', 'Segoe UI', Manrope, system-ui, sans-serif;
     color-scheme: light;
   }
   * { box-sizing: border-box; }
@@ -30,12 +32,12 @@
   h1, h2, h3, h4, p, ol, ul, figure { margin: 0; }
   h1, h2, h3 { font-family: var(--f-display); font-weight: 600; letter-spacing: -0.012em; line-height: 1.05; text-wrap: balance; }
   :focus-visible { outline: 2px solid var(--rosu); outline-offset: 3px; border-radius: 6px; }
-  .wrap { width: min(1120px, 100%); margin-inline: auto; padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+  .wrap { width: min(1160px, 100%); margin-inline: auto; padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
   .ingust { width: min(760px, 100%); }
   section { padding-block: clamp(64px, 9vw, 116px); }
-  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gri); }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gri); }
   .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--rosu); flex: none; }
-  .h2 { font-size: clamp(36px, 5.4vw, 62px); margin-top: 16px; }
+  .h2 { font-size: clamp(36px, 5.2vw, 60px); margin-top: 16px; }
   .h2 em, h1 em { font-style: italic; font-weight: 500; color: var(--rosu); }
   .lead { margin-top: 18px; font-size: clamp(17px, 1.5vw, 19.5px); color: #3d3a33; max-width: 60ch; }
   .num { font-variant-numeric: lining-nums tabular-nums; }
@@ -51,48 +53,77 @@
   /* ---------- antet ---------- */
   .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: color-mix(in srgb, var(--ivoriu) 88%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--linie); }
   .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 14px; height: 62px; }
-  .marca { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 14.5px; text-decoration: none; }
-  .marca svg { width: 24px; height: 24px; }
+  .marca { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; line-height: 1.1; }
+  .marca svg { width: 26px; height: 26px; flex: none; }
   .marca .punct { transform-box: view-box; transform-origin: 28px 28px; }
+  .marca b { display: block; font-weight: 800; font-size: 14.5px; }
+  .marca small { display: block; font-size: 11px; color: var(--gri); }
   .top .btn { padding: 10px 18px; font-size: 14px; }
 
   /* ---------- erou ---------- */
-  .erou { padding-block: clamp(40px, 6vw, 84px) clamp(56px, 7vw, 96px); }
+  .erou { padding-block: clamp(36px, 5vw, 72px) clamp(56px, 7vw, 96px); }
   .erou-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; align-items: center; }
-  @media (min-width: 940px) { .erou-grid { grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); } }
-  .erou h1 { font-size: clamp(46px, 7.6vw, 96px); line-height: 0.98; margin-top: 20px; }
-  .erou h1 em { display: block; }
-  .erou .lead { max-width: 52ch; }
-  .erou-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-top: 30px; }
-  .gratis { font-size: 14px; color: var(--gri); }
+  @media (min-width: 980px) { .erou-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); } }
+  .erou h1 { font-size: clamp(42px, 5.8vw, 78px); line-height: 1.02; margin-top: 20px; }
+  .erou .lead { max-width: 54ch; }
+  .erou-cta { display: grid; gap: 14px; justify-items: start; margin-top: 30px; }
+  .gratis { font-size: 14.5px; color: var(--gri); }
   .gratis b { color: var(--text); }
 
-  .scena { position: relative; display: grid; place-items: center; padding: clamp(22px, 4vw, 40px) 16px; border-radius: 32px; overflow: hidden; background: linear-gradient(160deg, var(--noapte2), var(--noapte)); transition: background 1.2s ease; min-height: 560px; }
-  .scena.zi { background: linear-gradient(160deg, #f7d9b9, #f3e6d3 55%, #f5f2ec); }
-  .scena::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(1.4px 1.4px at 12% 18%, #fff8, transparent), radial-gradient(1.2px 1.2px at 78% 12%, #fff9, transparent), radial-gradient(1px 1px at 42% 30%, #fff6, transparent), radial-gradient(1.4px 1.4px at 88% 44%, #fff7, transparent), radial-gradient(1px 1px at 22% 62%, #fff5, transparent), radial-gradient(1.2px 1.2px at 64% 78%, #fff6, transparent); transition: opacity 1.2s; }
-  .scena.zi::before { opacity: 0; }
-  .astru { position: absolute; top: 34px; right: 38px; width: 54px; height: 54px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fffbe9, #e8e3d0 60%, #c9c3ad); box-shadow: 0 0 40px 6px rgba(255, 250, 230, 0.25); transition: all 1.2s ease; }
-  .scena.zi .astru { background: radial-gradient(circle at 40% 40%, #fff6d8, #ffcf6b 55%, #ff9f43); box-shadow: 0 0 70px 20px rgba(255, 178, 80, 0.45); }
-  .telefon { position: relative; z-index: 1; width: min(310px, 100%); border-radius: 44px; padding: 14px; background: #0d0d10; box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7), inset 0 0 0 2px #2a2a31; }
-  .ecran { position: relative; border-radius: 32px; overflow: hidden; padding: 18px 14px 22px; min-height: 470px; background: linear-gradient(180deg, #1c2036, #0f1120); transition: background 1.2s ease; color: #fff; }
-  .scena.zi .ecran { background: linear-gradient(180deg, #ffd9a8, #fbe9d4 60%, #f7efe3); color: var(--text); }
-  .ecran-sus { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; opacity: 0.85; }
-  .ceas { text-align: center; margin: 18px 0 4px; font-family: var(--f-display); font-size: 70px; font-weight: 500; line-height: 1; font-variant-numeric: lining-nums tabular-nums; }
-  .ziua { text-align: center; font-size: 13px; opacity: 0.75; margin-bottom: 18px; }
-  .notif { display: grid; gap: 8px; padding: 0; list-style: none; }
-  .notif li { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px 12px; border-radius: 18px; background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(8px); font-size: 12.5px; line-height: 1.35; }
-  .scena.zi .notif li { background: rgba(255, 255, 255, 0.72); box-shadow: 0 6px 18px -12px rgba(20, 20, 20, 0.35); }
-  .notif .ic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font-weight: 800; font-size: 13px; color: #fff; }
-  .notif b { display: block; font-size: 12.5px; }
-  .notif time { font-size: 11px; opacity: 0.6; white-space: nowrap; }
-  .comuta { position: relative; z-index: 1; display: inline-flex; gap: 4px; margin-top: 18px; padding: 4px; border-radius: 999px; background: rgba(255, 255, 255, 0.14); backdrop-filter: blur(8px); }
-  .scena.zi .comuta { background: rgba(20, 20, 20, 0.08); }
-  .comuta button { font: inherit; font-size: 13px; font-weight: 700; padding: 8px 16px; border-radius: 999px; border: 0; cursor: pointer; background: transparent; color: rgba(255, 255, 255, 0.75); }
+  .scena { position: relative; isolation: isolate; display: grid; place-items: center; padding: clamp(28px, 4vw, 48px) 16px 26px; border-radius: 34px; overflow: hidden; min-height: 680px; box-shadow: 0 40px 90px -50px rgba(20, 20, 20, 0.5); }
+  .scena-foto { position: absolute; inset: -4%; z-index: -3; background: var(--foto) 38% 55% / cover; transform: translate3d(calc(var(--mx, 0) * -10px), calc(var(--my, 0) * -10px), 0) scale(1.04); transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .scena-noapte { position: absolute; inset: 0; z-index: -2; background: radial-gradient(420px 320px at 78% 18%, rgba(255, 196, 120, 0.22), transparent 70%), linear-gradient(180deg, rgba(14, 18, 38, 0.86), rgba(14, 18, 38, 0.62) 60%, rgba(14, 18, 38, 0.8)); transition: opacity 1.4s ease; }
+  .scena-zi { position: absolute; inset: 0; z-index: -2; opacity: 0; background: radial-gradient(520px 420px at 85% 0%, rgba(255, 220, 170, 0.55), transparent 70%), linear-gradient(180deg, rgba(255, 250, 242, 0.1), rgba(255, 246, 232, 0.25)); transition: opacity 1.4s ease; }
+  .scena.zi .scena-noapte { opacity: 0; }
+  .scena.zi .scena-zi { opacity: 1; }
+
+  .tel-wrap { perspective: 1400px; }
+  .tel-plutire { position: relative; }
+  .telefon { position: relative; width: min(290px, 72vw); aspect-ratio: 9 / 19.4; border-radius: 52px; padding: 11px; transform: rotateY(calc(var(--mx, 0) * 7deg - 4deg)) rotateX(calc(var(--my, 0) * -6deg + 3deg)); transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    background: linear-gradient(140deg, #f1efeb 0%, #a8a49d 14%, #ece9e4 30%, #8e8a83 52%, #dcd9d3 72%, #7a766f 100%);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45), inset 0 0 0 1.5px rgba(255, 255, 255, 0.55), inset 0 0 0 4px rgba(0, 0, 0, 0.25), 0 60px 90px -40px rgba(8, 10, 22, 0.75), 0 26px 40px -24px rgba(8, 10, 22, 0.6); }
+  .buton-lat { position: absolute; width: 3px; border-radius: 2px; background: linear-gradient(90deg, #6e6a64, #c9c5bf); }
+  .buton-lat.s1 { left: -3px; top: 104px; height: 26px; } .buton-lat.s2 { left: -3px; top: 150px; height: 48px; } .buton-lat.s3 { left: -3px; top: 208px; height: 48px; } .buton-lat.d1 { right: -3px; left: auto; top: 164px; height: 74px; background: linear-gradient(270deg, #6e6a64, #c9c5bf); }
+  .ecran { position: absolute; inset: 11px; border-radius: 42px; overflow: hidden; background: #000; color: #fff; font-family: var(--f-ios); }
+  .tapet { position: absolute; inset: -30px; background: var(--foto) 45% 50% / cover; filter: blur(14px) saturate(1.1); transform: scale(1.08); }
+  .tapet-ton { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 14, 34, 0.55), rgba(10, 14, 34, 0.35) 45%, rgba(10, 14, 34, 0.7)); transition: background 1.4s ease; }
+  .scena.zi .tapet-ton { background: linear-gradient(180deg, rgba(74, 52, 30, 0.42), rgba(74, 52, 30, 0.16) 45%, rgba(48, 34, 20, 0.4)); }
+  .reflex { position: absolute; inset: 0; z-index: 8; pointer-events: none; border-radius: 42px; background: linear-gradient(118deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 26%, rgba(255, 255, 255, 0) 40%); }
+  .insula { position: absolute; z-index: 9; top: 11px; left: 50%; width: 90px; height: 26px; margin-left: -45px; border-radius: 20px; background: #000; }
+  .bara-stare { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; padding: 15px 26px 0; font-size: 13px; font-weight: 600; letter-spacing: 0.01em; }
+  .bara-stare svg { height: 11px; width: auto; }
+  .lacat { position: relative; z-index: 2; display: grid; place-items: center; margin-top: 18px; }
+  .lacat svg { width: 13px; height: 16px; opacity: 0.9; }
+  .data { position: relative; z-index: 2; text-align: center; margin-top: 6px; font-size: 15.5px; font-weight: 600; opacity: 0.92; }
+  .ora { position: relative; z-index: 2; text-align: center; font-size: 76px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: lining-nums tabular-nums; text-shadow: 0 2px 20px rgba(0, 0, 0, 0.15); }
+  .notificari { position: absolute; z-index: 2; left: 9px; right: 9px; bottom: 74px; display: grid; gap: 7px; padding: 0; margin: 0; list-style: none; }
+  .notif { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 10px; align-items: start; padding: 11px 12px; border-radius: 20px; background: rgba(246, 244, 240, 0.72); backdrop-filter: blur(22px) saturate(170%); -webkit-backdrop-filter: blur(22px) saturate(170%); color: #111; box-shadow: 0 8px 22px -14px rgba(0, 0, 0, 0.5); }
+  .notif-sus { display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; }
+  .notif-sus b { font-weight: 700; }
+  .notif-sus time { color: rgba(0, 0, 0, 0.45); font-size: 11.5px; white-space: nowrap; }
+  .notif p { font-size: 12.5px; line-height: 1.32; color: #1d1d1f; }
+  .ic { width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; overflow: hidden; }
+  .ic svg { width: 22px; height: 22px; }
+  .ic--ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
+  .ic--wa { background: linear-gradient(180deg, #5efc82, #1fbd4a); }
+  .ic--g { background: #fff; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06); }
+  .ic--cal { background: #fff; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06); display: grid; grid-template-rows: 11px 1fr; place-items: center; font-family: var(--f-ios); }
+  .ic--cal span { font-size: 7px; font-weight: 700; color: #ff3b30; text-transform: uppercase; margin-top: 3px; }
+  .ic--cal b { font-size: 17px; font-weight: 500; color: #111; line-height: 1; margin-top: -2px; }
+  .ic--as { background: #0c0c0d; }
+  .tel-jos { position: absolute; z-index: 2; left: 0; right: 0; bottom: 20px; display: flex; justify-content: space-between; padding: 0 30px; }
+  .tel-jos span { width: 42px; height: 42px; border-radius: 50%; background: rgba(40, 40, 46, 0.42); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); display: grid; place-items: center; }
+  .tel-jos svg { width: 17px; height: 17px; }
+  .indicator { position: absolute; z-index: 2; bottom: 7px; left: 50%; width: 112px; height: 4px; margin-left: -56px; border-radius: 3px; background: rgba(255, 255, 255, 0.85); }
+  .umbra { position: absolute; left: 50%; bottom: -26px; width: 72%; height: 34px; margin-left: -36%; border-radius: 50%; background: radial-gradient(closest-side, rgba(10, 10, 20, 0.45), transparent); filter: blur(6px); z-index: -1; }
+  .comuta { position: relative; z-index: 3; display: inline-flex; gap: 4px; margin-top: 40px; padding: 4px; border-radius: 999px; background: rgba(255, 255, 255, 0.16); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.2); }
+  .scena.zi .comuta { background: rgba(255, 255, 255, 0.55); border-color: rgba(20, 20, 20, 0.08); }
+  .comuta button { font: inherit; font-size: 13.5px; font-weight: 700; padding: 9px 16px; border-radius: 999px; border: 0; cursor: pointer; background: transparent; color: rgba(255, 255, 255, 0.82); }
   .scena.zi .comuta button { color: var(--gri); }
-  .comuta button[aria-pressed="true"] { background: #fff; color: var(--text); }
+  .comuta button[aria-pressed="true"] { background: #fff; color: var(--text); box-shadow: 0 4px 14px -6px rgba(0, 0, 0, 0.4); }
   .scena.zi .comuta button[aria-pressed="true"] { background: var(--text); color: #fff; }
 
-  /* ---------- sună cunoscut ---------- */
+  /* ---------- te regăsești ---------- */
   .cunoscut { background: var(--hartie); border-block: 1px solid var(--linie); }
   .dureri { margin-top: 36px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0; list-style: none; }
   @media (max-width: 720px) { .dureri { grid-template-columns: minmax(0, 1fr); } }
@@ -132,7 +163,6 @@
   .monograma b { display: block; font-family: var(--f-display); font-size: 28px; color: #f4f1ea; font-weight: 600; }
   .scrisoare { display: grid; gap: 20px; font-size: clamp(17px, 1.5vw, 19.5px); line-height: 1.7; color: #d9d4ca; max-width: 62ch; }
   .scrisoare .mare { font-family: var(--f-display); font-size: clamp(28px, 3.2vw, 40px); line-height: 1.2; color: #f4f1ea; }
-  .scrisoare .mare em { color: var(--rosu); font-style: italic; }
   .scrisoare b { color: #fff; }
   .semn { font-family: var(--f-display); font-style: italic; font-size: 36px; color: #f4f1ea; }
 
@@ -142,8 +172,8 @@
   @media (max-width: 560px) { .munci { grid-template-columns: minmax(0, 1fr); } }
   .munca { display: grid; gap: 10px; align-content: start; padding: 24px; border-radius: 22px; background: #fff; border: 1px solid var(--linie); transition: transform 0.3s, box-shadow 0.3s; }
   .munca:hover { transform: translateY(-3px); box-shadow: 0 24px 50px -36px rgba(20, 20, 20, 0.5); }
-  .munca .ic { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: var(--rosu-palid); color: var(--rosu); }
-  .munca .ic svg { width: 24px; height: 24px; }
+  .munca .ic-m { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: var(--rosu-palid); color: var(--rosu); }
+  .munca .ic-m svg { width: 24px; height: 24px; }
   .munca h3 { font-size: 27px; }
   .munca p { font-size: 15px; color: #3d3a33; }
   .munca .tu { display: flex; align-items: center; gap: 8px; margin-top: 4px; padding-top: 12px; border-top: 1px dashed var(--linie); font-size: 14px; font-weight: 700; }
@@ -151,7 +181,7 @@
   .reguli { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px; padding: 0; list-style: none; }
   .reguli li { padding: 8px 16px; border-radius: 999px; background: var(--cerneala); color: #f4f1ea; font-size: 14px; font-weight: 600; }
 
-  /* ---------- luna ---------- */
+  /* ---------- prima lună ---------- */
   .luna { background: var(--hartie); border-block: 1px solid var(--linie); }
   .luna-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: start; margin-top: 40px; }
   @media (max-width: 900px) { .luna-grid { grid-template-columns: minmax(0, 1fr); } }
@@ -275,19 +305,20 @@
   .subsol .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 20px; }
   .subsol span.sel { user-select: all; color: #f4f1ea; }
 
-  /* bara de jos pe telefon, până ajungi la formular */
   .bara-jos { position: fixed; left: 0; right: 0; bottom: 0; z-index: 55; padding: 10px max(14px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(14px, env(safe-area-inset-left, 0px)); background: color-mix(in srgb, var(--ivoriu) 92%, transparent); backdrop-filter: blur(12px); border-top: 1px solid var(--linie); display: none; transition: transform 0.3s; }
   .bara-jos .btn { width: 100%; padding: 14px 20px; }
   .bara-jos.ascunsa { transform: translateY(110%); }
-  @media (max-width: 760px) { .bara-jos { display: block; } }
+  @media (max-width: 760px) { .bara-jos { display: block; } .scena { min-height: 620px; } }
 
   @keyframes puls { 0% { box-shadow: 0 0 0 0 rgba(255, 42, 46, 0.6); } 100% { box-shadow: 0 0 0 12px rgba(255, 42, 46, 0); } }
   @keyframes rotire { to { transform: rotate(360deg); } }
-  @keyframes intra { from { opacity: 0; transform: translateY(14px) scale(0.98); } }
+  @keyframes plutire { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+  @keyframes intra { from { opacity: 0; transform: translateY(-10px) scale(0.97); } }
   @media (prefers-reduced-motion: no-preference) {
     .marca .punct { animation: rotire 9s linear infinite; }
-    .notif.anim li { animation: intra 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) backwards; }
-    .notif.anim li:nth-child(2) { animation-delay: 0.12s; } .notif.anim li:nth-child(3) { animation-delay: 0.24s; } .notif.anim li:nth-child(4) { animation-delay: 0.36s; }
+    .tel-plutire { animation: plutire 6s ease-in-out infinite; }
+    .notificari.anim .notif { animation: intra 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) backwards; }
+    .notificari.anim .notif:nth-child(2) { animation-delay: 0.1s; } .notificari.anim .notif:nth-child(3) { animation-delay: 0.2s; } .notificari.anim .notif:nth-child(4) { animation-delay: 0.3s; }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -302,9 +333,9 @@
   <div class="wrap">
     <a class="marca" href="https://alesign.net">
       <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><circle cx="28" cy="28" r="20"/><circle cx="28" cy="28" r="5" fill="currentColor" stroke="none"/><g class="punct"><circle cx="42.1" cy="13.9" r="6" fill="#ff2a2e" stroke="none"/></g></svg>
-      AleSign&amp;Co
+      <span><b>AleSystem Design</b><small>de la AleSign&amp;Co</small></span>
     </a>
-    <a class="btn btn--rosu" href="#aplica">Vreau mostra mea</a>
+    <a class="btn btn--rosu" href="#aplica">Vreau mostra gratis</a>
   </div>
 </header>
 
@@ -313,53 +344,68 @@
   <section class="erou" id="sus">
     <div class="wrap erou-grid">
       <div>
-        <p class="eyebrow">Pentru antreprenorii care și-au pierdut serile</p>
-        <h1>Ai scăpat de 9–5. <em>Acum lucrezi 9–23?</em></h1>
-        <p class="lead">Ai deschis afacerea ca să fii liber. Pe drum ai devenit și social media manager, și web designer, și omul care răspunde la mesaje la miezul nopții. Eu construiesc compania din spatele companiei tale, din boți. Tu îți iei serile înapoi.</p>
+        <p class="eyebrow">AleSystem Design · pentru saloane, spa-uri și barbershop-uri</p>
+        <h1>Vrei clienți noi fără să mai stai pe <em>Instagram până noaptea?</em></h1>
+        <p class="lead">Știu cum e. Ultima clientă pleacă la 8, faci curat, mănânci ceva în picioare și abia apoi te apuci de postat. Sau nu te mai apuci deloc, că nu mai ai putere. AleSystem Design face partea asta în locul tău. Tu doar zici da sau nu, de pe telefon.</p>
         <div class="erou-cta">
-          <a class="btn btn--rosu" href="#aplica">Vreau serile înapoi <span class="sag" aria-hidden="true">→</span></a>
-          <p class="gratis"><b>Mostra e gratuită.</b> O vezi înainte să plătești un leu.</p>
+          <a class="btn btn--rosu" href="#aplica">Vreau să văd cum ar arăta la mine <span class="sag" aria-hidden="true">→</span></a>
+          <p class="gratis"><b>Îți fac o mostră gratis</b>, cu numele afacerii tale. N-ai nicio obligație.</p>
         </div>
       </div>
-      <div class="scena" id="scena" aria-label="Telefonul tău, noaptea acum și dimineața cu sistemul">
-        <div class="astru" aria-hidden="true"></div>
-        <div class="telefon">
-          <div class="ecran">
-            <div class="ecran-sus"><span id="tel-op">AleSign</span><span>100%</span></div>
-            <div class="ceas" id="tel-ora">23:47</div>
-            <div class="ziua" id="tel-zi">Marți, după o zi întreagă cu clienții</div>
-            <ul class="notif" id="tel-notif">
-              <li><span class="ic" style="background:#d6249f">IG</span><span><b>Instagram</b>Încă n-ai postat nimic azi.</span><time>acum</time></li>
-              <li><span class="ic" style="background:#25d366">W</span><span><b>WhatsApp</b>4 conversații fără răspuns.</span><time>2 h</time></li>
-              <li><span class="ic" style="background:#4285f4">G</span><span><b>Google</b>Recenzie nouă, de 3 stele. Fără răspuns.</span><time>5 h</time></li>
-              <li><span class="ic" style="background:#5b6070">Ag</span><span><b>Agenția</b>„Revenim cu raportul săptămâna viitoare.”</span><time>ieri</time></li>
-            </ul>
+
+      <div class="scena" id="scena" aria-label="Telefonul tău seara, fără AleSystem, și dimineața, cu AleSystem">
+        <div class="scena-foto" aria-hidden="true"></div>
+        <div class="scena-noapte" aria-hidden="true"></div>
+        <div class="scena-zi" aria-hidden="true"></div>
+        <div class="tel-wrap">
+          <div class="tel-plutire">
+            <div class="telefon">
+              <span class="buton-lat s1"></span><span class="buton-lat s2"></span><span class="buton-lat s3"></span><span class="buton-lat d1"></span>
+              <div class="ecran">
+                <div class="tapet"></div><div class="tapet-ton"></div>
+                <div class="insula"></div>
+                <div class="bara-stare"><span>RO</span><svg viewBox="0 0 64 14" fill="#fff" aria-hidden="true"><rect x="0" y="9" width="3.5" height="5" rx="1"/><rect x="5.5" y="6" width="3.5" height="8" rx="1"/><rect x="11" y="3" width="3.5" height="11" rx="1"/><rect x="16.5" y="0" width="3.5" height="14" rx="1"/><path d="M33 13.2l-3.4-3.6a4.8 4.8 0 0 1 6.8 0zM28 8a7 7 0 0 1 10 0l1.6-1.7a9.4 9.4 0 0 0-13.2 0zM25 5a11.2 11.2 0 0 1 16 0l1.6-1.7a13.6 13.6 0 0 0-19.2 0z"/><rect x="46" y="1.5" width="15.5" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity=".55"/><rect x="47.6" y="3.1" width="10.5" height="7.8" rx="1.6"/><rect x="62.2" y="5" width="1.6" height="4" rx=".8" fill-opacity=".55"/></svg></div>
+                <div class="lacat"><svg viewBox="0 0 14 18" fill="#fff" aria-hidden="true"><path d="M3 8V5.5a4 4 0 0 1 8 0V8h.5A1.5 1.5 0 0 1 13 9.5v6a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 1 15.5v-6A1.5 1.5 0 0 1 2.5 8zm1.6 0h4.8V5.5a2.4 2.4 0 0 0-4.8 0z"/></svg></div>
+                <div class="data" id="tel-zi">marți, 21 octombrie</div>
+                <div class="ora" id="tel-ora">23:47</div>
+                <ul class="notificari anim" id="tel-notif">
+                  <li class="notif"><span class="ic ic--wa"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3zm5.1 12.6c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1a14 14 0 0 1-1.4-.5 11 11 0 0 1-4.3-3.8c-.3-.5-.9-1.4-.9-2.6s.6-1.8.9-2.1c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.1.1.3 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 1.9 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1c.2-.2.4-.2.6-.1l1.9.9c.3.1.4.2.5.3 0 .2 0 .8-.2 1.4z"/></svg></span><span><span class="notif-sus"><b>WhatsApp</b><time>acum</time></span><p>„Bună seara! Mai aveți loc mâine dimineață?”</p></span></li>
+                  <li class="notif"><span class="ic ic--ig"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></span><span><span class="notif-sus"><b>Instagram</b><time>2 h</time></span><p>4 mesaje noi și 2 comentarii fără răspuns.</p></span></li>
+                  <li class="notif"><span class="ic ic--g"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.3-.2-1.9H12v3.6h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.2z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z"/><path fill="#FBBC05" d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3.1a10 10 0 0 0 0 9.2z"/><path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.9-2.9A10 10 0 0 0 3.1 7.4L6.4 10c.8-2.3 3-4.1 5.6-4.1z"/></svg></span><span><span class="notif-sus"><b>Google Business</b><time>5 h</time></span><p>Recenzie nouă, 3 stele: „Am așteptat cam mult…” Încă fără răspuns.</p></span></li>
+                  <li class="notif"><span class="ic ic--cal"><span>mie</span><b>22</b></span><span><span class="notif-sus"><b>Calendar</b><time>mâine</time></span><p>09:00 · prima programare. Mai ai 9 ore de somn.</p></span></li>
+                </ul>
+                <div class="tel-jos" aria-hidden="true"><span><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 2h8v4l-2 4v11a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V10L8 6z"/></svg></span><span><svg viewBox="0 0 24 24" fill="#fff"><path d="M4 7h3l2-2h6l2 2h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1zm8 3a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/></svg></span></div>
+                <div class="indicator"></div>
+                <div class="reflex"></div>
+              </div>
+            </div>
+            <div class="umbra" aria-hidden="true"></div>
           </div>
         </div>
         <div class="comuta" role="group" aria-label="Alege momentul">
-          <button type="button" data-moment="noapte" aria-pressed="true">Acum</button>
-          <button type="button" data-moment="zi" aria-pressed="false">Cu sistemul</button>
+          <button type="button" data-moment="noapte" aria-pressed="true">Fără AleSystem</button>
+          <button type="button" data-moment="zi" aria-pressed="false">Cu AleSystem</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===================== SUNĂ CUNOSCUT ===================== -->
+  <!-- ===================== TE REGĂSEȘTI ===================== -->
   <section class="cunoscut" id="cunoscut">
     <div class="wrap">
-      <p class="eyebrow">Fii sincer cu tine</p>
-      <h2 class="h2">Sună cunoscut?</h2>
-      <p class="lead">Bifează ce ți se întâmplă. Nu trimite nimic nicăieri: e doar între tine și ecran.</p>
+      <p class="eyebrow">Hai să fim sinceri</p>
+      <h2 class="h2">Te regăsești aici?</h2>
+      <p class="lead">Bifează ce ți se potrivește. Rămâne între tine și ecran, nu se trimite nicăieri.</p>
       <ul class="dureri" id="dureri">
-        <li><button class="durere" type="button" aria-pressed="false" data-durere="Postez noaptea, după o zi întreagă cu clienții"><span class="bifa" aria-hidden="true">✓</span><span>Postezi la 11 noaptea, după o zi întreagă cu clienții. Sau nu mai postezi deloc.</span></button></li>
-        <li><button class="durere" type="button" aria-pressed="false" data-durere="Știu că trebuie reclame, dar n-am timp să învăț"><span class="bifa" aria-hidden="true">✓</span><span>Știi că ar trebui să faci reclame, dar n-ai când să înveți cum, iar banii pe ele te sperie.</span></button></li>
-        <li><button class="durere" type="button" aria-pressed="false" data-durere="Am plătit o agenție și n-a mers"><span class="bifa" aria-hidden="true">✓</span><span>Ai plătit o agenție. Ai primit un raport frumos și aceiași clienți ca înainte.</span></button></li>
-        <li><button class="durere" type="button" aria-pressed="false" data-durere="Site-ul e vechi sau nu există"><span class="bifa" aria-hidden="true">✓</span><span>Site-ul l-a făcut un prieten acum câțiva ani. Sau încă nu ai unul.</span></button></li>
-        <li><button class="durere" type="button" aria-pressed="false" data-durere="Concurenții apar înaintea mea pe Google"><span class="bifa" aria-hidden="true">✓</span><span>Concurentul de pe strada vecină apare primul pe Google, deși știi că lucrezi mai bine.</span></button></li>
-        <li><button class="durere" type="button" aria-pressed="false" data-durere="Răspund la mesaje în weekend"><span class="bifa" aria-hidden="true">✓</span><span>Răspunzi la mesaje sâmbătă seara, în loc să stai cu oamenii tăi.</span></button></li>
+        <li><button class="durere" type="button" aria-pressed="false" data-durere="N-am timp de postat"><span class="bifa" aria-hidden="true">✓</span><span>Postezi seara, obosit, doar ca să nu dispari de pe Instagram.</span></button></li>
+        <li><button class="durere" type="button" aria-pressed="false" data-durere="Nu-mi vin clienți noi din online"><span class="bifa" aria-hidden="true">✓</span><span>Știi că ar trebui să faci reclame, dar ți-e frică să nu arunci banii pe geam.</span></button></li>
+        <li><button class="durere" type="button" aria-pressed="false" data-durere="Am dat bani pe o agenție degeaba"><span class="bifa" aria-hidden="true">✓</span><span>Ai mai lucrat cu o agenție. Ai primit rapoarte, nu clienți.</span></button></li>
+        <li><button class="durere" type="button" aria-pressed="false" data-durere="Site-ul e vechi sau n-am deloc"><span class="bifa" aria-hidden="true">✓</span><span>Site-ul ți l-a făcut un prieten acum câțiva ani. Sau n-ai deloc.</span></button></li>
+        <li><button class="durere" type="button" aria-pressed="false" data-durere="Nu-mi vin clienți noi din online"><span class="bifa" aria-hidden="true">✓</span><span>Salonul de pe strada vecină apare primul pe Google, deși știi că tu lucrezi mai bine.</span></button></li>
+        <li><button class="durere" type="button" aria-pressed="false" data-durere="N-am timp de postat"><span class="bifa" aria-hidden="true">✓</span><span>Răspunzi la mesaje duminica, la masă, cu ai tăi lângă tine.</span></button></li>
       </ul>
       <div class="verdict" id="verdict-dureri" aria-live="polite">
-        <b id="verdict-text">Bifează ce te apasă. Te ascult.</b>
+        <b id="verdict-text">Bifează ce ți se potrivește.</b>
         <a class="btn btn--rosu" href="#aplica">Vreau să scap de asta <span class="sag" aria-hidden="true">→</span></a>
       </div>
     </div>
@@ -369,19 +415,19 @@
   <section id="timp">
     <div class="wrap timp-grid">
       <div>
-        <p class="eyebrow">Socoteala pe care n-o faci</p>
-        <h2 class="h2">Cât timp îți fură <em>marketingul?</em></h2>
-        <p class="lead">Mută cursorul pe orele pe care le pui săptămânal în postări, mesaje, reclame și site. Apoi uită-te la cifra din dreapta. Atâta timp vreau să-ți dau înapoi.</p>
+        <p class="eyebrow">Socoteala pe care n-o face nimeni</p>
+        <h2 class="h2">Câte ore îți mănâncă, <em>de fapt?</em></h2>
+        <p class="lead">Pune câte ore pe săptămână stai pe postări, mesaje, reclame și site. Fii cinstit cu tine. Apoi uită-te la cifrele din dreapta.</p>
       </div>
       <div class="calc">
         <label for="ore">Ore pe săptămână <output id="ore-v" for="ore">8</output></label>
         <input id="ore" type="range" min="1" max="30" step="1" value="8" aria-describedby="ore-fraza">
         <div class="calc-rez">
           <div><b class="num" id="r-ore">416</b><span>ore pe an</span></div>
-          <div><b class="num" id="r-zile">52</b><span>zile de muncă de 8 ore</span></div>
-          <div><b class="num" id="r-weekend">26</b><span>weekenduri întregi</span></div>
+          <div><b class="num" id="r-zile">52</b><span>zile întregi de muncă</span></div>
+          <div><b class="num" id="r-weekend">26</b><span>weekenduri</span></div>
         </div>
-        <p class="calc-fraza" id="ore-fraza">Adică <b id="r-luni">aproape 3 luni</b> de muncă cu normă întreagă, pe an, doar ca să te vadă lumea.</p>
+        <p class="calc-fraza" id="ore-fraza">Adică vreo <b id="r-luni">3 luni</b> pe an în care muncești doar ca să te vadă lumea. Timp pe care l-ai putea da clienților. Sau celor de acasă.</p>
       </div>
     </div>
   </section>
@@ -391,16 +437,16 @@
     <div class="wrap poveste-grid">
       <div class="monograma">
         <div class="mono" aria-hidden="true">A</div>
-        <p><b>Alexandru Pavăl</b>fondator AleSign&amp;Co · AleSystem Design</p>
+        <p><b>Alexandru Pavăl</b>a construit AleSystem Design</p>
       </div>
       <div>
-        <p class="eyebrow">De unde a pornit</p>
+        <p class="eyebrow">Cine e în spatele AleSystem</p>
         <div class="scrisoare" style="margin-top: 22px">
-          <p class="mare">Sunt Alexandru. Nu vin cu zece ani de agenție. <em>Vin cu un sistem pe care l-am construit cu mâinile mele.</em></p>
-          <p>Din 2024 fac site-uri și identități de brand. Și am învățat repede un lucru incomod: <b>un site singur nu aduce clienți.</b> Ce aduce clienți e munca de după. Postările de marți. Răspunsul la recenzie. Reclama pornită la timp. Raportul care îți spune ce a mers.</p>
-          <p>Exact munca pe care un antreprenor n-are când s-o facă. Și exact munca pe care o agenție clasică ți-o vinde la oră, făcută de un om care mai are alte douăzeci de conturi.</p>
-          <p>Așa că am construit altceva: <b>un ecosistem de boți care face treaba unei agenții întregi</b>, cu un creier care nu ghicește și cu un om, eu, acolo unde contează gustul și banii tăi. Îl folosesc pentru firma mea, în fiecare zi.</p>
-          <p>Nu-ți promit vechime. Îți promit că răspund în aceeași zi și că îți arăt sistemul rulând, nu pe slide-uri.</p>
+          <p class="mare">Sunt Alexandru. Din 2024 fac site-uri și branding pentru afaceri mici.</p>
+          <p>Și am învățat ceva ce nu-ți spune nimeni când îți faci site: <b>un site singur nu aduce clienți.</b> Îi aduce ce faci după. Postarea de marți. Răspunsul la recenzia de 3 stele. Reclama pornită când trebuie. Raportul care îți spune ce a mers și ce nu.</p>
+          <p>Doar că omul care are salonul n-are timp de toate astea. Are clienți de tuns, de coafat, de masat. Și o agenție ți le vinde la oră, făcute de cineva care mai are alte douăzeci de conturi.</p>
+          <p>Așa a pornit AleSystem Design. Am construit un sistem care face munca de după, în fiecare zi, fără să obosească. Eu rămân acolo unde contează: gustul, deciziile, banii tăi. Îl folosesc și pentru firma mea, zi de zi.</p>
+          <p>N-o să-ți spun că am zece ani de agenție. N-am. Am un sistem pe care ți-l arăt cum rulează și îți răspund în aceeași zi.</p>
           <p class="semn">Alexandru</p>
         </div>
       </div>
@@ -410,46 +456,46 @@
   <!-- ===================== SISTEMUL ===================== -->
   <section id="sistemul">
     <div class="wrap">
-      <p class="eyebrow">Ce face sistemul în locul tău</p>
-      <h2 class="h2">Tu decizi direcția. <em>Restul rulează singur.</em></h2>
-      <p class="lead">Șase lucruri care îți mănâncă serile. Le face un sistem care nu obosește, nu ia concediu și nu uită. Ție îți rămâne doar decizia.</p>
+      <p class="eyebrow">Ce face AleSystem cât tu lucrezi</p>
+      <h2 class="h2">Tu te ocupi de clienți. <em>AleSystem de restul.</em></h2>
+      <p class="lead">Uite ce îți iau de pe umeri. Ție îți rămâne un singur lucru: să zici da sau nu.</p>
       <ul class="munci">
-        <li class="munca"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span><h3>Îți scrie strategia</h3><p>Se uită la primii 10 concurenți din jurul tău și scrie ce te face diferit. Din ea pleacă tot ce se publică.</p><span class="tu">semnezi poziționarea, o dată</span></li>
-        <li class="munca"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/></svg></span><h3>Îți face site-ul</h3><p>Rapid pe mobil, cu buton de programare și cu numele tău pe domeniul tău.</p><span class="tu">aprobi varianta finală</span></li>
-        <li class="munca"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3.5"/><circle cx="17" cy="7" r="0.8" fill="currentColor"/></svg></span><h3>Îți scrie și îți publică postările</h3><p>Calendarul lunii următoare e gata pe 23. Se publică singur, la ore bune.</p><span class="tu">aprobi calendarul, din telefon</span></li>
-        <li class="munca"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 15V9l12-5v16L4 15z"/><path d="M8 16l1 4h3l-1-3"/></svg></span><h3>Îți propune reclamele</h3><p>Pe o rază mică în jurul tău, cu buget zilnic plafonat. Niciun bot nu cheltuie banii tăi.</p><span class="tu">aprobi bugetul</span></li>
-        <li class="munca"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg></span><h3>Îți citește recenziile</h3><p>La fiecare câteva ore. Îți pregătește răspunsul, ca nimeni să nu mai rămână ignorat.</p><span class="tu">aprobi răspunsurile</span></li>
-        <li class="munca"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Îți scrie raportul</h3><p>Ce a mers, ce nu și ce urmează, cu cifrele tale reale. Îl citești în două minute.</p><span class="tu">îl citești la cafea</span></li>
+        <li class="munca"><span class="ic-m" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span><h3>Află ce te face diferit</h3><p>Se uită la saloanele din jurul tău și găsește ce ai tu și ele n-au. De acolo pornește tot ce se publică.</p><span class="tu">o citești și o semnezi, o dată</span></li>
+        <li class="munca"><span class="ic-m" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/></svg></span><h3>Îți face un site ca lumea</h3><p>Se încarcă repede pe telefon, are buton de programare și stă pe numele tău.</p><span class="tu">alegi varianta care-ți place</span></li>
+        <li class="munca"><span class="ic-m" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3.5"/><circle cx="17" cy="7" r="0.8" fill="currentColor"/></svg></span><h3>Postează în locul tău</h3><p>Pe 23 ai gata postările pe luna următoare. Ies singure, la orele când te văd cei mai mulți.</p><span class="tu">le aprobi din telefon</span></li>
+        <li class="munca"><span class="ic-m" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 15V9l12-5v16L4 15z"/><path d="M8 16l1 4h3l-1-3"/></svg></span><h3>Îți propune reclame care nu ard bani</h3><p>Doar în zona ta, cu un buget pe zi pe care nu-l depășește. Nu pornește nimic fără tine.</p><span class="tu">zici cât vrei să dai</span></li>
+        <li class="munca"><span class="ic-m" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg></span><h3>Are grijă de recenzii</h3><p>Le citește de câteva ori pe zi și îți pregătește răspunsul. Nimeni nu mai rămâne fără răspuns.</p><span class="tu">apeși trimite</span></li>
+        <li class="munca"><span class="ic-m" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Îți spune ce a mers</h3><p>Un raport pe lună, cu cifrele tale, pe înțelesul oricui. Fără jargon de agenție.</p><span class="tu">îl citești la cafea</span></li>
       </ul>
       <ul class="reguli">
-        <li>Nimic nu apare fără OK-ul tău</li>
-        <li>Domeniul rămâne pe numele tău</li>
-        <li>Fiecare text primește notă înainte să ajungă la tine</li>
+        <li>Nu apare nimic fără OK-ul tău</li>
+        <li>Domeniul e pe numele tău</li>
+        <li>Fiecare text e verificat înainte să ajungă la tine</li>
       </ul>
     </div>
   </section>
 
-  <!-- ===================== LUNA ===================== -->
+  <!-- ===================== PRIMA LUNĂ ===================== -->
   <section class="luna" id="luna">
     <div class="wrap">
-      <p class="eyebrow">Cum arată prima lună</p>
-      <h2 class="h2">Patru pași. <em>Fără ședințe lungi.</em></h2>
+      <p class="eyebrow">Cum începem</p>
+      <h2 class="h2">Prima lună, <em>pas cu pas.</em></h2>
       <div class="luna-grid">
         <ol class="pasi">
-          <li><span class="z">Azi</span><span><b>Îmi scrii</b>Completezi formularul de jos. Îți pregătesc o mostră doar pentru afacerea ta: ce am observat, un site demo cu numele tău, ce aș face prima lună.</span></li>
-          <li><span class="z">Ziua 0</span><span><b>Semnezi online</b>Dacă îți place mostra. Preț fix, contract scris, plata și în tranșe.</span></li>
-          <li><span class="z">Zilele 1–10</span><span><b>Îmi povestești brandul</b>30 de minute de discuție, câteva poze, un chestionar. Din ele se scrie memoria brandului tău.</span></li>
-          <li><span class="z">Zilele 10–14</span><span><b>Aprobi primul calendar</b>Din telefon. De aici, postările pleacă singure.</span></li>
-          <li><span class="z">Ziua 30</span><span><b>Citești primul raport</b>Și vorbim scurt despre ce urmează.</span></li>
+          <li><span class="z">Azi</span><span><b>Îmi scrii</b>Lași datele mai jos. Îți fac o mostră doar pentru tine: ce am observat, un site demo cu numele tău și ce aș face în prima lună.</span></li>
+          <li><span class="z">Ziua 0</span><span><b>Semnezi, dacă-ți place</b>Online, cu preț fix. Poți plăti și în tranșe.</span></li>
+          <li><span class="z">Zilele 1–10</span><span><b>Îmi povestești despre tine</b>Stăm de vorbă o jumătate de oră, îmi trimiți câteva poze și răspunzi la câteva întrebări. Din ele, AleSystem învață cum vorbești.</span></li>
+          <li><span class="z">Zilele 10–14</span><span><b>Aprobi primele postări</b>De pe telefon. De aici pleacă singure.</span></li>
+          <li><span class="z">Ziua 30</span><span><b>Primul raport</b>Și un telefon scurt despre ce facem mai departe.</span></li>
         </ol>
         <figure class="raport-mic" id="raport-mic">
-          <header><h3>Raportul tău, ziua 30</h3><span class="demo-et">Exemplu</span></header>
+          <header><h3>Raportul de la ziua 30</h3><span class="demo-et">Exemplu</span></header>
           <div class="mini">
             <div><span>Programări din online</span><b data-num="84">84</b><svg viewBox="0 0 100 34" data-serie="38,47,63,71,79,84" aria-hidden="true"></svg></div>
             <div><span>Vizite pe site</span><b data-num="3180">3.180</b><svg viewBox="0 0 100 34" data-serie="920,1350,2080,2610,2940,3180" aria-hidden="true"></svg></div>
             <div><span>Recenzii Google</span><b data-num="151">151</b><svg viewBox="0 0 100 34" data-serie="88,96,112,127,139,151" aria-hidden="true"></svg></div>
           </div>
-          <p>Exemplu pe un salon fictiv, cu cifre inventate, ca să vezi forma raportului. Raportul tău arată cifrele tale, cu sursa fiecăreia.</p>
+          <p>Un salon inventat, cu cifre inventate, doar ca să vezi cum arată raportul. În al tău vor fi cifrele tale, fiecare cu sursa ei.</p>
           <a href="https://demo.alesign.net/r/9adaf472ae7c48b19bac3be4569a54cd" target="_blank" rel="noopener">Deschide un raport exemplu complet →</a>
         </figure>
       </div>
@@ -459,14 +505,14 @@
   <!-- ===================== LIVE ===================== -->
   <section id="live" hidden>
     <div class="wrap">
-      <p class="eyebrow">Nu e o promisiune</p>
-      <h2 class="h2">Sistemul lucrează <em>chiar acum.</em></h2>
-      <p class="lead">Cifrele de mai jos vin direct din sistem, actualizate la câteva minute. Fără nume, fără date despre nimeni. Doar dovada că rulează.</p>
+      <p class="eyebrow">Nu trebuie să mă crezi pe cuvânt</p>
+      <h2 class="h2">AleSystem lucrează <em>chiar acum.</em></h2>
+      <p class="lead">Cifrele de mai jos vin direct din sistem și se actualizează singure. Fără nume și fără date despre cineva.</p>
       <div class="live-card">
         <div>
-          <span class="live-sus">Live din sistem</span>
+          <span class="live-sus">În timp real, din AleSystem</span>
           <div class="live-mare" id="live-mare">0</div>
-          <p class="live-text" id="live-text">firme analizate de Research în ultimele 30 de zile</p>
+          <p class="live-text" id="live-text">firme analizate în ultimele 30 de zile</p>
           <span class="live-ex" id="live-ex" hidden>Date exemplu · previzualizare</span>
           <div class="locuri" id="locuri" hidden>
             <div class="locuri-bara"><i id="locuri-bara"></i></div>
@@ -481,26 +527,26 @@
   <!-- ===================== PENTRU CINE ===================== -->
   <section id="pentru-cine">
     <div class="wrap">
-      <p class="eyebrow">Pentru cine lucrez</p>
-      <h2 class="h2">Nu lucrez cu oricine. <em>Și e spre binele tău.</em></h2>
-      <p class="lead">Acum lucrez adânc într-o singură nișă: Beauty &amp; Wellness premium, în București. Saloane, barbershop-uri, spa-uri, studiouri de unghii și sprâncene. Ai altă afacere? Aplică oricum. Îți spun sincer dacă te pot ajuta.</p>
+      <p class="eyebrow">Pentru cine e</p>
+      <h2 class="h2">Nu lucrez cu oricine. <em>Și îți explic de ce.</em></h2>
+      <p class="lead">Acum mă ocup de saloane, barbershop-uri, spa-uri și studiouri din București care vor să arate premium. Prefer să fac un lucru foarte bine decât zece pe jumătate. Ai altă afacere? Scrie-mi oricum și îți spun sincer dacă te pot ajuta.</p>
       <div class="cine-grid">
         <div class="cine">
-          <h3>Suntem potriviți dacă</h3>
+          <h3>Ne potrivim dacă</h3>
           <ul>
-            <li>ai o afacere pe care o vrei văzută ca premium, nu ca cea mai ieftină</li>
-            <li>vrei să decizi direcția, nu să faci tu munca</li>
-            <li>poți da 30 de minute la început și un click pe lună</li>
-            <li>vrei să știi exact ce a mers, cu cifre</li>
+            <li>vrei să arăți premium, nu cel mai ieftin din zonă</li>
+            <li>vrei să decizi tu, nu să faci tu</li>
+            <li>îmi poți da o jumătate de oră la început și un click pe lună</li>
+            <li>vrei să știi ce a mers, cu cifre</li>
           </ul>
         </div>
         <div class="cine cine--nu">
-          <h3>Nu suntem potriviți dacă</h3>
+          <h3>Nu ne potrivim dacă</h3>
           <ul>
-            <li>cauți cel mai mic preț de pe piață</li>
-            <li>vrei rezultate garantate peste noapte</li>
-            <li>vrei să scrii singur fiecare postare</li>
-            <li>vrei un tool pe care să-l configurezi tu</li>
+            <li>cauți cel mai mic preț</li>
+            <li>vrei rezultate garantate în două săptămâni</li>
+            <li>vrei să scrii tu fiecare postare</li>
+            <li>vrei un program pe care să-l configurezi singur</li>
           </ul>
         </div>
       </div>
@@ -512,20 +558,20 @@
     <div class="wrap">
       <div class="pachete-cap">
         <div>
-          <p class="eyebrow">Cât costă libertatea</p>
-          <h2 class="h2">Mai puțin decât <em>serile tale.</em></h2>
-          <p class="lead">Prețuri publice, fixe, fără asteriscuri. Alegi abonamentul și primești pe lângă el ce vezi mai jos.</p>
+          <p class="eyebrow">Prețuri</p>
+          <h2 class="h2">Cât costă. <em>Fără să mă suni ca să afli.</em></h2>
+          <p class="lead">Prețurile sunt aici, la vedere. Alegi abonamentul și primești pe deasupra ce vezi mai jos.</p>
         </div>
         <div class="comutator" id="comutator" role="group" aria-label="Mod de plată" hidden>
           <button type="button" data-plata="lunar" aria-pressed="true">Lunar</button>
           <button type="button" data-plata="anual" aria-pressed="false">Anual <span id="reducere"></span></button>
         </div>
       </div>
-      <div id="trepte"><p class="pret-gol">Prețul exact îl vezi în mostra ta și rămâne fix 7 zile de la prima deschidere. <a href="#aplica"><b>Cere mostra →</b></a></p></div>
+      <div id="trepte"><p class="pret-gol">Prețul exact îl vezi în mostra ta și nu se schimbă 7 zile de când o deschizi. <a href="#aplica"><b>Cere mostra →</b></a></p></div>
       <ul class="bonus" id="bonus">
-        <li><span class="cadou" aria-hidden="true">★</span><span><b>Website Refresh, dăruit</b>Site-ul tău, adus la nivelul recenziilor, inclus în orice abonament.</span></li>
-        <li><span class="cadou" aria-hidden="true">↺</span><span><b id="bonus-audit">Auditul se scade integral</b>Dacă lucrăm împreună în 30 de zile.</span></li>
-        <li><span class="cadou" aria-hidden="true">⏱</span><span><b id="bonus-blocat">Prețul rămâne fix 7 zile</b>De la prima deschidere a mostrei tale.</span></li>
+        <li><span class="cadou" aria-hidden="true">★</span><span><b>Site-ul tău, refăcut, cadou</b>Dacă ai deja site, ți-l aduc la zi gratis, la orice abonament.</span></li>
+        <li><span class="cadou" aria-hidden="true">↺</span><span><b id="bonus-audit">Auditul îl primești înapoi</b>Dacă începem în 30 de zile, se scade din preț.</span></li>
+        <li><span class="cadou" aria-hidden="true">⏱</span><span><b id="bonus-blocat">Prețul nu se schimbă 7 zile</b>Din ziua în care îți deschizi mostra.</span></li>
       </ul>
     </div>
   </section>
@@ -533,15 +579,15 @@
   <!-- ===================== ÎNTREBĂRI ===================== -->
   <section id="intrebari">
     <div class="wrap ingust">
-      <p class="eyebrow">Ce mă întreabă oamenii</p>
-      <h2 class="h2">Știu ce te oprește.</h2>
+      <p class="eyebrow">Întrebări</p>
+      <h2 class="h2">Ce mă întreabă toată lumea.</h2>
       <div class="faq">
-        <details><summary>„Sună bine, dar e scump.”</summary><p id="faq-pret">Pune lângă preț ce plătești deja: serile tale, o agenție, un om care postează. Și nu decizi pe nevăzute. Mostra e gratuită: vezi întâi ce aș face pentru tine, cu numele tău pe ea, și abia apoi hotărăști.</p></details>
-        <details><summary>„Am deja pe cineva care se ocupă.”</summary><p>Perfect. Cere mostra și compară. Dacă omul tău face mai mult, rămâi cu el, cu inima împăcată. Dacă nu, ai văzut gratuit ce se poate.</p></details>
-        <details><summary>„Nu cred în AI.”</summary><p>Nici eu nu cred în AI lăsat singur. De-asta creierul sistemului rulează pe reguli, nu pe ghicit. Fiecare text primește o notă înainte să ajungă la tine, iar nimic nu apare fără OK-ul tău. AI-ul scrie. Oamenii decid.</p></details>
-        <details><summary>„N-am timp nici pentru asta.”</summary><p>Exact de-asta există. Îmi dai 30 de minute la început și câte un click pe lună, când aprobi calendarul. Restul e treaba sistemului.</p></details>
-        <details><summary>„Și dacă vreau să plec?”</summary><p>Pleci. Domeniul e mereu al tău, conținutul plătit e al tău, accesele se închid în 24 de ore, iar site-ul rămâne găzduit încă 30 de zile după ultima plată. Plecarea e scrisă în contract din prima zi.</p></details>
-        <details><summary>„Vreau să pornesc o afacere de la zero. Mă ajuți?”</summary><p>Da. Spune-mi în formular că pornești de la zero. Îți arăt ce poate face sistemul de la prima zi: site, strategie, prezență și reclamele care te fac cunoscut.</p></details>
+        <details><summary>„E cam scump pentru mine.”</summary><p id="faq-pret">Te înțeleg. Pune însă lângă preț ce dai deja: serile tale, o agenție, cineva care postează din când în când. Și nu decizi pe nevăzute: mostra e gratis și o vezi înainte să plătești ceva.</p></details>
+        <details><summary>„Am deja pe cineva care se ocupă.”</summary><p>Super. Cere mostra și compară. Dacă omul tău face mai mult, rămâi liniștit cu el. Dacă nu, măcar ai văzut gratis ce se poate.</p></details>
+        <details><summary>„Nu prea am încredere în AI.”</summary><p>Nici eu, dacă e lăsat singur. De-asta în AleSystem fiecare text e verificat înainte să ajungă la tine, iar nimic nu se publică fără OK-ul tău. AI-ul scrie, oamenii decid.</p></details>
+        <details><summary>„N-am timp nici pentru asta.”</summary><p>Tocmai de-asta există. O jumătate de oră la început și un click pe lună. Restul e treaba mea și a sistemului.</p></details>
+        <details><summary>„Și dacă vreau să renunț?”</summary><p>Renunți. Domeniul e al tău, tot ce ai plătit e al tău, iar site-ul mai stă online încă 30 de zile după ultima plată. E scris în contract din prima zi.</p></details>
+        <details><summary>„N-am încă afacere. Mă poți ajuta?”</summary><p>Da. Scrie în formular că pornești de la zero și îți arăt cum ar arăta primele luni: site, poziționare, prezență și reclamele care te fac cunoscut.</p></details>
       </div>
     </div>
   </section>
@@ -549,51 +595,51 @@
   <!-- ===================== FORMULAR ===================== -->
   <section class="aplica" id="aplica">
     <div class="wrap ingust">
-      <p class="eyebrow">Primul pas, gratuit</p>
-      <h2 class="h2">Ia-ți serile <em>înapoi.</em></h2>
-      <p class="lead">Lasă-mi câteva date. Îți pregătesc o mostră doar pentru afacerea ta și îți scriu în aceeași zi. Fără cost, fără obligații.</p>
+      <p class="eyebrow">Primul pas e gratis</p>
+      <h2 class="h2">Hai să vedem cum ar arăta <em>la tine.</em></h2>
+      <p class="lead">Lasă-mi câteva date și îți fac o mostră doar pentru afacerea ta: ce am observat, un site demo cu numele tău și ce aș face în prima lună. Îți scriu în aceeași zi. E gratis și nu te obligă la nimic.</p>
       <div class="form-card">
         <form id="formular" novalidate>
           <div style="display:grid; gap:18px">
             <div class="rand">
-              <label class="camp" for="f-nume">Cum te cheamă?<input id="f-nume" name="nume" autocomplete="given-name" required placeholder="Prenumele tău"></label>
-              <label class="camp" for="f-firma"><span>Afacerea ta <small>sau „încă nu am”</small></span><input id="f-firma" name="firma" autocomplete="organization" placeholder="Numele afacerii"></label>
+              <label class="camp" for="f-nume"><span>Cum te cheamă?</span><input id="f-nume" name="nume" autocomplete="given-name" required placeholder="Prenumele tău"></label>
+              <label class="camp" for="f-firma"><span>Cum se numește afacerea? <small>dacă n-ai încă, lasă gol</small></span><input id="f-firma" name="firma" autocomplete="organization" placeholder="ex. Salon Lumière"></label>
             </div>
             <div class="rand">
-              <label class="camp" for="f-tel"><span>Telefon <small>(WhatsApp, dacă ai)</small></span><input id="f-tel" name="telefon" type="tel" autocomplete="tel" inputmode="tel" required placeholder="07xx xxx xxx"></label>
-              <label class="camp" for="f-email"><span>Email <small>(opțional)</small></span><input id="f-email" name="email" type="email" autocomplete="email" placeholder="nume@firma.ro"></label>
+              <label class="camp" for="f-tel"><span>Telefon <small>(de preferat cu WhatsApp)</small></span><input id="f-tel" name="telefon" type="tel" autocomplete="tel" inputmode="tel" required placeholder="07xx xxx xxx"></label>
+              <label class="camp" for="f-email"><span>Email <small>(dacă vrei)</small></span><input id="f-email" name="email" type="email" autocomplete="email" placeholder="nume@firma.ro"></label>
             </div>
             <fieldset class="grup">
               <legend>Ce te apasă cel mai tare? <small style="font-weight:500;color:var(--gri)">Alege oricâte.</small></legend>
               <div class="cipuri" id="f-dureri">
-                <label class="cip"><input type="checkbox" name="dureri" value="Nu am timp de social media"><span>N-am timp de social media</span></label>
-                <label class="cip"><input type="checkbox" name="dureri" value="Nu vin clienți noi din online"><span>Nu vin clienți noi din online</span></label>
-                <label class="cip"><input type="checkbox" name="dureri" value="Site-ul e vechi sau nu există"><span>Site-ul e vechi sau lipsește</span></label>
-                <label class="cip"><input type="checkbox" name="dureri" value="Am plătit o agenție și n-a mers"><span>Am plătit o agenție și n-a mers</span></label>
-                <label class="cip"><input type="checkbox" name="dureri" value="Vreau să pornesc o afacere de la zero"><span>Vreau să pornesc de la zero</span></label>
+                <label class="cip"><input type="checkbox" name="dureri" value="N-am timp de postat"><span>N-am timp de postat</span></label>
+                <label class="cip"><input type="checkbox" name="dureri" value="Nu-mi vin clienți noi din online"><span>Nu-mi vin clienți noi din online</span></label>
+                <label class="cip"><input type="checkbox" name="dureri" value="Site-ul e vechi sau n-am deloc"><span>Site-ul e vechi sau n-am deloc</span></label>
+                <label class="cip"><input type="checkbox" name="dureri" value="Am dat bani pe o agenție degeaba"><span>Am dat bani pe o agenție degeaba</span></label>
+                <label class="cip"><input type="checkbox" name="dureri" value="Vreau să-mi deschid o afacere"><span>Vreau să-mi deschid o afacere</span></label>
               </div>
             </fieldset>
             <fieldset class="grup">
-              <legend>Unde să-ți scriu?</legend>
+              <legend>Unde preferi să-ți scriu?</legend>
               <div class="cipuri">
                 <label class="cip"><input type="radio" name="canal" value="whatsapp" checked><span>WhatsApp</span></label>
-                <label class="cip"><input type="radio" name="canal" value="telefon"><span>Telefon</span></label>
+                <label class="cip"><input type="radio" name="canal" value="telefon"><span>Mă suni</span></label>
                 <label class="cip"><input type="radio" name="canal" value="email"><span>Email</span></label>
               </div>
             </fieldset>
             <div class="capcana" aria-hidden="true"><label for="f-website2">Lasă gol</label><input id="f-website2" name="website2" tabindex="-1" autocomplete="off"></div>
-            <label class="acord" for="f-acord"><input id="f-acord" type="checkbox" name="acord" required><span>Sunt de acord să primesc mesaje de la AleSign&amp;Co pe canalul ales, despre mostra mea. Mă pot răzgândi oricând, cu un singur mesaj.</span></label>
+            <label class="acord" for="f-acord"><input id="f-acord" type="checkbox" name="acord" required><span>Sunt de acord să-mi scrie AleSign&amp;Co pe canalul ales, despre mostra mea. Dacă mă răzgândesc, e de ajuns un mesaj.</span></label>
             <div class="eroare" id="f-eroare" role="alert" hidden></div>
             <div class="form-jos">
-              <button class="btn btn--rosu" type="submit" id="f-trimite">Vreau serile înapoi <span class="sag" aria-hidden="true">→</span></button>
-              <small>Îți răspund în aceeași zi. Datele tale le folosesc doar ca să-ți răspund.</small>
+              <button class="btn btn--rosu" type="submit" id="f-trimite">Trimite, vreau mostra <span class="sag" aria-hidden="true">→</span></button>
+              <small>Îți scriu în aceeași zi. Datele tale nu ajung nicăieri altundeva.</small>
             </div>
           </div>
         </form>
         <div class="succes" id="f-succes" hidden tabindex="-1">
           <span class="bifa-mare" aria-hidden="true">✓</span>
-          <h3 id="succes-titlu">Gata. Am primit.</h3>
-          <p id="succes-text">Îți scriu azi. Până atunci, uite cum arată un raport adevărat de la sistem.</p>
+          <h3 id="succes-titlu">Mersi! Am primit.</h3>
+          <p id="succes-text">Îți scriu azi. Până atunci, uite cum arată un raport de la AleSystem.</p>
           <a class="btn btn--linie" href="https://demo.alesign.net/r/9adaf472ae7c48b19bac3be4569a54cd" target="_blank" rel="noopener">Vezi raportul exemplu <span class="sag" aria-hidden="true">→</span></a>
         </div>
       </div>
@@ -603,12 +649,12 @@
 
 <footer class="subsol">
   <div class="wrap">
-    <span>Alexandru Pavăl · AleSign&amp;Co · <a href="https://alesign.net" style="color:#f4f1ea">alesign.net</a></span>
+    <span>AleSystem Design · construit de Alexandru Pavăl, AleSign&amp;Co · <a href="https://alesign.net" style="color:#f4f1ea">alesign.net</a></span>
     <span><span class="sel">info@alesign.net</span> · <span class="sel">0755 367 084</span></span>
   </div>
 </footer>
 
-<div class="bara-jos" id="bara-jos"><a class="btn btn--rosu" href="#aplica">Vreau mostra mea, gratuit <span class="sag" aria-hidden="true">→</span></a></div>
+<div class="bara-jos" id="bara-jos"><a class="btn btn--rosu" href="#aplica">Vreau mostra gratis <span class="sag" aria-hidden="true">→</span></a></div>
 
 <script src="/lp/comun.js"></script>
 <script>
@@ -616,45 +662,48 @@
   'use strict';
   var A = window.AleSign, $ = function (s) { return document.querySelector(s); }, $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
   var NS = 'http://www.w3.org/2000/svg';
+  var de = function (n) { var r = n % 100; return r >= 20 || (n >= 100 && r === 0) ? n + ' de' : String(n); };
 
-  // ---------- telefonul: noaptea de acum, dimineața cu sistemul ----------
-  var MOMENTE = {
-    noapte: { ora: '23:47', zi: 'Marți, după o zi întreagă cu clienții', n: [
-      ['IG', '#d6249f', 'Instagram', 'Încă n-ai postat nimic azi.', 'acum'],
-      ['W', '#25d366', 'WhatsApp', '4 conversații fără răspuns.', '2 h'],
-      ['G', '#4285f4', 'Google', 'Recenzie nouă, de 3 stele. Fără răspuns.', '5 h'],
-      ['Ag', '#5b6070', 'Agenția', '„Revenim cu raportul săptămâna viitoare.”', 'ieri']] },
-    zi: { ora: '08:00', zi: 'Miercuri, după o noapte dormită', n: [
-      ['A', '#ff2a2e', 'AleSign', 'Calendarul pentru luna viitoare e gata. Îl aprobi?', 'acum'],
-      ['IG', '#d6249f', 'Instagram', 'Postarea de aseară s-a publicat la 19:30.', '12 h'],
-      ['G', '#4285f4', 'Google', 'Recenzie nouă. Ți-am pregătit un răspuns.', '1 h'],
-      ['A', '#ff2a2e', 'AleSign', 'Raportul lunii tale e gata. Îl citești în 2 minute.', 'ieri']] }
+  // ---------- telefonul: seara fără AleSystem, dimineața cu AleSystem ----------
+  var IC = {
+    as: '<span class="ic ic--as"><svg viewBox="0 0 56 56" fill="none" stroke="#fff" stroke-width="3.5" aria-hidden="true"><circle cx="28" cy="28" r="18"/><circle cx="28" cy="28" r="5" fill="#fff" stroke="none"/><circle cx="41" cy="15" r="6" fill="#ff2a2e" stroke="none"/></svg></span>',
+    ig: document.querySelector('#tel-notif .ic--ig').outerHTML,
+    g: document.querySelector('#tel-notif .ic--g').outerHTML
   };
+  var noapte = { zi: 'marți, 21 octombrie', ora: '23:47', html: $('#tel-notif').innerHTML };
+  var zi = { zi: 'miercuri, 22 octombrie', ora: '08:00', n: [
+    [IC.as, 'AleSystem', 'acum', 'Bună dimineața! Postările pe noiembrie sunt gata. Te uiți peste ele?'],
+    [IC.ig, 'Instagram', '19:30', 'Postarea de aseară a ieșit la ora ei.'],
+    [IC.g, 'Google Business', '1 h', 'Recenzie nouă, 5 stele. Răspunsul e pregătit.'],
+    [IC.as, 'AleSystem', 'ieri', 'Raportul pe octombrie e gata.']
+  ] };
   var scena = $('#scena'), lista = $('#tel-notif'), moment = 'noapte', ciclu = null;
   function arata(m) {
     moment = m;
-    var d = MOMENTE[m];
     scena.classList.toggle('zi', m === 'zi');
-    $('#tel-ora').textContent = d.ora;
-    $('#tel-zi').textContent = d.zi;
+    $('#tel-zi').textContent = m === 'zi' ? zi.zi : noapte.zi;
+    $('#tel-ora').textContent = m === 'zi' ? zi.ora : noapte.ora;
     lista.classList.remove('anim'); void lista.offsetWidth; lista.classList.add('anim');
-    lista.innerHTML = d.n.map(function (x) { return '<li><span class="ic" style="background:' + x[1] + '">' + A.esc(x[0]) + '</span><span><b>' + A.esc(x[2]) + '</b>' + A.esc(x[3]) + '</span><time>' + A.esc(x[4]) + '</time></li>'; }).join('');
+    lista.innerHTML = m === 'zi' ? zi.n.map(function (x) { return '<li class="notif">' + x[0] + '<span><span class="notif-sus"><b>' + A.esc(x[1]) + '</b><time>' + A.esc(x[2]) + '</time></span><p>' + A.esc(x[3]) + '</p></span></li>'; }).join('') : noapte.html;
     $$('.comuta button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.moment === m)); });
   }
   $$('.comuta button').forEach(function (b) { b.addEventListener('click', function () { clearInterval(ciclu); ciclu = null; arata(b.dataset.moment); }); });
-  if (A.miscare) ciclu = setInterval(function () { arata(moment === 'noapte' ? 'zi' : 'noapte'); }, 5200);
+  if (A.miscare) {
+    ciclu = setInterval(function () { arata(moment === 'noapte' ? 'zi' : 'noapte'); }, 5600);
+    // telefonul se înclină ușor după cursor
+    scena.addEventListener('pointermove', function (e) { var r = scena.getBoundingClientRect(); scena.style.setProperty('--mx', ((e.clientX - r.left) / r.width - 0.5).toFixed(3)); scena.style.setProperty('--my', ((e.clientY - r.top) / r.height - 0.5).toFixed(3)); });
+    scena.addEventListener('pointerleave', function () { scena.style.setProperty('--mx', 0); scena.style.setProperty('--my', 0); });
+  }
 
-  // ---------- sună cunoscut: bifele ----------
-  var FRAZE = ['Bifează ce te apasă. Te ascult.', 'Unul singur și tot te costă clienți.', 'Două. Deja e un tipar, nu un accident.', 'Trei. Nu e vina ta. Îți lipsește un sistem, nu voința.', 'Patru. Ai nevoie de o echipă, nu de mai multă muncă.', 'Cinci. Ești omul pentru care am construit asta.', 'Toate șase. Hai să-ți iau o parte din ele chiar de luna asta.'];
+  // ---------- te regăsești: bifele ----------
+  var FRAZE = ['Bifează ce ți se potrivește.', 'Doar una? Bine de tine. Dar și asta te costă clienți.', 'Două. Nu mai e ghinion, e un tipar.', 'Trei. Nu e lipsă de voință. Îți lipsește cineva care să se ocupe.', 'Patru. Faci munca a trei oameni și se vede pe tine.', 'Cinci. Hai să vorbim. Pe bune.', 'Toate. Știu exact cum e. Scrie-mi azi.'];
   $$('.durere').forEach(function (b) {
     b.addEventListener('click', function () {
       b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true'));
       var bifate = $$('.durere[aria-pressed="true"]');
       $('#verdict-text').textContent = FRAZE[bifate.length];
       // ce a bifat aici apare deja bifat în formular
-      var valori = bifate.map(function (x) { return x.dataset.durere; });
-      var harta = { 'Postez noaptea, după o zi întreagă cu clienții': 'Nu am timp de social media', 'Răspund la mesaje în weekend': 'Nu am timp de social media', 'Știu că trebuie reclame, dar n-am timp să învăț': 'Nu vin clienți noi din online', 'Concurenții apar înaintea mea pe Google': 'Nu vin clienți noi din online', 'Am plătit o agenție și n-a mers': 'Am plătit o agenție și n-a mers', 'Site-ul e vechi sau nu există': 'Site-ul e vechi sau nu există' };
-      var dorite = valori.map(function (v) { return harta[v]; });
+      var dorite = bifate.map(function (x) { return x.dataset.durere; });
       $$('#f-dureri input').forEach(function (i) { if (dorite.indexOf(i.value) > -1) i.checked = true; });
     });
   });
@@ -665,7 +714,7 @@
     var h = Number(ore.value), an = h * 52, zile = Math.round(an / 8), we = Math.round(zile / 2), luni = an / 160;
     $('#ore-v').textContent = h;
     A.numara($('#r-ore'), an, null, 500); A.numara($('#r-zile'), zile, null, 500); A.numara($('#r-weekend'), we, null, 500);
-    $('#r-luni').textContent = luni < 1 ? Math.max(1, Math.round(luni * 4)) + ' săptămâni' : luni < 1.5 ? 'o lună întreagă' : 'aproape ' + Math.round(luni) + ' luni';
+    $('#r-luni').textContent = luni < 1 ? de(Math.max(1, Math.round(luni * 4))) + ' săptămâni' : luni < 1.5 ? 'o lună' : Math.round(luni) + ' luni';
   }
   ore.addEventListener('input', calcul);
   A.laVedere($('.calc'), calcul, 0.5);
@@ -682,7 +731,7 @@
   });
   A.numaraLaVedere($('#raport-mic'));
 
-  // ---------- date live și pachete ----------
+  // ---------- pachete și cifre live ----------
   var stare = { plata: 'lunar', cat: null };
   function pachete(cat) {
     var P = A.pachete(cat);
@@ -695,34 +744,32 @@
       return '<div class="treapta' + (e ? ' treapta--rec' : '') + '">' + (e ? '<span class="et">' + A.esc(p.eticheta || 'Recomandat') + '</span>' : '') +
         '<h3>' + A.esc(p.nume) + '</h3><p class="sub">' + A.esc(p.subtitlu || '') + '</p>' +
         '<div><div class="p">' + (anual ? '<s>' + A.RON.format(p.pret) + '</s>' : '') + '<b>' + A.RON.format(pret) + '</b><span>RON / lună</span></div>' +
-        (anual ? '<p class="min">plătit anual: economisești ' + A.RON.format((p.pret - pret) * 12) + ' RON pe an</p>' : p.perioada_minima_luni ? '<p class="min">minim ' + A.esc(p.perioada_minima_luni) + ' luni, apoi lunar</p>' : '') + '</div>' +
+        (anual ? '<p class="min">plătit pe un an: rămân în buzunarul tău ' + A.RON.format((p.pret - pret) * 12) + ' RON</p>' : p.perioada_minima_luni ? '<p class="min">minim ' + A.esc(p.perioada_minima_luni) + ' luni, apoi de la lună la lună</p>' : '') + '</div>' +
         '<ul>' + (p.include || []).map(function (x) { return '<li>' + A.esc(x) + '</li>'; }).join('') + '</ul>' +
-        (p.disponibil === false ? '<p class="min">Listă de așteptare: se deschide pe măsură ce cresc.</p>' : '<a class="btn ' + (e ? 'btn--rosu' : 'btn--linie') + '" href="#aplica">Vreau ' + A.esc(p.nume) + ' <span class="sag" aria-hidden="true">→</span></a>') + '</div>';
+        (p.disponibil === false ? '<p class="min">Momentan e plin. Te pun pe listă și te anunț primul.</p>' : '<a class="btn ' + (e ? 'btn--rosu' : 'btn--linie') + '" href="#aplica">Vreau ' + A.esc(p.nume) + ' <span class="sag" aria-hidden="true">→</span></a>') + '</div>';
     }).join('') + '</div>';
     if (red) { $('#comutator').hidden = false; $('#reducere').textContent = '−' + red + '%'; }
     var audit = (cat.pachete || []).find(function (p) { return p.cod === 'audit'; });
-    if (audit) $('#bonus-audit').textContent = 'Auditul de ' + A.RON.format(audit.pret) + ' RON se scade integral';
-    if (P.setari.pret_blocat_zile) $('#bonus-blocat').textContent = 'Prețul rămâne fix ' + P.setari.pret_blocat_zile + ' zile';
-    var minim = P.lunare[0];
-    $('#faq-pret').textContent = 'Pune lângă preț ce plătești deja: serile tale, o agenție, un om care postează. Prezența pornește de la ' + A.RON.format(minim.pret) + ' RON pe lună. Și nu decizi pe nevăzute: mostra e gratuită, cu numele tău pe ea, iar abia apoi hotărăști.';
+    if (audit) $('#bonus-audit').textContent = 'Auditul de ' + A.RON.format(audit.pret) + ' RON îl primești înapoi';
+    if (P.setari.pret_blocat_zile) $('#bonus-blocat').textContent = 'Prețul nu se schimbă ' + P.setari.pret_blocat_zile + ' zile';
+    $('#faq-pret').textContent = 'Te înțeleg. Pune însă lângă preț ce dai deja: serile tale, o agenție, cineva care postează din când în când. Cel mai mic pachet pornește de la ' + A.RON.format(P.lunare[0].pret) + ' RON pe lună. Și nu decizi pe nevăzute: mostra e gratis și o vezi înainte să plătești ceva.';
   }
   $$('#comutator button').forEach(function (b) { b.addEventListener('click', function () { stare.plata = b.dataset.plata; $$('#comutator button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); }); if (stare.cat) pachete(stare.cat); }); });
 
   function live(c) {
     if (!c) return;
     var serie = Array.isArray(c.research_zilnic) ? c.research_zilnic : [];
-    var total30 = serie.reduce(function (s, d) { return s + (Number(d.n) || 0); }, 0);
-    var mare = serie.length ? total30 : c.firme_analizate;
+    var mare = serie.length ? serie.reduce(function (s, d) { return s + (Number(d.n) || 0); }, 0) : c.firme_analizate;
     if (typeof mare !== 'number') return;
     $('#live').hidden = false;
     $('#live-ex').hidden = !c.exemplu;
-    $('#live-text').textContent = serie.length ? 'firme analizate de Research în ultimele ' + (serie.length % 100 >= 20 ? serie.length + ' de' : serie.length) + ' zile' : 'firme analizate de Research până acum';
+    $('#live-text').textContent = serie.length ? 'firme analizate în ultimele ' + de(serie.length) + ' zile' : 'firme analizate până acum';
     $('#live-mare').textContent = A.RON.format(mare);
     A.laVedere($('#live-mare'), function () { $('#live-mare').dataset.acum = 0; A.numara($('#live-mare'), mare, null, 1600); }, 0.5);
     if (typeof c.locuri_total === 'number' && typeof c.locuri_ocupate === 'number' && c.locuri_total > 0) {
       var libere = Math.max(0, c.locuri_total - c.locuri_ocupate);
       $('#locuri').hidden = false;
-      $('#locuri-text').innerHTML = '<b>' + A.RON.format(c.locuri_ocupate) + ' din ' + A.RON.format(c.locuri_total) + '</b> locuri de abonament ocupate. ' + (libere ? 'Mai sunt <b>' + libere + '</b>.' : 'Te pun pe lista de așteptare.');
+      $('#locuri-text').innerHTML = '<b>' + A.RON.format(c.locuri_ocupate) + ' din ' + A.RON.format(c.locuri_total) + '</b> locuri ocupate pe abonament. ' + (libere ? 'Mai am <b>' + libere + '</b>.' : 'Acum e plin, dar te pun pe listă.');
       requestAnimationFrame(function () { $('#locuri-bara').style.width = Math.min(100, c.locuri_ocupate / c.locuri_total * 100) + '%'; });
     }
     if (serie.length > 1) grafic(serie);
@@ -733,7 +780,7 @@
     var bw = (W - m.l - m.r) / serie.length;
     var svg = document.createElementNS(NS, 'svg');
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.setAttribute('role', 'img');
-    svg.setAttribute('aria-label', 'Firme analizate pe zi, în ultimele ' + serie.length + ' zile');
+    svg.setAttribute('aria-label', 'Firme analizate pe zi, în ultimele ' + de(serie.length) + ' zile');
     var bare = serie.map(function (d, i) {
       var h = (Number(d.n) || 0) / max * (H - m.t - m.b), r = document.createElementNS(NS, 'rect');
       r.setAttribute('x', (m.l + i * bw + bw * 0.18).toFixed(1)); r.setAttribute('width', (bw * 0.64).toFixed(1));
@@ -745,7 +792,7 @@
     [0, serie.length - 1].forEach(function (i) {
       var t = document.createElementNS(NS, 'text'); t.setAttribute('x', (m.l + i * bw + bw / 2).toFixed(1)); t.setAttribute('y', H - 6);
       t.setAttribute('text-anchor', i ? 'end' : 'start'); t.setAttribute('fill', 'rgba(244,241,234,0.5)'); t.setAttribute('font-size', 12); t.setAttribute('font-family', 'Manrope, system-ui, sans-serif');
-      t.textContent = i ? 'azi' : 'acum ' + (serie.length % 100 >= 20 ? serie.length + ' de' : serie.length) + ' zile'; svg.appendChild(t);
+      t.textContent = i ? 'azi' : 'acum ' + de(serie.length) + ' zile'; svg.appendChild(t);
     });
     box.innerHTML = ''; box.appendChild(svg);
     if (A.miscare) A.laVedere(box, function () {
@@ -762,28 +809,28 @@
     er.hidden = true;
     var fd = new FormData(f), b = { nume: (fd.get('nume') || '').trim(), firma: (fd.get('firma') || '').trim(), telefon: (fd.get('telefon') || '').trim(), email: (fd.get('email') || '').trim(), canal: fd.get('canal') || 'whatsapp', dureri: fd.getAll('dureri'), acord: !!fd.get('acord'), website2: fd.get('website2') || '' };
     if (b.nume.length < 2) { arataEroare('Spune-mi cum te cheamă, ca să știu cui îi scriu.'); $('#f-nume').focus(); return; }
-    if (b.telefon.replace(/\D/g, '').length < 9) { arataEroare('Numărul de telefon pare incomplet. Verifică-l, te rog.'); $('#f-tel').focus(); return; }
-    if (b.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(b.email)) { arataEroare('Adresa de email pare greșită. O poți și lăsa goală.'); $('#f-email').focus(); return; }
-    if (!b.acord) { arataEroare('Bifează acordul, ca să am voie să-ți scriu.'); $('#f-acord').focus(); return; }
+    if (b.telefon.replace(/\D/g, '').length < 9) { arataEroare('Numărul pare că-i lipsește o cifră. Mai verifică-l o dată.'); $('#f-tel').focus(); return; }
+    if (b.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(b.email)) { arataEroare('Emailul pare greșit. Îl poți lăsa și gol.'); $('#f-email').focus(); return; }
+    if (!b.acord) { arataEroare('Bifează acordul de jos, altfel n-am voie să-ți scriu.'); $('#f-acord').focus(); return; }
     btn.disabled = true; btn.firstChild.textContent = 'Trimit… ';
     A.trimite('liber', b).then(function (r) {
-      btn.disabled = false; btn.firstChild.textContent = 'Vreau serile înapoi ';
+      btn.disabled = false; btn.firstChild.textContent = 'Trimite, vreau mostra ';
       if (r.ok) {
+        var canal = b.canal === 'email' ? 'pe email' : b.canal === 'telefon' ? 'la telefon' : 'pe WhatsApp';
         f.hidden = true;
-        $('#succes-titlu').textContent = 'Gata, ' + b.nume.split(' ')[0] + '. Am primit.';
+        $('#succes-titlu').textContent = 'Mersi, ' + b.nume.split(' ')[0] + '! Am primit.';
         $('#succes-text').textContent = r.previzualizare
-          ? 'Previzualizare: aici nu se trimite nimic. Pe pagina reală, aplicația ajunge la Alexandru și apare ca lead nou în Founder OS.'
-          : 'Îți scriu azi, pe ' + (b.canal === 'email' ? 'email' : b.canal === 'telefon' ? 'telefon' : 'WhatsApp') + '. Până atunci, uite cum arată un raport de la sistem.';
+          ? 'Previzualizare: de aici nu pleacă nimic. Pe pagina reală, mesajul ajunge la Alexandru și apare ca lead nou în Founder OS.'
+          : 'Îți scriu azi ' + canal + '. Până atunci, uite cum arată un raport de la AleSystem.';
         $('#f-succes').hidden = false; $('#f-succes').focus();
         $('#bara-jos').classList.add('ascunsa');
         return;
       }
-      if (r.motiv === 'prea multe cereri') arataEroare('Am primit deja cererea ta azi. Îți răspund cât de repede pot.');
-      else arataEroare('Nu s-a trimis. Scrie-mi direct pe <a href="https://wa.me/40755367084?text=Salut%2C%20Alexandru!%20Vreau%20o%20mostr%C4%83%20pentru%20afacerea%20mea." target="_blank" rel="noopener">WhatsApp</a> sau la info@alesign.net și îți răspund azi.');
+      if (r.motiv === 'prea multe cereri') arataEroare('Mi-ai mai scris azi și am primit. Îți răspund cât pot de repede.');
+      else arataEroare('Ceva n-a mers și nu s-a trimis. Scrie-mi direct pe <a href="https://wa.me/40755367084?text=Salut%2C%20Alexandru!%20Vreau%20o%20mostr%C4%83%20pentru%20afacerea%20mea." target="_blank" rel="noopener">WhatsApp</a> sau la info@alesign.net și îți răspund azi.');
     });
   });
 
-  // ---------- bara de jos dispare când ajungi la formular ----------
   if ('IntersectionObserver' in window) new IntersectionObserver(function (i) { $('#bara-jos').classList.toggle('ascunsa', i[0].isIntersecting); }, { threshold: 0.05 }).observe($('#aplica'));
 })();
 </script>

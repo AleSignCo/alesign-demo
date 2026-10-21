@@ -3,29 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Dovada · AleSign&amp;Co</title>
+<title>AleSystem Design · Dovada</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Agenția clasică e depășită. 15 boți, un creier care nu ghicește și un om care decide. Vezi sistemul rulând, cu cifre live, apoi aplică pentru un loc.">
-<meta property="og:title" content="Agenția clasică e depășită. Uite ce o înlocuiește.">
-<meta property="og:description" content="Un sistem de 15 boți care face treaba unei agenții, cu cifre live și prețuri publice. Locurile sunt limitate.">
+<meta name="description" content="Agenția îți trimite rapoarte frumoase. Clienții unde sunt? AleSystem Design face munca în fiecare zi, după program, iar tu doar aprobi. Vezi-l rulând, apoi cere un loc.">
+<meta property="og:title" content="Agenția îți trimite rapoarte frumoase. Clienții unde sunt?">
+<meta property="og:description" content="AleSystem Design: un sistem care face treaba unei agenții în fiecare zi, cu cifre live și prețuri la vedere. Am locuri puține.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0b0c10">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500;1,600&family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
-  /* Layout: un centru de comandă negru, cu grilă fină; titluri late, cifre în mono, roșu doar unde e o decizie. */
+  /* Layout: negru cald, ca un salon seara; sus, telefonul cu aplicația AleSystem pe o lumânare, lângă programul real al sistemului. */
   :root {
     --fond: #0b0c10; --panou: #13151c; --panou2: #191c25; --linie: #262a35; --text: #f2f0ea; --dim: #9aa0ad; --stins: #5e6472;
     --rosu: #ff2a2e; --turcoaz: #4fd1c5; --aur: #e8c468; --verde: #7fbf6b;
+    --foto: url('/lp/fundal-dovada.jpg');
     --f-display: Manrope, 'Segoe UI', system-ui, sans-serif;
     --f-serif: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
     --f-date: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --f-ios: -apple-system, 'SF Pro Text', 'Segoe UI', Manrope, system-ui, sans-serif;
     color-scheme: dark;
   }
   * { box-sizing: border-box; }
   [hidden] { display: none !important; }
   html { scroll-behavior: smooth; }
-  body { margin: 0; background-color: var(--fond); background-image: linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px); background-size: 40px 40px; color: var(--text); font-family: var(--f-display); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background-color: var(--fond); background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px); background-size: 40px 40px; color: var(--text); font-family: var(--f-display); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
   body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--fond); }
   a { color: inherit; }
   h1, h2, h3, h4, p, ol, ul, figure { margin: 0; }
@@ -54,45 +56,98 @@
   /* ---------- antet ---------- */
   .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: rgba(11, 12, 16, 0.86); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--linie); }
   .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 14px; height: 62px; }
-  .marca { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 14.5px; text-decoration: none; }
-  .marca svg { width: 24px; height: 24px; }
+  .marca { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; line-height: 1.1; }
+  .marca svg { width: 24px; height: 24px; flex: none; }
   .marca .punct { transform-box: view-box; transform-origin: 28px 28px; }
+  .marca b { display: block; font-weight: 800; font-size: 14.5px; }
+  .marca small { display: block; font-size: 11px; color: var(--dim); }
   .top .btn { padding: 10px 16px; font-size: 14px; border-radius: 10px; }
 
   /* ---------- erou ---------- */
-  .erou { padding-block: clamp(44px, 6vw, 88px) clamp(56px, 7vw, 96px); position: relative; overflow: hidden; }
-  .erou::before { content: ""; position: absolute; inset: -20% -10% auto auto; width: 70vw; height: 70vw; max-width: 900px; max-height: 900px; background: radial-gradient(circle, rgba(255, 42, 46, 0.16), transparent 60%); pointer-events: none; }
+  .erou { padding-block: clamp(40px, 5vw, 76px) clamp(56px, 7vw, 96px); position: relative; overflow: hidden; }
+  .erou::before { content: ""; position: absolute; inset: -20% -10% auto auto; width: 70vw; height: 70vw; max-width: 900px; max-height: 900px; background: radial-gradient(circle, rgba(232, 196, 104, 0.1), transparent 60%); pointer-events: none; }
   .erou-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; align-items: center; }
-  @media (min-width: 980px) { .erou-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); } }
-  .erou h1 { font-size: clamp(44px, 7vw, 92px); margin-top: 22px; }
-  .erou h1 em { display: block; margin-top: 6px; }
+  @media (min-width: 1200px) { .erou-grid { grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr); } }
+  .erou h1 { font-size: clamp(40px, 5.8vw, 78px); margin-top: 22px; }
+  .erou h1 em { display: block; margin-top: 8px; }
   .erou-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
   .semnale { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 28px; padding: 0; list-style: none; font-family: var(--f-date); font-size: 12.5px; color: var(--dim); }
   .semnale li::before { content: "▸ "; color: var(--turcoaz); }
 
-  .consola { padding: 0; overflow: hidden; box-shadow: 0 50px 100px -50px rgba(255, 42, 46, 0.45); }
-  .consola-sus { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--linie); font-family: var(--f-date); font-size: 12px; color: var(--dim); }
-  .consola-sus .pct { display: inline-flex; gap: 6px; }
-  .consola-sus .pct i { width: 10px; height: 10px; border-radius: 50%; background: var(--linie); }
-  .consola-sus .pct i:first-child { background: var(--rosu); }
-  .live-pill { display: inline-flex; align-items: center; gap: 8px; color: var(--text); font-weight: 700; }
-  .live-pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--rosu); animation: puls 2s infinite; }
-  .consola-corp { padding: 18px 18px 20px; display: grid; gap: 16px; }
-  .ora-mare { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-  .ora-mare b { font-family: var(--f-date); font-size: clamp(38px, 5vw, 52px); font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums; }
-  .ora-mare span { font-size: 12.5px; color: var(--dim); }
-  .program { display: grid; gap: 0; padding: 0; list-style: none; font-family: var(--f-date); font-size: 13px; }
-  .program li { display: grid; grid-template-columns: 68px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 0; border-top: 1px dashed var(--linie); }
+  .scena { position: relative; isolation: isolate; display: flex; justify-content: center; align-items: center; min-height: 660px; padding: 36px 20px; border-radius: 30px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.06); box-shadow: 0 60px 120px -60px rgba(0, 0, 0, 0.9); }
+  .scena-foto { position: absolute; inset: -4%; z-index: -2; background: var(--foto) 42% 70% / cover; transform: translate3d(calc(var(--mx, 0) * -12px), calc(var(--my, 0) * -12px), 0) scale(1.05); transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .scena-ton { position: absolute; inset: 0; z-index: -1; background: radial-gradient(380px 300px at 30% 78%, rgba(255, 180, 90, 0.14), transparent 70%), linear-gradient(90deg, rgba(11, 12, 16, 0.55), rgba(11, 12, 16, 0.2) 50%, rgba(11, 12, 16, 0.5)), linear-gradient(180deg, rgba(11, 12, 16, 0.2), rgba(11, 12, 16, 0.6)); }
+  .scena-nota { margin-top: 12px; font-size: 12.5px; color: var(--stins); }
+
+  .tel-wrap { perspective: 1400px; position: relative; z-index: 1; }
+  .tel-plutire { position: relative; }
+  .telefon { position: relative; width: min(272px, 74vw); aspect-ratio: 9 / 19.4; border-radius: 50px; padding: 10px; transform: rotateY(calc(var(--mx, 0) * 8deg - 6deg)) rotateX(calc(var(--my, 0) * -6deg + 2deg)); transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    background: linear-gradient(140deg, #6a6d73 0%, #2a2c30 13%, #54575c 30%, #1d1e22 52%, #45484d 72%, #16171a 100%);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.7), inset 0 0 0 1.5px rgba(255, 255, 255, 0.28), inset 0 0 0 4px rgba(0, 0, 0, 0.4), 0 70px 90px -40px rgba(0, 0, 0, 0.95), 0 0 80px -30px rgba(255, 180, 90, 0.35); }
+  .buton-lat { position: absolute; width: 3px; border-radius: 2px; background: linear-gradient(90deg, #2b2c30, #6a6d73); }
+  .buton-lat.s1 { left: -3px; top: 98px; height: 24px; } .buton-lat.s2 { left: -3px; top: 140px; height: 44px; } .buton-lat.s3 { left: -3px; top: 194px; height: 44px; } .buton-lat.d1 { right: -3px; left: auto; top: 154px; height: 70px; background: linear-gradient(270deg, #2b2c30, #6a6d73); }
+  .ecran { position: absolute; inset: 10px; border-radius: 41px; overflow: hidden; color: #f5f5f7; font-family: var(--f-ios); background: radial-gradient(320px 220px at 80% -10%, rgba(255, 42, 46, 0.18), transparent 70%), linear-gradient(180deg, #121318, #0b0c0f); display: flex; flex-direction: column; }
+  .reflex { position: absolute; inset: 0; z-index: 8; pointer-events: none; border-radius: 41px; background: linear-gradient(118deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 26%, rgba(255, 255, 255, 0) 40%); }
+  .insula { position: absolute; z-index: 9; top: 10px; left: 50%; width: 86px; height: 25px; margin-left: -43px; border-radius: 20px; background: #000; }
+  .bara-stare { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px 0 28px; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .bara-stare svg { height: 11px; width: auto; }
+  .app-cap { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px 0; }
+  .app-marca { display: inline-flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 700; letter-spacing: -0.01em; }
+  .app-marca svg { width: 18px; height: 18px; }
+  .avatar-mic { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 700; color: #1a1a1a; background: linear-gradient(135deg, #f3e3c3, #c9a46a); }
+  .salut { padding: 10px 16px 9px; }
+  .salut span { display: block; font-size: 12px; color: rgba(245, 245, 247, 0.6); }
+  .salut b { display: block; margin-top: 2px; font-size: 19px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+  .aprobari { display: grid; gap: 8px; padding: 0 10px; margin: 0; list-style: none; }
+  .aprob { position: relative; display: grid; gap: 7px; padding: 11px 12px; border-radius: 16px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.07); transition: background 0.35s, border-color 0.35s; }
+  .aprob-sus { display: flex; justify-content: space-between; align-items: center; gap: 6px; font-size: 10.5px; color: rgba(245, 245, 247, 0.62); white-space: nowrap; }
+  .aprob-sus > span:first-child { overflow: hidden; text-overflow: ellipsis; }
+  .aprob-sus i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; background: var(--c); vertical-align: 1px; }
+  .nota { flex: none; font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 999px; background: rgba(127, 191, 107, 0.18); color: #a6dd92; font-variant-numeric: tabular-nums; }
+  .nota--bani { background: rgba(232, 196, 104, 0.16); color: var(--aur); }
+  .aprob p { font-size: 12.8px; font-weight: 600; line-height: 1.3; }
+  .aprob-btn { display: flex; gap: 6px; }
+  .aprob-btn button { flex: 1; font: inherit; font-size: 11.5px; font-weight: 700; padding: 7px 8px; border-radius: 10px; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.16); background: transparent; color: #f5f5f7; transition: transform 0.15s, background 0.2s; }
+  .aprob-btn button:active { transform: scale(0.96); }
+  .aprob-btn button[data-ac="da"] { background: #f5f5f7; color: #111; border-color: #f5f5f7; }
+  .aprob-ok { display: none; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: #a6dd92; }
+  .aprob-ok::before { content: "✓"; display: grid; place-items: center; width: 18px; height: 18px; flex: none; border-radius: 50%; background: #3f8f4e; color: #fff; font-size: 11px; font-weight: 800; }
+  .aprob.gata { background: rgba(127, 191, 107, 0.07); border-color: rgba(127, 191, 107, 0.22); }
+  .aprob.gata .aprob-btn, .aprob.gata p { display: none; }
+  .aprob.gata .aprob-ok { display: flex; }
+  .aprob.schimba .aprob-ok { color: var(--aur); }
+  .aprob.schimba .aprob-ok::before { content: "↺"; background: #8a6d24; }
+  .toate { display: grid; gap: 4px; justify-items: center; text-align: center; padding: 14px 16px 0; font-size: 12px; color: rgba(245, 245, 247, 0.6); }
+  .toate button { font: inherit; font-size: 11.5px; font-weight: 700; color: var(--turcoaz); background: none; border: 0; cursor: pointer; padding: 4px; }
+  .tab { margin-top: auto; display: flex; justify-content: space-around; padding: 8px 10px 20px; border-top: 1px solid rgba(255, 255, 255, 0.06); background: rgba(11, 12, 15, 0.8); font-size: 9.5px; color: rgba(245, 245, 247, 0.45); }
+  .tab span { display: grid; justify-items: center; gap: 3px; }
+  .tab svg { width: 16px; height: 16px; }
+  .tab .activ { color: #f5f5f7; }
+  .indicator { position: absolute; z-index: 9; bottom: 7px; left: 50%; width: 104px; height: 4px; margin-left: -52px; border-radius: 3px; background: rgba(255, 255, 255, 0.8); }
+  .umbra { position: absolute; left: 50%; bottom: -24px; width: 70%; height: 30px; margin-left: -35%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.7), transparent); filter: blur(6px); z-index: -1; }
+
+  .sticla { position: relative; z-index: 3; order: -1; flex: none; align-self: flex-end; margin: 0 -14px 34px 0; width: 228px; padding: 16px 16px 14px; border-radius: 20px; background: rgba(18, 19, 25, 0.55); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9); display: grid; gap: 12px; }
+  .sticla-sus { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-family: var(--f-date); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dim); }
+  .live-pill { display: inline-flex; align-items: center; gap: 7px; color: var(--text); font-weight: 700; }
+  .live-pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--rosu); animation: puls 2s infinite; }
+  .ora-mare { display: grid; gap: 2px; }
+  .ora-mare b { font-family: var(--f-date); font-size: 32px; font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums; }
+  .ora-mare span { font-size: 11.5px; color: var(--dim); }
+  .program { display: grid; padding: 0; margin: 0; list-style: none; font-family: var(--f-date); font-size: 11.5px; }
+  .program li { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 7px 0; border-top: 1px dashed rgba(255, 255, 255, 0.1); }
   .program li:first-child { border-top: 0; }
   .program .cand { color: var(--turcoaz); }
-  .program .cine { color: var(--text); font-family: var(--f-display); font-size: 14px; font-weight: 600; }
-  .program .cine small { display: block; color: var(--dim); font-weight: 500; font-size: 12.5px; }
-  .program .rest { color: var(--stins); font-size: 12px; white-space: nowrap; }
-  .consola-locuri { display: grid; gap: 8px; padding: 14px 16px; border-radius: 14px; background: rgba(255, 42, 46, 0.07); border: 1px solid rgba(255, 42, 46, 0.25); }
-  .consola-locuri .bara { height: 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
-  .consola-locuri .bara i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--aur), var(--rosu)); border-radius: 999px; transition: width 1.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
-  .consola-locuri span { font-size: 13.5px; color: #c7cad2; }
-  .consola-locuri b { color: #fff; }
+  .program .cine { color: var(--text); font-family: var(--f-display); font-size: 12.5px; font-weight: 700; }
+  .program .rest { color: var(--dim); font-size: 10.5px; white-space: nowrap; }
+  .locuri-mic { display: grid; gap: 6px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+  .locuri-mic .bara { height: 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.1); overflow: hidden; }
+  .locuri-mic .bara i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--aur), var(--rosu)); border-radius: 999px; transition: width 1.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .locuri-mic span { font-size: 12px; color: #c7cad2; }
+  .locuri-mic b { color: #fff; }
+  @media (max-width: 600px) {
+    .scena { flex-direction: column; min-height: 0; padding: 30px 14px 16px; }
+    .sticla { order: 0; align-self: stretch; width: auto; margin: 34px 0 0; }
+  }
 
   /* ---------- comparația ---------- */
   .comp-wrap { margin-top: 40px; overflow-x: auto; border-radius: 20px; border: 1px solid var(--linie); background: var(--panou); }
@@ -101,7 +156,7 @@
   .comp tr:last-child td { border-bottom: 0; }
   .comp thead th { font-family: var(--f-date); font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dim); background: var(--panou2); }
   .comp thead th.noi { color: var(--rosu); }
-  .comp td:first-child { width: 24%; font-weight: 700; color: var(--text); }
+  .comp td:first-child { width: 22%; font-weight: 700; color: var(--text); }
   .comp td.ei { color: var(--stins); width: 34%; }
   .comp td.ei::before { content: "✕ "; color: #8a3a3c; font-weight: 800; }
   .comp td.noi { color: var(--text); background: rgba(79, 209, 197, 0.04); }
@@ -193,6 +248,7 @@
   .semnatura .avatar { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-serif); font-style: italic; font-size: 26px; color: var(--fond); background: radial-gradient(circle at 32% 28%, #fff, #e9e4d8 60%, #c9c2b2); box-shadow: 0 0 0 3px rgba(255, 42, 46, 0.4); }
   .semnatura b { display: block; color: #fff; }
   .semnatura span { font-size: 13px; color: var(--dim); }
+  .reguli-cap { font-size: 13.5px; color: var(--dim); margin-top: 6px; }
   .principii { display: grid; gap: 10px; padding: 0; list-style: none; }
   .principii li { padding: 16px 18px; display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 12px; align-items: baseline; }
   .principii b { font-family: var(--f-date); color: var(--rosu); font-size: 13px; }
@@ -301,15 +357,19 @@
   @keyframes puls { 0% { box-shadow: 0 0 0 0 rgba(255, 42, 46, 0.6); } 100% { box-shadow: 0 0 0 10px rgba(255, 42, 46, 0); } }
   @keyframes rotire { to { transform: rotate(360deg); } }
   @keyframes intra { from { opacity: 0; transform: translateX(-10px); } }
+  @keyframes plutire { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes bifat { from { opacity: 0; transform: scale(0.96); } }
   @media (prefers-reduced-motion: no-preference) {
     .marca .punct { animation: rotire 9s linear infinite; }
+    .tel-plutire { animation: plutire 6.5s ease-in-out infinite; }
+    .aprob.gata { animation: bifat 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
     .comp.anim tbody tr { animation: intra 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) backwards; }
     .pas.anim { animation: intra 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .live-pill::before { animation: none; }
-    .btn, .progres-bara i, .consola-locuri .bara i, .bara-calc .pista i { transition: none !important; }
+    .btn, .progres-bara i, .locuri-mic .bara i, .bara-calc .pista i, .scena-foto, .telefon { transition: none !important; }
   }
 </style>
 </head>
@@ -319,9 +379,9 @@
   <div class="wrap">
     <a class="marca" href="https://alesign.net">
       <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><circle cx="28" cy="28" r="20"/><circle cx="28" cy="28" r="5" fill="currentColor" stroke="none"/><g class="punct"><circle cx="42.1" cy="13.9" r="6" fill="#ff2a2e" stroke="none"/></g></svg>
-      AleSign&amp;Co
+      <span><b>AleSystem Design</b><small>de la AleSign&amp;Co</small></span>
     </a>
-    <a class="btn btn--rosu" href="#aplica">Aplică pentru un loc</a>
+    <a class="btn btn--rosu" href="#aplica">Vreau un loc</a>
   </div>
 </header>
 
@@ -330,34 +390,87 @@
   <section class="erou" id="sus">
     <div class="wrap erou-grid">
       <div>
-        <p class="eticheta">Pentru cine a plătit deja o agenție</p>
-        <h1>Agenția clasică e depășită. <em>Uite ce o înlocuiește.</em></h1>
-        <p class="lead">O agenție îți vinde ore de om. Eu îți dau un sistem de 15 boți care lucrează non-stop, cu un creier care nu ghicește și cu un om care decide. Și ți-l arăt rulând, cu cifre live, înainte să plătești un leu.</p>
+        <p class="eticheta">AleSystem Design · pentru cine a mai plătit o agenție</p>
+        <h1>Agenția îți trimite rapoarte frumoase. <em>Clienții unde sunt?</em></h1>
+        <p class="lead">Nu zic că toate agențiile sunt proaste. Zic că modelul e vechi: plătești ore de om, iar omul ăla mai are alte 20 de conturi. AleSystem Design lucrează altfel. Face treaba în fiecare zi, după program, și te întreabă doar când e nevoie de un da. Și ți-l arăt cum rulează înainte să dai un leu.</p>
         <div class="erou-cta">
-          <a class="btn btn--rosu" href="#aplica">Aplică pentru un loc <span class="sag" aria-hidden="true">→</span></a>
-          <a class="btn btn--contur" href="#comparatie">Compară cu agenția ta</a>
+          <a class="btn btn--rosu" href="#aplica">Vreau să-l văd pe afacerea mea <span class="sag" aria-hidden="true">→</span></a>
+          <a class="btn btn--contur" href="#comparatie">Compară cu ce ai acum</a>
         </div>
         <ul class="semnale">
-          <li>prețuri publice</li>
-          <li>mostră gratuită</li>
-          <li>locuri limitate</li>
+          <li>prețurile sunt pe pagină</li>
+          <li>mostra e gratis</li>
+          <li>iau puțini clienți deodată</li>
         </ul>
       </div>
-      <div class="panou consola" aria-label="Programul sistemului pentru azi">
-        <div class="consola-sus"><span class="pct" aria-hidden="true"><i></i><i></i><i></i></span><span>alesystem · programul de azi</span><span class="live-pill">LIVE</span></div>
-        <div class="consola-corp">
-          <div class="ora-mare"><b id="ora-ro">--:--:--</b><span>ora României</span></div>
-          <ul class="program" id="program">
-            <li><span class="cand" data-pas="15">--:--</span><span class="cine">Creierul<small>verifică starea fiecărui client</small></span><span class="rest" data-rest="15"></span></li>
-            <li><span class="cand" data-pas="30">--:--</span><span class="cine">Research<small>caută firme noi, pe nișă și oraș</small></span><span class="rest" data-rest="30"></span></li>
-            <li><span class="cand" data-pas="360">--:--</span><span class="cine">Reputație<small>citește recenziile clienților</small></span><span class="rest" data-rest="360"></span></li>
-            <li><span class="cand" id="zi-23">pe 23</span><span class="cine">Conținut<small>calendarul lunii viitoare, pentru aprobare</small></span><span class="rest" id="rest-23"></span></li>
-          </ul>
-          <div class="consola-locuri" id="consola-locuri" hidden>
-            <div class="bara"><i id="consola-bara"></i></div>
-            <span id="consola-locuri-text"></span>
+
+      <div>
+        <div class="scena" id="scena" aria-label="Aplicația AleSystem pe telefon, lângă programul de azi al sistemului">
+          <div class="scena-foto" aria-hidden="true"></div>
+          <div class="scena-ton" aria-hidden="true"></div>
+          <div class="tel-wrap">
+            <div class="tel-plutire">
+              <div class="telefon">
+                <span class="buton-lat s1"></span><span class="buton-lat s2"></span><span class="buton-lat s3"></span><span class="buton-lat d1"></span>
+                <div class="ecran">
+                  <div class="insula"></div>
+                  <div class="bara-stare"><span id="tel-ora">09:41</span><svg viewBox="0 0 64 14" fill="#fff" aria-hidden="true"><rect x="0" y="9" width="3.5" height="5" rx="1"/><rect x="5.5" y="6" width="3.5" height="8" rx="1"/><rect x="11" y="3" width="3.5" height="11" rx="1"/><rect x="16.5" y="0" width="3.5" height="14" rx="1"/><path d="M33 13.2l-3.4-3.6a4.8 4.8 0 0 1 6.8 0zM28 8a7 7 0 0 1 10 0l1.6-1.7a9.4 9.4 0 0 0-13.2 0zM25 5a11.2 11.2 0 0 1 16 0l1.6-1.7a13.6 13.6 0 0 0-19.2 0z"/><rect x="46" y="1.5" width="15.5" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity=".55"/><rect x="47.6" y="3.1" width="10.5" height="7.8" rx="1.6"/><rect x="62.2" y="5" width="1.6" height="4" rx=".8" fill-opacity=".55"/></svg></div>
+                  <div class="app-cap">
+                    <span class="app-marca"><svg viewBox="0 0 56 56" fill="none" stroke="#fff" stroke-width="3.5" aria-hidden="true"><circle cx="28" cy="28" r="18"/><circle cx="28" cy="28" r="5" fill="#fff" stroke="none"/><circle cx="41" cy="15" r="6" fill="#ff2a2e" stroke="none"/></svg>AleSystem</span>
+                    <span class="avatar-mic" aria-hidden="true">SL</span>
+                  </div>
+                  <div class="salut"><span id="tel-salut">Bună dimineața</span><b id="tel-titlu">Ai 3 lucruri de aprobat.</b></div>
+                  <ul class="aprobari" id="aprobari">
+                    <li class="aprob" data-ok="Aprobat. Pleacă joi la 19:30." data-alt="Notat. Îți vine varianta nouă.">
+                      <span class="aprob-sus"><span><i style="--c:#e1306c"></i>Instagram · joi, 19:30</span><span class="nota">9,1</span></span>
+                      <p>Înainte și după: balayage</p>
+                      <span class="aprob-btn"><button type="button" data-ac="da">Aprobă</button><button type="button" data-ac="nu">Schimbă</button></span>
+                      <span class="aprob-ok"></span>
+                    </li>
+                    <li class="aprob" data-ok="Trimis. Clienta vede răspunsul." data-alt="Notat. Îl rescrie și revine.">
+                      <span class="aprob-sus"><span><i style="--c:#fbbc05"></i>Google · recenzie de 5 stele</span><span class="nota">8,7</span></span>
+                      <p>„Mulțumim! Te mai așteptăm.”</p>
+                      <span class="aprob-btn"><button type="button" data-ac="da">Trimite</button><button type="button" data-ac="nu">Schimbă</button></span>
+                      <span class="aprob-ok"></span>
+                    </li>
+                    <li class="aprob" data-ok="Pornită. Nu trece de 40 RON pe zi." data-alt="Bine. Rămâne oprită.">
+                      <span class="aprob-sus"><span><i style="--c:#4fd1c5"></i>Reclamă · așteaptă OK-ul tău</span><span class="nota nota--bani">40 RON/zi</span></span>
+                      <p>Oferta de toamnă · 3 km, 7 zile</p>
+                      <span class="aprob-btn"><button type="button" data-ac="da">Pornește</button><button type="button" data-ac="nu">Nu acum</button></span>
+                      <span class="aprob-ok"></span>
+                    </li>
+                  </ul>
+                  <div class="toate" id="toate" hidden><span>Restul rulează singur.</span><button type="button" id="din-nou">Arată-mi din nou</button></div>
+                  <div class="tab" aria-hidden="true">
+                    <span class="activ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 11l8-7 8 7v9H4z"/></svg>Azi</span>
+                    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Calendar</span>
+                    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 20V11M12 20V5M19 20v-6"/></svg>Rapoarte</span>
+                    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H9l-5 4z"/></svg>Mesaje</span>
+                  </div>
+                  <div class="indicator"></div>
+                  <div class="reflex"></div>
+                </div>
+              </div>
+              <div class="umbra" aria-hidden="true"></div>
+            </div>
+          </div>
+
+          <div class="sticla" aria-label="Programul sistemului pentru azi">
+            <div class="sticla-sus"><span>Programul AleSystem</span><span class="live-pill">live</span></div>
+            <div class="ora-mare"><span>ora României, acum</span><b id="ora-ro">--:--:--</b></div>
+            <ul class="program" id="program">
+              <li><span class="cand" data-pas="15">--:--</span><span class="cine">Creierul</span><span class="rest" data-rest="15"></span></li>
+              <li><span class="cand" data-pas="30">--:--</span><span class="cine">Research</span><span class="rest" data-rest="30"></span></li>
+              <li><span class="cand" data-pas="360">--:--</span><span class="cine">Recenzii</span><span class="rest" data-rest="360"></span></li>
+              <li><span class="cand">pe 23</span><span class="cine">Postări noi</span><span class="rest" id="rest-23"></span></li>
+            </ul>
+            <div class="locuri-mic" id="consola-locuri" hidden>
+              <div class="bara"><i id="consola-bara"></i></div>
+              <span id="consola-locuri-text"></span>
+            </div>
           </div>
         </div>
+        <p class="scena-nota">Ecranul e un exemplu, cu un salon inventat. Orele din program sunt cele reale ale sistemului.</p>
       </div>
     </div>
   </section>
@@ -365,20 +478,20 @@
   <!-- ===================== COMPARAȚIA ===================== -->
   <section id="comparatie">
     <div class="wrap">
-      <p class="eticheta">Agenția vs. sistemul</p>
-      <h2 class="h2">Pune-le una lângă alta. <em>Apoi decide.</em></h2>
-      <p class="lead">Nu toate agențiile sunt la fel. Dar modelul e același: plătești timpul unor oameni care au și alți clienți. Uite ce se schimbă când munca o face un sistem.</p>
+      <p class="eticheta">Ce plătești, de fapt</p>
+      <h2 class="h2">Hai să le punem <em>una lângă alta.</em></h2>
+      <p class="lead">Nu toate agențiile sunt la fel, știu. Dar aproape toate merg pe același model: plătești timpul unor oameni care mai au și alți clienți. Uite ce se schimbă când munca o face un sistem.</p>
       <div class="comp-wrap">
         <table class="comp" id="comp">
-          <thead><tr><th scope="col">Ce primești</th><th scope="col">Agenția clasică, de obicei</th><th scope="col" class="noi">Sistemul AleSign</th></tr></thead>
+          <thead><tr><th scope="col">Ce primești</th><th scope="col">La o agenție, de obicei</th><th scope="col" class="noi">Cu AleSystem Design</th></tr></thead>
           <tbody>
-            <tr><td>Cine lucrează pentru tine</td><td class="ei">Un om, împărțit între zeci de conturi</td><td class="noi">15 boți specializați și un om care decide</td></tr>
-            <tr><td>Când se lucrează</td><td class="ei">Luni–vineri, între ședințe</td><td class="noi">Non-stop, după un program fix</td></tr>
-            <tr><td>Ce ajunge să fie publicat</td><td class="ei">Ce a apucat omul să facă</td><td class="noi">Doar ce a luat notă peste 8 și ai aprobat tu</td></tr>
-            <tr><td>Raportul</td><td class="ei">Un PDF frumos, cu cifrele care arată bine</td><td class="noi">Cifrele tale, fiecare cu sursa ei. Unde nu sunt date scrie „fără date”</td></tr>
-            <tr><td>Banii pe reclame</td><td class="ei">Se cheltuie la decizia agenției</td><td class="noi">Niciun bot nu cheltuie fără un click uman. Contul e pe numele tău</td></tr>
-            <tr><td>Înainte să plătești</td><td class="ei">O ofertă în PDF</td><td class="noi">O mostră gratuită, cu site-ul tău demo</td></tr>
-            <tr><td>Dacă pleci</td><td class="ei">Pornești de la zero</td><td class="noi">Domeniul, conținutul plătit și exportul sunt ale tale</td></tr>
+            <tr><td>Cine se ocupă de tine</td><td class="ei">Un om care mai are alte 20 de conturi</td><td class="noi">Un sistem care face doar ce are de făcut, plus eu, care decid</td></tr>
+            <tr><td>Când se lucrează</td><td class="ei">Luni–vineri, între două ședințe</td><td class="noi">În fiecare zi, după un program fix. Și noaptea.</td></tr>
+            <tr><td>Ce se publică</td><td class="ei">Ce a apucat omul să facă vineri</td><td class="noi">Doar ce a trecut de verificare și ai aprobat tu</td></tr>
+            <tr><td>Raportul</td><td class="ei">Un PDF frumos, cu cifrele care arată bine</td><td class="noi">Cifrele tale, fiecare cu sursa ei. Unde nu sunt date, scrie „fără date”.</td></tr>
+            <tr><td>Banii pe reclame</td><td class="ei">Se cheltuie cum crede agenția</td><td class="noi">Nu pleacă un leu fără click-ul tău. Contul e pe numele tău.</td></tr>
+            <tr><td>Înainte să plătești</td><td class="ei">O ofertă în PDF</td><td class="noi">O mostră gratis, cu site-ul tău demo</td></tr>
+            <tr><td>Dacă pleci</td><td class="ei">Iei totul de la zero</td><td class="noi">Domeniul, conținutul plătit și exportul rămân la tine</td></tr>
           </tbody>
         </table>
       </div>
@@ -388,17 +501,17 @@
   <!-- ===================== CALCULATORUL ===================== -->
   <section id="calcul">
     <div class="wrap">
-      <p class="eticheta">Socoteala</p>
-      <h2 class="h2">Cât te costă <em>azi</em> marketingul?</h2>
-      <p class="lead">Pune cifrele tale. Calculul se face doar pe ecranul tău, nu se trimite nicăieri.</p>
+      <p class="eticheta">Hai să facem socoteala</p>
+      <h2 class="h2">Cât te costă <em>acum</em> marketingul?</h2>
+      <p class="lead">Pune cifrele tale. Nu le vede nimeni în afară de tine și nu pleacă nicăieri.</p>
       <div class="calc-grid">
         <div class="panou calc-in">
-          <div class="camp-calc"><label for="c-ore">Orele tale pe săptămână <output id="c-ore-v" for="c-ore">8 h</output></label><input id="c-ore" type="range" min="0" max="30" value="8"><small>Postări, mesaje, reclame, site, poze.</small></div>
-          <div class="camp-calc"><label for="c-val">Cât valorează o oră din timpul tău</label><input id="c-val" type="number" min="0" step="10" value="150" inputmode="numeric"><small>RON. Gândește-te cât facturezi pe oră unui client.</small></div>
-          <div class="camp-calc"><label for="c-plata">Cât plătești acum altcuiva, pe lună</label><input id="c-plata" type="number" min="0" step="100" value="0" inputmode="numeric"><small>RON. Agenție, freelancer, cineva care postează.</small></div>
+          <div class="camp-calc"><label for="c-ore">Câte ore stai tu pe asta, pe săptămână <output id="c-ore-v" for="c-ore">8 h</output></label><input id="c-ore" type="range" min="0" max="30" value="8"><small>Postări, mesaje, reclame, site, poze. Și timpul în care te gândești ce să postezi.</small></div>
+          <div class="camp-calc"><label for="c-val">Cât face o oră de-a ta</label><input id="c-val" type="number" min="0" step="10" value="150" inputmode="numeric"><small>În RON. Cam cât încasezi într-o oră de la un client.</small></div>
+          <div class="camp-calc"><label for="c-plata">Cât dai acum altcuiva, pe lună</label><input id="c-plata" type="number" min="0" step="100" value="0" inputmode="numeric"><small>În RON. Agenție, freelancer, nepotul care „se pricepe”.</small></div>
         </div>
         <div class="panou calc-out" aria-live="polite">
-          <div class="calc-total"><span>Marketingul te costă azi, pe lună</span><b id="c-total">0 RON</b></div>
+          <div class="calc-total"><span>Marketingul te costă acum, pe lună</span><b id="c-total">0 RON</b></div>
           <div class="bare-calc" id="c-bare"></div>
           <p class="calc-fraza" id="c-fraza">Mută cursorul și pune cifrele tale.</p>
         </div>
@@ -409,39 +522,39 @@
   <!-- ===================== SISTEMUL ===================== -->
   <section id="sistemul">
     <div class="wrap">
-      <p class="eticheta">Cum funcționează</p>
-      <h2 class="h2">O agenție întreagă. <em>Construită din boți.</em></h2>
-      <p class="lead">Fiecare bot are o singură meserie și reguli pe care nu le poate ocoli. Un creier le rutează munca, iar un bot de scor notează tot ce iese.</p>
+      <p class="eticheta">Ce e în AleSystem Design</p>
+      <h2 class="h2">Ca o agenție întreagă. <em>Doar că nu obosește.</em></h2>
+      <p class="lead">AleSystem are 15 boți. Fiecare face un singur lucru și are reguli pe care nu le poate ocoli. Unul împarte munca, altul verifică tot ce iese. Și peste toți, un om: eu.</p>
       <div class="arhitectura">
         <div class="centru">
-          <div class="panou nod" style="--c: var(--text)"><h3>Creierul</h3><p>Decide ce urmează pentru fiecare client. Rulează pe reguli, nu pe AI, și se verifică singur la fiecare 15 minute.</p></div>
-          <div class="panou nod" style="--c: var(--rosu)"><h3>Botul de Scor</h3><p>Notează orice output de la 0 la 10. Peste 8 ajunge la tine, între 5 și 8 îl vede un om, sub 5 se refă.</p></div>
+          <div class="panou nod" style="--c: var(--text)"><h3>Creierul</h3><p>Hotărăște ce urmează pentru fiecare client. Merge pe reguli clare, nu pe ghicit, și se verifică singur la fiecare 15 minute.</p></div>
+          <div class="panou nod" style="--c: var(--rosu)"><h3>Verificatorul</h3><p>Dă o notă de la 0 la 10 la tot ce iese. De la 8 în sus ajunge la tine. Între 5 și 8 se uită un om peste el. Sub 5 se face din nou.</p></div>
         </div>
         <div class="grupe">
-          <div class="panou grupa" style="--c: var(--rosu)"><h3>Achiziția<small>găsește și convinge</small></h3><ul>
-            <li><b>Research<small>la 30 min</small></b>firme noi, telefon valid, fără duplicate</li>
-            <li><b>Audit Site</b>viteză, mobil, formular, scor măsurat</li>
-            <li><b>Website</b>site demo cu datele reale, sub 3 s pe mobil</li>
+          <div class="panou grupa" style="--c: var(--rosu)"><h3>Aduce clienți<small>găsește și convinge</small></h3><ul>
+            <li><b>Research<small>la 30 min</small></b>caută firme noi pe nișă și oraș, fără dubluri</li>
+            <li><b>Audit Site</b>măsoară viteza, cum arată pe mobil, dacă merge formularul</li>
+            <li><b>Website</b>site demo cu datele tale reale, care se deschide sub 3 secunde pe mobil</li>
             <li><b>Landing Page</b>o pagină, un buton, o campanie</li>
           </ul></div>
-          <div class="panou grupa" style="--c: var(--aur)"><h3>Creșterea<small>construiește prezența</small></h3><ul>
-            <li><b>Strategie</b>ce te diferențiază de top 10 concurenți pe 3 km</li>
-            <li><b>Plan de Marketing</b>canale, buget, 90 de zile, un KPI pe canal</li>
-            <li><b>Conținut<small>pe 23</small></b>8, 16 sau 24 de postări pe lună</li>
-            <li><b>Reclame</b>propune și urmărește; lansarea o face un om</li>
+          <div class="panou grupa" style="--c: var(--aur)"><h3>Te face cunoscut<small>construiește prezența</small></h3><ul>
+            <li><b>Strategie</b>ce ai tu și n-au primii 10 concurenți pe o rază de 3 km</li>
+            <li><b>Plan de Marketing</b>canale, buget, 90 de zile, câte o cifră urmărită pe fiecare canal</li>
+            <li><b>Conținut<small>pe 23</small></b>8, 16 sau 24 de postări pe lună, gata de aprobat</li>
+            <li><b>Reclame</b>le propune și le urmărește. Le pornește un om, nu botul.</li>
           </ul></div>
-          <div class="panou grupa" style="--c: var(--turcoaz)"><h3>Fundalul<small>ține totul în ordine</small></h3><ul>
-            <li><b>CRM</b>sursa unică de adevăr, backup zilnic</li>
-            <li><b>Suport</b>răspunde la ce știe, escaladează restul</li>
-            <li><b>Raportare<small>lunar</small></b>fiecare cifră cu sursă</li>
-            <li><b>Reputație<small>la 6 h</small></b>recenzii noi, răspunsuri propuse</li>
+          <div class="panou grupa" style="--c: var(--turcoaz)"><h3>Ține totul în ordine<small>munca din spate</small></h3><ul>
+            <li><b>CRM</b>un singur loc cu tot, cu backup în fiecare zi</li>
+            <li><b>Suport</b>răspunde la ce știe, restul îl trimite la om</li>
+            <li><b>Raportare<small>lunar</small></b>fiecare cifră cu sursa ei</li>
+            <li><b>Reputație<small>la 6 h</small></b>citește recenziile noi și îți pregătește răspunsul</li>
           </ul></div>
         </div>
         <ol class="flux">
-          <li><b>Mostra</b><span>Audit, site demo și prima lună, gratuit.</span></li>
-          <li><b>Semnezi</b><span>Online, preț fix, plata și în tranșe.</span></li>
-          <li><b>Memoria brandului</b><span>30 de minute, poze, un chestionar.</span></li>
-          <li><b>Rulează</b><span>Aprobi calendarul. Restul pleacă singur.</span></li>
+          <li><b>Mostra</b><span>Ce am observat, site demo și prima lună. Gratis.</span></li>
+          <li><b>Semnezi</b><span>Online, preț fix. Poți plăti și în tranșe.</span></li>
+          <li><b>Îmi povestești</b><span>O jumătate de oră, câteva poze, câteva întrebări.</span></li>
+          <li><b>Pornește</b><span>Aprobi calendarul. De aici merge singur.</span></li>
         </ol>
       </div>
     </div>
@@ -450,26 +563,26 @@
   <!-- ===================== DOVADA LIVE ===================== -->
   <section id="dovada">
     <div class="wrap">
-      <p class="eticheta">Dovada</p>
+      <p class="eticheta">Nu trebuie să mă crezi pe cuvânt</p>
       <h2 class="h2">Nu-ți cer să mă crezi. <em>Uită-te.</em></h2>
-      <p class="lead">Dovada live bate promisiunea. Cifrele de mai jos vin direct din sistem, fără nume și fără date despre nimeni.</p>
+      <p class="lead">Cifrele de mai jos vin direct din AleSystem și se actualizează singure. Nu apar nume și nici date despre cineva.</p>
       <div class="dovada-grid" id="live" hidden>
         <div class="panou grafic-live">
-          <header><h3>Firme analizate de Research, pe zi</h3><span class="mic" id="live-total"></span></header>
+          <header><h3>Câte firme a analizat AleSystem, pe zi</h3><span class="mic" id="live-total"></span></header>
           <span class="ex" id="live-ex" hidden>Date exemplu · previzualizare</span>
           <div id="live-grafic"></div>
         </div>
         <div class="contoare" id="contoare"></div>
       </div>
       <div class="demo-titlu">
-        <h3>Raportul pe care îl primești, ziua 30</h3>
-        <p><span class="ex">Exemplu</span> Salon fictiv, cifre inventate, ca să vezi forma raportului. Al tău arată cifrele tale, cu sursă.</p>
+        <h3>Așa arată raportul tău la ziua 30</h3>
+        <p><span class="ex">Exemplu</span> Un salon inventat, cu cifre inventate, ca să vezi cum arată. În al tău sunt cifrele tale, fiecare cu sursa ei.</p>
       </div>
       <div class="demo-grid" id="demo">
         <div class="panou metrica"><span>Programări din online</span><b data-num="84">84</b><i>de la 38</i><svg viewBox="0 0 100 44" data-serie="38,47,63,71,79,84" aria-hidden="true"></svg></div>
         <div class="panou metrica"><span>Vizite pe site</span><b data-num="3180">3.180</b><i>de la 920</i><svg viewBox="0 0 100 44" data-serie="920,1350,2080,2610,2940,3180" aria-hidden="true"></svg></div>
         <div class="panou metrica"><span>Recenzii Google</span><b data-num="151">151</b><i>+63 noi</i><svg viewBox="0 0 100 44" data-serie="88,96,112,127,139,151" aria-hidden="true"></svg></div>
-        <div class="panou metrica"><span>Oameni atinși pe lună</span><b data-num="33500">33.500</b><i>de la 6.000</i><svg viewBox="0 0 100 44" data-serie="6000,14000,22000,27500,31000,33500" aria-hidden="true"></svg></div>
+        <div class="panou metrica"><span>Oameni care te-au văzut, pe lună</span><b data-num="33500">33.500</b><i>de la 6.000</i><svg viewBox="0 0 100 44" data-serie="6000,14000,22000,27500,31000,33500" aria-hidden="true"></svg></div>
       </div>
     </div>
   </section>
@@ -478,19 +591,20 @@
   <section id="fondator">
     <div class="wrap fondator">
       <div>
-        <p class="eticheta">Cine e în spate</p>
-        <p class="citat" style="margin-top: 20px">„O agenție vinde ore de om pentru lucruri pe care un sistem le face mai constant. <em>Ce merită plătit e judecata.</em>”</p>
-        <div class="semnatura" style="margin-top: 26px"><span class="avatar" aria-hidden="true">A</span><span><b>Alexandru Pavăl</b><span>fondator AleSign&amp;Co · AleSystem Design</span></span></div>
+        <p class="eticheta">Cine e în spatele AleSystem</p>
+        <p class="citat" style="margin-top: 20px">„Munca de zi cu zi o face sistemul. <em>Deciziile le luăm noi doi.</em>”</p>
+        <div class="semnatura" style="margin-top: 26px"><span class="avatar" aria-hidden="true">A</span><span><b>Alexandru Pavăl</b><span>a construit AleSystem Design · AleSign&amp;Co</span></span></div>
       </div>
       <div class="text-fondator">
-        <p>Din 2024 fac site-uri și branding. La fiecare proiect predat vedeam același lucru: <b>un site singur nu aduce clienți.</b> Îi aduce munca de după, făcută constant. Exact partea pe care agențiile o vând la oră.</p>
-        <p>Așa că am construit sistemul care o face: <b>15 boți, un creier care rutează totul pe reguli și un om, eu, acolo unde contează gustul și banii tăi.</b> Îl folosesc pentru firma mea, în fiecare zi.</p>
-        <p>Nu vin cu zece ani de agenție. Vin cu foame și cu un sistem pe care ți-l pot arăta rulând. Răspund în aceeași zi.</p>
+        <p>Din 2024 fac site-uri și branding. Și după fiecare site predat vedeam același lucru: <b>site-ul singur nu aduce clienți.</b> Îi aduce munca de după, făcută constant. Exact partea pe care agențiile ți-o vând la oră.</p>
+        <p>Așa că am construit AleSystem Design: <b>15 boți, un creier care împarte munca după reguli clare și un om, eu, acolo unde contează gustul și banii tăi.</b> Îl folosesc pentru firma mea, în fiecare zi.</p>
+        <p>Nu vin cu zece ani de agenție în spate. Vin cu un sistem pe care îl poți vedea lucrând și cu un telefon la care răspund în aceeași zi.</p>
+        <p class="reguli-cap">Câteva dintre regulile după care merge AleSystem:</p>
         <ul class="principii">
-          <li class="panou"><b>#2</b><span>Mostra întâi. Nimic complet fără plată.</span></li>
-          <li class="panou"><b>#4</b><span>Niciun bot nu cheltuie banii tăi fără click uman.</span></li>
-          <li class="panou"><b>#5</b><span>Aprobi înainte de publicare. De fiecare dată.</span></li>
-          <li class="panou"><b>#8</b><span>Dovada live bate promisiunea.</span></li>
+          <li class="panou"><b>#2</b><span>Întâi primești mostra. Restul vine după ce semnăm.</span></li>
+          <li class="panou"><b>#4</b><span>Niciun bot nu cheltuie banii tăi fără click-ul unui om.</span></li>
+          <li class="panou"><b>#5</b><span>Nu se publică nimic fără OK-ul tău. Niciodată.</span></li>
+          <li class="panou"><b>#8</b><span>Mai bine îți arăt decât să-ți promit.</span></li>
         </ul>
       </div>
     </div>
@@ -499,12 +613,12 @@
   <!-- ===================== PENTRU CINE ===================== -->
   <section id="pentru-cine">
     <div class="wrap">
-      <p class="eticheta">Pentru cine</p>
-      <h2 class="h2">Lucrez adânc. <em>Nu cu oricine.</em></h2>
+      <p class="eticheta">Pentru cine e</p>
+      <h2 class="h2">Lucrez cu puțini. <em>Dar lucrez bine.</em></h2>
       <div class="potrivire">
-        <div class="panou"><h3>Nișa de acum</h3><p>Beauty &amp; Wellness premium, în București: saloane, barbershop-uri, spa-uri, studiouri de unghii și sprâncene. O nișă, adânc, înainte de a doua. Ai altă afacere? Aplică oricum și îți spun sincer dacă te pot ajuta.</p></div>
-        <div class="panou"><h3>Nu e pentru tine dacă</h3><ul><li>cauți cel mai mic preț</li><li>vrei rezultate garantate peste noapte</li><li>vrei un tool de configurat singur</li><li>nu vrei să aprobi nimic</li></ul></div>
-        <div class="panou zero" id="zero"><h3>Pornești de la zero?</h3><p>N-ai încă site sau prezență? Pornim cu un site nou și cu primele luni de prezență constantă, într-un singur pachet.</p><span class="pret-zero" id="pret-zero" hidden></span></div>
+        <div class="panou"><h3>Pe cine ajut acum</h3><p>Saloane, barbershop-uri, spa-uri și studiouri de unghii și sprâncene din București, care vor să arate premium. O singură nișă, făcută bine, înainte să trec la alta. Ai altă afacere? Aplică oricum și îți spun sincer dacă te pot ajuta.</p></div>
+        <div class="panou"><h3>Nu e pentru tine dacă</h3><ul><li>cauți cel mai mic preț</li><li>vrei rezultate garantate în două săptămâni</li><li>vrei un program pe care să-l configurezi singur</li><li>nu vrei să aprobi nimic, niciodată</li></ul></div>
+        <div class="panou zero" id="zero"><h3>Pornești de la zero?</h3><p>N-ai încă site sau nu te găsește nimeni online? Pornim cu un site nou și cu primele luni în care lumea începe să afle de tine, totul într-un singur pachet.</p><span class="pret-zero" id="pret-zero" hidden></span></div>
       </div>
     </div>
   </section>
@@ -514,23 +628,23 @@
     <div class="wrap">
       <div class="pachete-cap">
         <div>
-          <p class="eticheta">Prețuri publice</p>
-          <h2 class="h2">Fix. Scris. <em>Fără asteriscuri.</em></h2>
-          <p class="lead">Website Refresh e dăruit la orice abonament. Plătești anual și primești reducere. Combinațiile costă mai puțin decât piesele luate separat.</p>
+          <p class="eticheta">Prețuri</p>
+          <h2 class="h2">Prețul e aici. <em>Fără asteriscuri.</em></h2>
+          <p class="lead">Nu trebuie să mă suni ca să afli cât costă. La orice abonament îți refac site-ul gratis. Dacă plătești pe un an, ai reducere. Iar pachetele combinate costă mai puțin decât dacă le-ai lua separat.</p>
         </div>
         <div class="comutator" id="comutator" role="group" aria-label="Mod de plată" hidden>
           <button type="button" data-plata="lunar" aria-pressed="true">Lunar</button>
           <button type="button" data-plata="anual" aria-pressed="false">Anual <span id="reducere"></span></button>
         </div>
       </div>
-      <div id="trepte"><p class="pret-gol">Prețul exact îl vezi în mostra ta și rămâne fix 7 zile de la prima deschidere. <a href="#aplica"><b>Aplică →</b></a></p></div>
+      <div id="trepte"><p class="pret-gol">Prețul exact îl vezi în mostra ta și nu se schimbă 7 zile de când o deschizi. <a href="#aplica"><b>Aplică →</b></a></p></div>
       <ul class="garantii">
-        <li class="panou"><b>Domeniul e mereu al tău</b><span>Pe numele tău, de la început.</span></li>
-        <li class="panou"><b>Conținutul plătit e al tău</b><span>Export la cerere, oricând.</span></li>
-        <li class="panou"><b>Contul de reclame e al tău</b><span>Nu al AleSign.</span></li>
-        <li class="panou"><b>Accesele se închid în 24 h</b><span>La final, stau într-un seif criptat.</span></li>
-        <li class="panou"><b>30 de zile de grație</b><span>Site-ul rămâne găzduit după ultima plată.</span></li>
-        <li class="panou"><b id="g-blocat">Preț blocat 7 zile</b><span>De la prima deschidere a mostrei.</span></li>
+        <li class="panou"><b>Domeniul e al tău</b><span>Pe numele tău, din prima zi.</span></li>
+        <li class="panou"><b>Conținutul plătit e al tău</b><span>Îl exporți oricând vrei.</span></li>
+        <li class="panou"><b>Contul de reclame e al tău</b><span>Nu al meu.</span></li>
+        <li class="panou"><b>Dacă pleci, accesele se închid în 24 de ore</b><span>Până atunci, parolele stau criptate.</span></li>
+        <li class="panou"><b>Încă 30 de zile online</b><span>Site-ul rămâne găzduit după ultima plată.</span></li>
+        <li class="panou"><b id="g-blocat">Prețul nu se schimbă 7 zile</b><span>Din ziua în care îți deschizi mostra.</span></li>
       </ul>
     </div>
   </section>
@@ -539,12 +653,12 @@
   <section class="aplicare" id="aplica">
     <div class="wrap aplicare-grid">
       <div>
-        <p class="eticheta">Aplică</p>
-        <h2 class="h2">Aplică pentru <em>un loc.</em></h2>
-        <p class="lead">Lucrez cu un număr limitat de abonamente, ca fiecare client să primească atenția cuvenită. Trei pași, două minute.</p>
+        <p class="eticheta">Primul pas e gratis</p>
+        <h2 class="h2">Vrei un loc? <em>Hai să vedem dacă ne potrivim.</em></h2>
+        <p class="lead">Iau puține abonamente deodată, ca fiecare client să aibă atenția pe care o plătește. Trei pași scurți, cam două minute.</p>
         <ul class="de-ce">
-          <li><span><b>Primești o mostră gratuită</b>, doar pentru afacerea ta: ce am observat, un site demo și prima lună.</span></li>
-          <li><span><b>Îți răspund în aceeași zi</b>, pe canalul pe care îl alegi.</span></li>
+          <li><span><b>Primești o mostră gratis</b>, făcută doar pentru tine: ce am observat, un site demo și ce aș face în prima lună.</span></li>
+          <li><span><b>Îți răspund în aceeași zi</b>, unde preferi tu.</span></li>
           <li><span><b>Nu semnezi nimic</b> până nu vezi mostra și nu-ți place.</span></li>
         </ul>
       </div>
@@ -557,16 +671,16 @@
           <fieldset class="pas" data-pas="1">
             <legend>Spune-mi despre afacere</legend>
             <div class="rand">
-              <label class="camp" for="a-firma">Numele afacerii<input id="a-firma" name="firma" autocomplete="organization" placeholder="ex. Salon Lumière"></label>
-              <label class="camp" for="a-oras">Orașul<input id="a-oras" name="oras" autocomplete="address-level2" placeholder="București"></label>
+              <label class="camp" for="a-firma">Cum se numește<input id="a-firma" name="firma" autocomplete="organization" placeholder="ex. Salon Lumière"></label>
+              <label class="camp" for="a-oras">În ce oraș<input id="a-oras" name="oras" autocomplete="address-level2" placeholder="București"></label>
             </div>
-            <label class="camp" for="a-nisa">Domeniul
+            <label class="camp" for="a-nisa">Ce fel de afacere
               <select id="a-nisa" name="nisa">
                 <option value="Beauty">Salon de înfrumusețare</option>
                 <option value="Barbershop">Barbershop</option>
                 <option value="Wellness">Spa sau wellness</option>
                 <option value="Unghii și sprâncene">Studio de unghii sau sprâncene</option>
-                <option value="Alt domeniu">Alt domeniu</option>
+                <option value="Alt domeniu">Altceva</option>
                 <option value="De la zero">Încă n-am afacere, pornesc de la zero</option>
               </select>
             </label>
@@ -579,44 +693,44 @@
             <label class="camp" for="a-site" id="a-site-camp" hidden>Adresa site-ului<input id="a-site" name="site" inputmode="url" placeholder="numefirma.ro"></label>
           </fieldset>
           <fieldset class="pas" data-pas="2" hidden>
-            <legend>Unde vrei să ajungi</legend>
+            <legend>Ce vrei să se schimbe</legend>
             <div><span class="grup-lab">Ce vrei în următoarele 90 de zile?</span>
               <div class="cipuri">
                 <label class="cip"><input type="radio" name="obiectiv" value="Mai multe programări" checked><span>Mai multe programări</span></label>
                 <label class="cip"><input type="radio" name="obiectiv" value="Să nu mai fac eu marketingul"><span>Să nu mai fac eu marketingul</span></label>
-                <label class="cip"><input type="radio" name="obiectiv" value="Imagine premium"><span>Imagine premium</span></label>
-                <label class="cip"><input type="radio" name="obiectiv" value="Să pornesc afacerea"><span>Să pornesc afacerea</span></label>
+                <label class="cip"><input type="radio" name="obiectiv" value="Să arăt premium"><span>Să arăt premium</span></label>
+                <label class="cip"><input type="radio" name="obiectiv" value="Să-mi pornesc afacerea"><span>Să-mi pornesc afacerea</span></label>
               </div>
             </div>
-            <div><span class="grup-lab">Cât investești acum lunar în marketing?</span>
+            <div><span class="grup-lab">Cât dai acum pe lună pe marketing?</span>
               <div class="cipuri">
                 <label class="cip"><input type="radio" name="buget" value="0" checked><span>Nimic</span></label>
                 <label class="cip"><input type="radio" name="buget" value="sub 1.000"><span>sub 1.000 RON</span></label>
-                <label class="cip"><input type="radio" name="buget" value="1.000–3.000"><span>1.000–3.000</span></label>
-                <label class="cip"><input type="radio" name="buget" value="peste 3.000"><span>peste 3.000</span></label>
+                <label class="cip"><input type="radio" name="buget" value="1.000–3.000"><span>1.000–3.000 RON</span></label>
+                <label class="cip"><input type="radio" name="buget" value="peste 3.000"><span>peste 3.000 RON</span></label>
               </div>
             </div>
-            <label class="camp" for="a-pachet">Pachetul care te interesează
+            <label class="camp" for="a-pachet">Ce pachet te interesează
               <select id="a-pachet" name="pachet"><option value="Nu știu încă">Nu știu încă, recomandă-mi tu</option></select>
             </label>
           </fieldset>
           <fieldset class="pas" data-pas="3" hidden>
             <legend>Unde îți trimit mostra</legend>
             <div class="rand">
-              <label class="camp" for="a-nume">Numele tău<input id="a-nume" name="nume" autocomplete="name" placeholder="Prenume și nume"></label>
+              <label class="camp" for="a-nume">Cum te cheamă<input id="a-nume" name="nume" autocomplete="name" placeholder="Prenume și nume"></label>
               <label class="camp" for="a-tel">Telefon<input id="a-tel" name="telefon" type="tel" autocomplete="tel" inputmode="tel" placeholder="07xx xxx xxx"></label>
             </div>
             <label class="camp" for="a-email">Email<input id="a-email" name="email" type="email" autocomplete="email" placeholder="nume@firma.ro"></label>
             <div><span class="grup-lab">Unde să-ți scriu?</span>
               <div class="cipuri">
                 <label class="cip"><input type="radio" name="canal" value="whatsapp" checked><span>WhatsApp</span></label>
-                <label class="cip"><input type="radio" name="canal" value="telefon"><span>Telefon</span></label>
+                <label class="cip"><input type="radio" name="canal" value="telefon"><span>Mă suni</span></label>
                 <label class="cip"><input type="radio" name="canal" value="email"><span>Email</span></label>
               </div>
             </div>
-            <label class="camp" for="a-mesaj"><span>Ceva ce ar trebui să știu? <small>(opțional)</small></span><textarea id="a-mesaj" name="mesaj" placeholder="ex. am încercat deja cu o agenție anul trecut"></textarea></label>
+            <label class="camp" for="a-mesaj"><span>Ceva ce ar trebui să știu? <small>(dacă vrei)</small></span><textarea id="a-mesaj" name="mesaj" placeholder="ex. am mai lucrat cu o agenție anul trecut și n-a mers"></textarea></label>
             <div class="capcana" aria-hidden="true"><label for="a-website2">Lasă gol</label><input id="a-website2" name="website2" tabindex="-1" autocomplete="off"></div>
-            <label class="acord" for="a-acord"><input id="a-acord" type="checkbox" name="acord"><span>Sunt de acord să primesc mesaje de la AleSign&amp;Co pe canalul ales, despre aplicarea mea. Mă pot răzgândi oricând, cu un singur mesaj.</span></label>
+            <label class="acord" for="a-acord"><input id="a-acord" type="checkbox" name="acord"><span>Sunt de acord să-mi scrie AleSign&amp;Co pe canalul ales, despre aplicarea mea. Dacă mă răzgândesc, e de ajuns un mesaj.</span></label>
           </fieldset>
           <div class="eroare" id="a-eroare" role="alert" hidden></div>
           <div class="nav-pasi">
@@ -625,10 +739,10 @@
           </div>
         </form>
         <div class="succes" id="a-succes" hidden tabindex="-1">
-          <span class="ok">// aplicare primită</span>
-          <h3 id="succes-titlu">Gata. Locul tău e în analiză.</h3>
-          <p id="succes-text">Îți răspund azi, cu primii pași pentru mostra ta.</p>
-          <a class="btn btn--contur" href="https://demo.alesign.net/r/9adaf472ae7c48b19bac3be4569a54cd" target="_blank" rel="noopener">Vezi un raport exemplu <span class="sag" aria-hidden="true">→</span></a>
+          <span class="ok">// am primit</span>
+          <h3 id="succes-titlu">Mersi! Am primit aplicarea.</h3>
+          <p id="succes-text">Mă uit peste ea azi și îți scriu cu primii pași pentru mostra ta.</p>
+          <a class="btn btn--contur" href="https://demo.alesign.net/r/9adaf472ae7c48b19bac3be4569a54cd" target="_blank" rel="noopener">Până atunci, vezi un raport exemplu <span class="sag" aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
@@ -637,24 +751,23 @@
 
 <footer class="subsol">
   <div class="wrap">
-    <span>Alexandru Pavăl · AleSign&amp;Co · <a href="https://alesign.net">alesign.net</a></span>
+    <span>AleSystem Design · construit de Alexandru Pavăl, AleSign&amp;Co · <a href="https://alesign.net">alesign.net</a></span>
     <span><span class="sel">info@alesign.net</span> · <span class="sel">0755 367 084</span></span>
   </div>
 </footer>
 
-<div class="bara-jos" id="bara-jos"><a class="btn btn--rosu" href="#aplica">Aplică pentru un loc <span class="sag" aria-hidden="true">→</span></a></div>
+<div class="bara-jos" id="bara-jos"><a class="btn btn--rosu" href="#aplica">Vreau un loc <span class="sag" aria-hidden="true">→</span></a></div>
 
 <script src="/lp/comun.js"></script>
 <script>
 (function () {
   'use strict';
   var A = window.AleSign, $ = function (s) { return document.querySelector(s); }, $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
-  var NS = 'http://www.w3.org/2000/svg';
   var pad = function (n) { return (n < 10 ? '0' : '') + n; };
   // „20 de ore”, dar „8 ore” și „112 ore”
   var de = function (n) { var r = n % 100; return r >= 20 || (n >= 100 && r === 0) ? n + ' de' : String(n); };
 
-  // ---------- consola: ora României și următoarele rulări după program ----------
+  // ---------- programul: ora României și următoarele rulări ----------
   function oraRo() {
     var p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Bucharest', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).formatToParts(new Date());
     var g = function (t) { return Number((p.find(function (x) { return x.type === t; }) || {}).value || 0); };
@@ -663,6 +776,8 @@
   function bifeaza() {
     var t = oraRo(), acum = t.h * 60 + t.m + t.s / 60;
     $('#ora-ro').textContent = pad(t.h) + ':' + pad(t.m) + ':' + pad(t.s);
+    $('#tel-ora').textContent = pad(t.h) + ':' + pad(t.m);
+    $('#tel-salut').textContent = t.h >= 5 && t.h < 12 ? 'Bună dimineața' : t.h >= 12 && t.h < 18 ? 'Bună ziua' : 'Bună seara';
     $$('#program [data-pas]').forEach(function (el) {
       var pas = Number(el.dataset.pas), urm = (Math.floor(acum / pas) + 1) * pas, rest = Math.ceil(urm - acum);
       el.textContent = pad(Math.floor(urm / 60) % 24) + ':' + pad(urm % 60);
@@ -673,6 +788,39 @@
     $('#rest-23').textContent = pana23 === 0 ? 'azi' : 'în ' + pana23 + (pana23 === 1 ? ' zi' : ' zile');
   }
   bifeaza(); setInterval(bifeaza, 1000);
+
+  // ---------- telefonul: aprobi și gata ----------
+  var scena = $('#scena'), carduri = $$('.aprob'), auto = A.miscare, pasAuto = null;
+  function titlu() {
+    var ramase = carduri.filter(function (c) { return !c.classList.contains('gata'); }).length;
+    $('#tel-titlu').textContent = ramase === 0 ? 'Gata pe azi.' : ramase === 1 ? 'Mai ai un singur lucru.' : 'Ai ' + ramase + ' lucruri de aprobat.';
+    $('#toate').hidden = ramase !== 0;
+    return ramase;
+  }
+  function raspunde(card, da) {
+    if (card.classList.contains('gata')) return;
+    card.querySelector('.aprob-ok').textContent = da ? card.dataset.ok : card.dataset.alt;
+    card.classList.toggle('schimba', !da);
+    card.classList.add('gata');
+    titlu();
+  }
+  function reia() { carduri.forEach(function (c) { c.classList.remove('gata', 'schimba'); }); titlu(); }
+  carduri.forEach(function (c) {
+    c.querySelectorAll('button').forEach(function (b) { b.addEventListener('click', function () { auto = false; clearTimeout(pasAuto); raspunde(c, b.dataset.ac === 'da'); }); });
+  });
+  $('#din-nou').addEventListener('click', function () { auto = false; clearTimeout(pasAuto); reia(); });
+  // singur, cât timp nu atinge nimeni telefonul: aprobă pe rând, apoi o ia de la capăt
+  function demo() {
+    if (!auto) return;
+    var urm = carduri.find(function (c) { return !c.classList.contains('gata'); });
+    if (urm) { raspunde(urm, true); pasAuto = setTimeout(demo, 2200); }
+    else pasAuto = setTimeout(function () { if (auto) { reia(); pasAuto = setTimeout(demo, 2400); } }, 3600);
+  }
+  if (auto) {
+    pasAuto = setTimeout(demo, 2600);
+    scena.addEventListener('pointermove', function (e) { var r = scena.getBoundingClientRect(); scena.style.setProperty('--mx', ((e.clientX - r.left) / r.width - 0.5).toFixed(3)); scena.style.setProperty('--my', ((e.clientY - r.top) / r.height - 0.5).toFixed(3)); });
+    scena.addEventListener('pointerleave', function () { scena.style.setProperty('--mx', 0); scena.style.setProperty('--my', 0); });
+  }
 
   // ---------- comparația intră rând cu rând ----------
   A.laVedere($('#comp'), function () { var c = $('#comp'); $$('#comp tbody tr').forEach(function (r, i) { r.style.animationDelay = (i * 90) + 'ms'; }); c.classList.add('anim'); }, 0.25);
@@ -690,17 +838,17 @@
       return '<div class="panou treapta' + (e ? ' treapta--rec' : '') + '">' + (e ? '<span class="et">' + A.esc(p.eticheta || 'Recomandat') + '</span>' : '') +
         '<h3>' + A.esc(p.nume) + '</h3><p class="sub">' + A.esc(p.subtitlu || '') + '</p>' +
         '<div><div class="p">' + (anual ? '<s>' + A.RON.format(p.pret) + '</s>' : '') + '<b>' + A.RON.format(pret) + '</b><span>RON / lună</span></div>' +
-        (anual ? '<p class="min verde">economisești ' + A.RON.format((p.pret - pret) * 12) + ' RON pe an</p>' : p.perioada_minima_luni ? '<p class="min">minim ' + A.esc(p.perioada_minima_luni) + ' luni, apoi lunar</p>' : '') + '</div>' +
+        (anual ? '<p class="min verde">îți rămân în buzunar ' + A.RON.format((p.pret - pret) * 12) + ' RON pe an</p>' : p.perioada_minima_luni ? '<p class="min">minim ' + A.esc(p.perioada_minima_luni) + ' luni, apoi de la lună la lună</p>' : '') + '</div>' +
         '<ul>' + (p.include || []).map(function (x) { return '<li>' + A.esc(x) + '</li>'; }).join('') + '</ul>' +
-        (p.disponibil === false ? '<p class="min">Listă de așteptare.</p>' : '<a class="btn ' + (e ? 'btn--rosu' : 'btn--contur') + '" href="#aplica" data-alege="' + A.esc(p.nume) + '">Aplică pentru ' + A.esc(p.nume) + ' <span class="sag" aria-hidden="true">→</span></a>') + '</div>';
+        (p.disponibil === false ? '<p class="min">Acum e plin. Te pun pe listă și te anunț primul.</p>' : '<a class="btn ' + (e ? 'btn--rosu' : 'btn--contur') + '" href="#aplica" data-alege="' + A.esc(p.nume) + '">Vreau ' + A.esc(p.nume) + ' <span class="sag" aria-hidden="true">→</span></a>') + '</div>';
     }).join('') + '</div>';
     if (P.combo.length) html += '<div class="combouri">' + P.combo.map(function (c) {
       var sep = c.conditii && c.conditii.separat, castig = sep ? sep - c.pret : 0;
-      return '<div class="panou combo"><h3>' + A.esc(c.nume) + '</h3><span>' + A.esc(c.subtitlu || '') + '</span><span class="pr">' + A.RON.format(c.pret) + ' RON' + (sep ? '<s>' + A.RON.format(sep) + '</s>' : '') + '</span>' + (castig > 0 ? '<span class="castig">economisești ' + A.RON.format(castig) + ' RON</span>' : '') + '</div>';
+      return '<div class="panou combo"><h3>' + A.esc(c.nume) + '</h3><span>' + A.esc(c.subtitlu || '') + '</span><span class="pr">' + A.RON.format(c.pret) + ' RON' + (sep ? '<s>' + A.RON.format(sep) + '</s>' : '') + '</span>' + (castig > 0 ? '<span class="castig">cu ' + A.RON.format(castig) + ' RON mai puțin</span>' : '') + '</div>';
     }).join('') + '</div>';
     $('#trepte').innerHTML = html;
     if (red) { $('#comutator').hidden = false; $('#reducere').textContent = '−' + red + '%'; }
-    if (P.setari.pret_blocat_zile) $('#g-blocat').textContent = 'Preț blocat ' + P.setari.pret_blocat_zile + ' zile';
+    if (P.setari.pret_blocat_zile) $('#g-blocat').textContent = 'Prețul nu se schimbă ' + P.setari.pret_blocat_zile + ' zile';
     var sel = $('#a-pachet');
     if (sel.options.length === 1) P.lunare.concat(P.combo).forEach(function (p) { sel.appendChild(new Option(p.nume + ' · ' + A.RON.format(p.pret) + ' RON' + (p.categorie === 'lunar' ? ' / lună' : ''), p.nume)); });
     var lansare = P.combo.find(function (c) { return /lansare/i.test(c.nume) && !/relansare/i.test(c.nume); });
@@ -710,14 +858,14 @@
   $$('#comutator button').forEach(function (b) { b.addEventListener('click', function () { stare.plata = b.dataset.plata; $$('#comutator button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); }); if (stare.cat) pachete(stare.cat); }); });
   document.addEventListener('click', function (ev) { var a = ev.target.closest('[data-alege]'); if (a) $('#a-pachet').value = a.dataset.alege; });
 
-  var ETICHETE = [['firme_analizate', 'firme analizate'], ['audituri', 'site-uri auditate'], ['mostre', 'mostre trimise'], ['apeluri', 'apeluri logate'], ['clienti_activi', 'clienți activi']];
+  var ETICHETE = [['firme_analizate', 'firme analizate'], ['audituri', 'site-uri verificate'], ['mostre', 'mostre trimise'], ['apeluri', 'apeluri făcute'], ['clienti_activi', 'clienți activi']];
   function live(c) {
     if (!c) return;
     var arata = false;
     if (typeof c.locuri_total === 'number' && typeof c.locuri_ocupate === 'number' && c.locuri_total > 0) {
       var libere = Math.max(0, c.locuri_total - c.locuri_ocupate);
       $('#consola-locuri').hidden = false;
-      $('#consola-locuri-text').innerHTML = '<b>' + c.locuri_ocupate + ' din ' + c.locuri_total + '</b> locuri de abonament ocupate · ' + (libere ? 'mai sunt <b>' + libere + '</b>' : 'listă de așteptare');
+      $('#consola-locuri-text').innerHTML = '<b>' + c.locuri_ocupate + ' din ' + c.locuri_total + '</b> locuri ocupate · ' + (libere ? 'mai am <b>' + libere + '</b>' : 'acum e plin');
       setTimeout(function () { $('#consola-bara').style.width = Math.min(100, c.locuri_ocupate / c.locuri_total * 100) + '%'; }, 300);
     }
     var t = ETICHETE.filter(function (e) { return typeof c[e[0]] === 'number'; });
@@ -756,19 +904,21 @@
     var timp = Math.round(ore * 4.33 * val), total = timp + plata;
     $('#c-ore-v').textContent = ore + ' h';
     A.numara($('#c-total'), total, function (n) { return A.RON.format(n) + ' RON'; }, 450);
-    var randuri = [['Timpul tău', timp, '#ff2a2e'], ['Ce plătești acum', plata, '#e8c468']].filter(function (r) { return r[1] > 0; });
+    var randuri = [['Timpul tău', timp, '#ff2a2e'], ['Ce dai acum', plata, '#e8c468']].filter(function (r) { return r[1] > 0; });
     var rec = stare.lunare.find(function (p) { return p.eticheta; }) || stare.lunare[Math.floor(stare.lunare.length / 2)];
     stare.lunare.forEach(function (p) { randuri.push([p.nume + (p === rec ? ' · recomandat' : ''), p.pret, '#4fd1c5']); });
     var max = Math.max.apply(null, randuri.map(function (r) { return r[1]; }).concat([1]));
     $('#c-bare').innerHTML = randuri.map(function (r) { return '<div class="bara-calc"><div><span>' + A.esc(r[0]) + '</span><b>' + A.RON.format(r[1]) + ' RON</b></div><div class="pista"><i style="width:' + (r[1] / max * 100).toFixed(1) + '%;background:' + r[2] + '"></i></div></div>'; }).join('');
-    var orelaLuna = Math.round(ore * 4.33);
+    var oreLuna = Math.round(ore * 4.33), scapi = oreLuna ? '<b>' + de(oreLuna) + ' ore</b> de muncă pe lună' : '';
     if (!total) { $('#c-fraza').textContent = 'Mută cursorul și pune cifrele tale.'; return; }
     if (rec) {
-      var dif = total - rec.pret;
+      var dif = total - rec.pret, nume = '<b>' + A.esc(rec.nume) + '</b>';
       $('#c-fraza').innerHTML = dif > 0
-        ? 'Cu <b>' + A.esc(rec.nume) + '</b> ai plăti cu <b>' + A.RON.format(dif) + ' RON mai puțin</b> pe lună și ți-ai lua înapoi <b>' + de(orelaLuna) + ' ore</b>. Ție îți rămâne doar aprobarea.'
-        : 'Cu <b>' + A.esc(rec.nume) + '</b> ai plăti ' + A.RON.format(-dif) + ' RON în plus pe lună, dar ți-ai lua înapoi <b>' + de(orelaLuna) + ' ore</b> și ai o echipă întreagă care lucrează non-stop.';
-    } else $('#c-fraza').innerHTML = 'Adică <b>' + de(orelaLuna) + ' ore</b> pe lună în care nu-ți crește afacerea.';
+        ? 'Cu ' + nume + ' ai da cu <b>' + A.RON.format(dif) + ' RON mai puțin</b> pe lună' + (scapi ? ' și scapi de ' + scapi : '') + '. Tu doar aprobi.'
+        : dif === 0
+          ? 'Cu ' + nume + ' ai da cam aceiași bani' + (scapi ? ', dar scapi de ' + scapi : '') + '. Și treaba se face în fiecare zi, nu doar când ai tu timp.'
+          : 'Cu ' + nume + ' ai da cu ' + A.RON.format(-dif) + ' RON mai mult pe lună' + (scapi ? ', dar scapi de ' + scapi : '') + '. Și treaba se face în fiecare zi, nu doar când ai tu timp.';
+    } else $('#c-fraza').innerHTML = oreLuna ? 'Adică <b>' + de(oreLuna) + ' ore</b> pe lună luate de la clienții tăi.' : 'Atât te costă acum, pe lună.';
   }
   ['#c-ore', '#c-val', '#c-plata'].forEach(function (s) { $(s).addEventListener('input', calcul); });
   calcul();
@@ -785,7 +935,7 @@
 
   // ---------- aplicarea în 3 pași ----------
   var f = $('#formular'), pas = 1, er = $('#a-eroare');
-  var NUME_PASI = ['afacerea', 'obiectivul', 'contactul'];
+  var NUME_PASI = ['afacerea', 'ce vrei', 'contactul'];
   function eroare(t) { er.innerHTML = t; er.hidden = !t; }
   function mergiLa(n) {
     pas = n; eroare('');
@@ -803,7 +953,7 @@
     ev.preventDefault();
     var fd = new FormData(f);
     if (pas === 1) {
-      if (fd.get('nisa') !== 'De la zero' && !(fd.get('firma') || '').trim()) { eroare('Scrie numele afacerii. Dacă pornești de la zero, alege asta la domeniu.'); $('#a-firma').focus(); return; }
+      if (fd.get('nisa') !== 'De la zero' && !(fd.get('firma') || '').trim()) { eroare('Scrie cum se numește afacerea. Dacă abia pornești, alege „Încă n-am afacere” mai jos.'); $('#a-firma').focus(); return; }
       mergiLa(2); return;
     }
     if (pas === 2) { mergiLa(3); return; }
@@ -812,24 +962,24 @@
       obiectiv: fd.get('obiectiv') || '', buget: fd.get('buget') || '', pachet: fd.get('pachet') || '',
       nume: (fd.get('nume') || '').trim(), telefon: (fd.get('telefon') || '').trim(), email: (fd.get('email') || '').trim(), canal: fd.get('canal') || 'whatsapp', mesaj: (fd.get('mesaj') || '').trim(), acord: !!fd.get('acord'), website2: fd.get('website2') || ''
     };
-    if (b.nume.length < 2) { eroare('Spune-mi cum te cheamă.'); $('#a-nume').focus(); return; }
-    if (b.telefon.replace(/\D/g, '').length < 9) { eroare('Numărul de telefon pare incomplet.'); $('#a-tel').focus(); return; }
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(b.email)) { eroare('Am nevoie de un email valid, ca să-ți trimit mostra.'); $('#a-email').focus(); return; }
-    if (!b.acord) { eroare('Bifează acordul, ca să am voie să-ți scriu.'); $('#a-acord').focus(); return; }
+    if (b.nume.length < 2) { eroare('Spune-mi cum te cheamă, ca să știu cui îi scriu.'); $('#a-nume').focus(); return; }
+    if (b.telefon.replace(/\D/g, '').length < 9) { eroare('Numărul pare că-i lipsește o cifră. Mai verifică-l o dată.'); $('#a-tel').focus(); return; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(b.email)) { eroare('Am nevoie de un email bun, ca să-ți trimit mostra acolo.'); $('#a-email').focus(); return; }
+    if (!b.acord) { eroare('Bifează acordul de jos, altfel n-am voie să-ți scriu.'); $('#a-acord').focus(); return; }
     var btn = $('#a-inainte'); btn.disabled = true; btn.firstChild.textContent = 'Trimit… ';
     A.trimite('dovada', b).then(function (r) {
       btn.disabled = false; btn.firstChild.textContent = 'Trimite aplicarea ';
       if (r.ok) {
         f.hidden = true;
-        $('#succes-titlu').textContent = 'Gata, ' + b.nume.split(' ')[0] + '. Locul tău e în analiză.';
+        $('#succes-titlu').textContent = 'Mersi, ' + b.nume.split(' ')[0] + '. Am primit aplicarea.';
         $('#succes-text').textContent = r.previzualizare
-          ? 'Previzualizare: aici nu se trimite nimic. Pe pagina reală, aplicarea ajunge la Alexandru și apare ca lead nou în Founder OS.'
-          : 'Îți răspund azi, pe ' + (b.canal === 'email' ? 'email' : b.canal === 'telefon' ? 'telefon' : 'WhatsApp') + ', cu primii pași pentru mostra ta.';
+          ? 'Previzualizare: de aici nu pleacă nimic. Pe pagina reală, aplicarea ajunge la Alexandru și apare ca lead nou în Founder OS.'
+          : 'Mă uit peste ea azi și îți scriu ' + (b.canal === 'email' ? 'pe email' : b.canal === 'telefon' ? 'la telefon' : 'pe WhatsApp') + ' cu primii pași pentru mostra ta.';
         $('#a-succes').hidden = false; $('#a-succes').focus();
         $('#bara-jos').classList.add('ascunsa');
         return;
       }
-      eroare(r.motiv === 'prea multe cereri' ? 'Am primit deja aplicarea ta azi. Îți răspund cât de repede pot.' : 'Nu s-a trimis. Scrie-mi direct pe <a href="https://wa.me/40755367084?text=Salut%2C%20Alexandru!%20Vreau%20s%C4%83%20aplic%20pentru%20un%20loc." target="_blank" rel="noopener">WhatsApp</a> sau la info@alesign.net și îți răspund azi.');
+      eroare(r.motiv === 'prea multe cereri' ? 'Mi-ai mai trimis aplicarea azi și am primit-o. Îți răspund cât pot de repede.' : 'Ceva n-a mers și nu s-a trimis. Scrie-mi direct pe <a href="https://wa.me/40755367084?text=Salut%2C%20Alexandru!%20Vreau%20s%C4%83%20aplic%20pentru%20un%20loc." target="_blank" rel="noopener">WhatsApp</a> sau la info@alesign.net și îți răspund azi.');
     });
   });
   mergiLa(1);
