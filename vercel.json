@@ -126,10 +126,6 @@
       "destination": "/api/panou-date"
     },
     {
-      "source": "/liber",
-      "destination": "/liber.html"
-    },
-    {
       "source": "/dovada",
       "destination": "/dovada.html"
     },
@@ -175,6 +171,13 @@
           "value": "public, max-age=31536000, immutable"
         }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/liber",
+      "destination": "/alesystem",
+      "permanent": false
     }
   ]
 }

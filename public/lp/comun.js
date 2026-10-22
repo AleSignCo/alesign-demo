@@ -15,13 +15,16 @@
     return o;
   })();
 
-  // catalogul public și cifrele live (/api/panou-date); pe previzualizare vin din pagină
+  // catalogul public și cifrele live (/api/panou-date); pe previzualizare vin din pagină. O singură cerere, oricâte scripturi întreabă.
+  var promis = null;
   function date() {
-    if (window.PANOU_DATE) return Promise.resolve(window.PANOU_DATE);
-    if (!window.fetch || location.protocol.indexOf('http') !== 0) return Promise.resolve(null);
-    return fetch('/api/panou-date', { headers: { accept: 'application/json' } })
+    if (promis) return promis;
+    if (window.PANOU_DATE) promis = Promise.resolve(window.PANOU_DATE);
+    else if (!window.fetch || location.protocol.indexOf('http') !== 0) promis = Promise.resolve(null);
+    else promis = fetch('/api/panou-date', { headers: { accept: 'application/json' } })
       .then(function (r) { return r.ok ? r.json() : null; })
       .catch(function () { return null; });
+    return promis;
   }
 
   function trimite(varianta, campuri) {
