@@ -118,10 +118,6 @@
       "destination": "/api/spatiu?token=:token"
     },
     {
-      "source": "/panou",
-      "destination": "/panou.html"
-    },
-    {
       "source": "/api/panou-date",
       "destination": "/api/panou-date"
     },
@@ -176,6 +172,11 @@
   "redirects": [
     {
       "source": "/liber",
+      "destination": "/alesystem",
+      "permanent": false
+    },
+    {
+      "source": "/panou",
       "destination": "/alesystem",
       "permanent": false
     }
