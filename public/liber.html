@@ -11,7 +11,8 @@
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#f5f2ec">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=JetBrains+Mono:wght@500;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="/lp/dinamic.css">
 <style>
   /* Layout: o scrisoare caldă pe ivoriu; sus, un telefon real pe marmură, între noapte și dimineață. */
   :root {
@@ -21,6 +22,7 @@
     --f-display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
     --f-text: Manrope, 'Segoe UI', system-ui, sans-serif;
     --f-ios: -apple-system, 'SF Pro Display', 'Segoe UI', Manrope, system-ui, sans-serif;
+    --d-card: #fff; --d-card2: var(--ivoriu); --d-text: var(--text); --d-dim: var(--gri); --d-linie: var(--linie); --d-titlu: var(--f-display); --d-greutate: 600;
     color-scheme: light;
   }
   * { box-sizing: border-box; }
@@ -212,14 +214,7 @@
   .scara { display: flex; gap: 4px; margin-top: 6px; }
   .scara span { flex: 1; padding: 6px 4px; border-radius: 8px; font-size: 11.5px; font-weight: 700; text-align: center; }
   .scara .s1 { background: #f3e2e0; color: #8a1215; } .scara .s2 { background: #f6efd9; color: #7a5c0e; } .scara .s3 { background: #dff0e6; color: #1f5f3d; }
-  .ritm { margin-top: 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-  @media (max-width: 900px) { .ritm { grid-template-columns: minmax(0, 1fr); } }
-  .ritm > div { display: grid; gap: 14px; align-content: start; padding: 24px; border-radius: 22px; background: #fff; border: 1px solid var(--linie); }
-  .ritm h3 { font-size: 26px; display: flex; align-items: center; gap: 10px; }
-  .ritm h3 span { font-family: var(--f-text); font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rosu); border: 1px solid color-mix(in srgb, var(--rosu) 35%, transparent); border-radius: 999px; padding: 3px 9px; }
-  .ritm ul { padding: 0; list-style: none; display: grid; gap: 10px; font-size: 15px; }
-  .ritm li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; }
-  .ritm li::before { content: "—"; color: var(--gri2); }
+  .incearca, .pierdut { background: var(--hartie); border-block: 1px solid var(--linie); }
 
   /* ---------- drumurile ---------- */
   .drumuri { margin-top: 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
@@ -477,6 +472,61 @@
     </div>
   </section>
 
+  <!-- ===================== GALERIA ===================== -->
+  <section class="galerie" aria-label="Afaceri premium">
+    <p class="galerie-cap">Pentru afaceri în care contează fiecare detaliu</p>
+    <div class="galerie-banda">
+      <div class="galerie-rand"><span data-foto="salon-interior"></span><span data-foto="barber-scaune"></span><span data-foto="spa-pietre"></span><span data-foto="salon-proprietara"></span><span data-foto="spa-baie"></span><span data-foto="barber-unelte"></span><span data-foto="salon-negru"></span><span data-foto="spa-lounge"></span></div>
+      <div class="galerie-rand galerie-rand--invers"><span data-foto="spa-lumanari"></span><span data-foto="barber-barba"></span><span data-foto="salon-coafat"></span><span data-foto="spa-marmura"></span><span data-foto="barber-ceas"></span><span data-foto="salon-receptie"></span><span data-foto="spa-cada"></span><span data-foto="salon-oglinda"></span></div>
+    </div>
+  </section>
+
+  <!-- ===================== ÎNCEARCĂ ===================== -->
+  <section class="incearca" id="incearca" data-firma="#f-firma" data-camp-nisa="#formular [name=nisa]">
+    <div class="wrap">
+      <p class="eyebrow">Nu-ți cer să mă crezi. Încearcă.</p>
+      <h2 class="h2">Scrie numele afacerii tale. <em>Uite ce face AleSystem cu el.</em></h2>
+      <p class="lead">Zece secunde. Fără cont, fără email, fără să se trimită ceva. Doar tu, numele tău și ce poate ieși din el.</p>
+      <div class="gen">
+        <form class="gen-form" novalidate>
+          <div><label for="gen-nume">Cum se numește afacerea ta?</label><input class="gen-nume" id="gen-nume" maxlength="40" autocomplete="organization" placeholder="ex. Atelier Lumière"></div>
+          <fieldset><legend>Ce faci?</legend>
+            <div class="gen-cipuri">
+              <label class="gen-cip"><input type="radio" name="gen-dom" value="frumusete" checked><span>Salon</span></label>
+              <label class="gen-cip"><input type="radio" name="gen-dom" value="barber"><span>Barbershop</span></label>
+              <label class="gen-cip"><input type="radio" name="gen-dom" value="spa"><span>Spa &amp; wellness</span></label>
+              <label class="gen-cip"><input type="radio" name="gen-dom" value="clinica"><span>Clinică</span></label>
+              <label class="gen-cip"><input type="radio" name="gen-dom" value="alt"><span>Altceva premium</span></label>
+            </div>
+          </fieldset>
+          <div><label for="gen-oras">În ce oraș?</label><input class="gen-oras" id="gen-oras" maxlength="40" autocomplete="address-level2" placeholder="București"></div>
+          <button class="gen-porneste" type="submit"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg><span>Pornește AleSystem</span></button>
+          <p class="gen-nota">Previzualizare rapidă, făcută în browserul tău. Nu se trimite nimic. Mostra reală o fac eu, pe datele tale reale.</p>
+        </form>
+        <div class="gen-scena gol" aria-live="polite">
+          <div class="browser">
+            <div class="browser-bara"><i></i><i></i><i></i><span class="browser-url"><svg viewBox="0 0 14 18" fill="#5e6472" aria-hidden="true"><path d="M3 8V5.5a4 4 0 0 1 8 0V8h.5A1.5 1.5 0 0 1 13 9.5v6a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 1 15.5v-6A1.5 1.5 0 0 1 2.5 8zm1.6 0h4.8V5.5a2.4 2.4 0 0 0-4.8 0z"/></svg><span>afacereata.ro</span></span></div>
+            <div class="site-erou">
+              <div class="site-foto"></div>
+              <div class="site-nav"><span class="site-logo"><b>A</b><span>Numele afacerii tale</span></span><span class="site-linkuri"><span>Servicii</span><span>Despre</span><span>Contact</span></span></div>
+              <div><p class="site-mic">București</p><p class="site-nume">Numele afacerii tale</p><p class="site-tag"></p><span class="site-btn">Programează-te</span></div>
+            </div>
+            <div class="site-servicii"><span></span><span></span><span></span></div>
+          </div>
+          <div class="gen-jos">
+            <div class="ig-rand"><div class="ig"><div class="ig-cap"><b>A</b><span>@numele</span></div><div class="ig-foto"><p></p></div><div class="ig-jos">programată · luni, 19:30</div></div><div class="ig"><div class="ig-cap"><b>A</b><span>@numele</span></div><div class="ig-foto"><p></p></div><div class="ig-jos">programată · miercuri, 12:00</div></div><div class="ig"><div class="ig-cap"><b>A</b><span>@numele</span></div><div class="ig-foto"><p></p></div><div class="ig-jos">programată · vineri, 18:00</div></div></div>
+            <div class="rec"><div class="rec-sus"><b>Client</b><span aria-label="5 stele">★★★★★</span></div><p></p><div class="rec-rasp"><small>Răspuns pregătit de AleSystem</small><p></p></div></div>
+          </div>
+          <span class="gen-astept">Postările și recenzia apar după ce pornești AleSystem</span>
+          <div class="consola">
+            <div class="consola-cutie"><header><span>AleSystem · simulare</span><b>● lucrează</b></header><ol class="consola-pasi"><li></li><li></li><li></li><li></li><li></li><li></li></ol></div>
+          </div>
+        </div>
+      </div>
+      <div class="gen-final" hidden><p class="gen-final-text"></p><a class="gen-final-btn" href="#aplica"><span>Vreau mostra reală</span> <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
   <!-- ===================== BANDA ===================== -->
   <section class="banda" aria-label="AleSystem pe scurt">
     <div class="wrap">
@@ -510,6 +560,30 @@
     </div>
   </section>
 
+  <!-- ===================== ZIUA ===================== -->
+  <section class="ziua" id="ziua">
+    <div class="wrap">
+      <p class="eyebrow">O zi obișnuită</p>
+      <h2 class="h2">Tu îți vezi de clienți. <em>Uite ce face AleSystem între timp.</em></h2>
+      <div class="ziua-grid">
+        <div class="ziua-lipit" aria-hidden="true">
+          <div class="ziua-foto" data-foto="salon-proprietara"></div><div class="ziua-foto" data-foto="salon-coafat"></div><div class="ziua-foto" data-foto="salon-interior"></div>
+          <div class="ziua-foto" data-foto="barber-barba"></div><div class="ziua-foto" data-foto="spa-lumanari"></div><div class="ziua-foto" data-foto="spa-lumanare"></div>
+          <div class="ziua-ceas"><span>dimineața</span><b>07:40</b><div class="ziua-progres"><i></i></div></div>
+        </div>
+        <ol class="ziua-momente">
+          <li data-ora="07:40" data-eticheta="dimineața"><time>07:40</time><h3>Deschizi ușa. Postarea de azi e deja programată.</h3><p>N-ai scris-o tu la miezul nopții. A pregătit-o AleSystem luna trecută, ai aprobat-o dintr-un click și iese diseară la 19:30.</p></li>
+          <li data-ora="10:15" data-eticheta="în timp ce lucrezi"><time>10:15</time><h3>Cineva îți lasă 5 stele. Răspunsul e deja scris.</h3><p>Tu ești cu un client. Când ai o pauză, apeși „Trimite”. Durează patru secunde.</p></li>
+          <li data-ora="13:40" data-eticheta="la prânz"><time>13:40</time><h3>Cineva din zona ta caută exact ce faci tu.</h3><p>Te găsește. Site-ul se deschide în trei secunde pe telefon și are un singur buton important: „Programează-te”.</p></li>
+          <li data-ora="16:20" data-eticheta="după-amiaza"><time>16:20</time><h3>„Ce program aveți sâmbătă?”</h3><p>Întrebarea simplă primește răspuns pe loc. Ce e delicat sau ține de bani ajunge la un om, nu la un bot.</p></li>
+          <li data-ora="19:30" data-eticheta="seara"><time>19:30</time><h3>Postarea iese singură. Tu ești deja pe drum spre casă.</h3><p>La ora la care te văd cei mai mulți. Fără alarmă în telefon, fără „trebuie să mai pun ceva azi”.</p></li>
+          <li data-ora="23:47" data-eticheta="noaptea"><time>23:47</time><h3>Tu dormi. AleSystem citește recenziile.</h3><p>Și pregătește ziua de mâine. Dimineață găsești pe telefon doar ce are nevoie de un da de la tine.</p></li>
+        </ol>
+      </div>
+      <div class="ziua-final"><p>Așa arată o zi în care marketingul nu mai e treaba ta.</p><a class="btn btn--rosu" href="#incearca">Încearcă-l pe numele tău <span class="sag" aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
   <!-- ===================== TIMPUL ===================== -->
   <section id="timp">
     <div class="wrap timp-grid">
@@ -536,7 +610,7 @@
   <section class="poveste" id="povestea">
     <div class="wrap poveste-grid">
       <div class="monograma">
-        <div class="mono" aria-hidden="true">A</div>
+        <div class="mono" aria-hidden="true">A<img class="foto-fondator" src="/lp/alexandru.jpg" alt="" onerror="this.remove()"></div>
         <p><b>Alexandru Pavăl</b>fondator AleSign&amp;Co, a construit AleSystem Design</p>
       </div>
       <div>
@@ -587,25 +661,6 @@
         <li><span class="nr">2</span><h3>Verificatorul îi dă notă</h3><p>De la 0 la 10. Doar ce trece de 8 ajunge la tine. Restul se reface sau se uită un om peste el.</p><span class="scara" aria-hidden="true"><span class="s1">sub 5 · se reface</span><span class="s2">5–8 · vede un om</span><span class="s3">8+ · la tine</span></span></li>
         <li><span class="nr">3</span><h3>Tu aprobi</h3><p>Un click pe telefon. Abia atunci pleacă în lume. Dacă nu-ți place, spui ce schimbăm și primești varianta nouă.</p></li>
       </ol>
-      <div class="ritm">
-        <div><h3>La început <span>o singură dată</span></h3><ul>
-          <li>Analiza concurenților din jurul tău și poziționarea ta</li>
-          <li>Memoria brandului: tonul, ofertele, pozele, ce nu spui niciodată</li>
-          <li>Site nou sau refăcut, rapid pe telefon, pe domeniul tău</li>
-          <li>Planul pe 90 de zile: canale, buget, câte o cifră urmărită pe fiecare</li>
-        </ul></div>
-        <div><h3>În fiecare zi <span>non-stop</span></h3><ul>
-          <li>Publică ce ai aprobat, la ora potrivită</li>
-          <li>Citește recenziile noi la fiecare 6 ore</li>
-          <li>Răspunde la întrebările simple; ce e delicat ajunge la un om</li>
-          <li>Urmărește reclamele și te anunță dacă ceva nu merge</li>
-        </ul></div>
-        <div><h3>În fiecare lună <span>automat</span></h3><ul>
-          <li>Postările pentru luna următoare, gata de aprobat</li>
-          <li>Raportul lunii, cu sursa fiecărei cifre</li>
-          <li>Ce păstrăm, ce schimbăm și de ce, pe baza a ce a mers</li>
-        </ul></div>
-      </div>
     </div>
   </section>
 
@@ -763,6 +818,30 @@
     </div>
   </section>
 
+  <!-- ===================== CE AI DE PIERDUT ===================== -->
+  <section class="pierdut" id="pierdut">
+    <div class="wrap">
+      <p class="eyebrow">Ultima întrebare</p>
+      <h2 class="h2">Ce ai de pierdut? <em>Două minute.</em></h2>
+      <p class="lead">Atât durează formularul de mai jos. Hai să punem lucrurile cinstit, una lângă alta.</p>
+      <div class="pierdut-grid">
+        <div class="pierdut-card pierdut-da"><h3>Dacă îmi scrii azi</h3><ul>
+          <li>Pierzi două minute.</li>
+          <li>Primești o mostră făcută doar pentru tine: ce am observat, un site demo cu numele tău și planul primei luni.</li>
+          <li>Vorbești cu omul care a construit sistemul, nu cu un call center.</li>
+          <li>Nu semnezi nimic. Dacă nu-ți place, ne despărțim prieteni.</li>
+        </ul></div>
+        <div class="pierdut-card pierdut-nu"><h3>Dacă mai amâni</h3><ul>
+          <li>Încă o lună de postat la 11 noaptea.</li>
+          <li>Clienții care te caută pe Google ajung la cine apare primul.</li>
+          <li>Concurentul mai slab decât tine mai câștigă o lună.</li>
+          <li>Peste un an, aceeași întrebare: „oare ar fi mers?”</li>
+        </ul></div>
+      </div>
+      <div class="pierdut-cta"><a class="btn btn--rosu" href="#aplica">Bine. Hai să vedem <span class="sag" aria-hidden="true">→</span></a><p>Îți răspund azi. Personal.</p></div>
+    </div>
+  </section>
+
   <!-- ===================== FORMULAR ===================== -->
   <section class="aplica" id="aplica">
     <div class="wrap ingust">
@@ -853,6 +932,7 @@
 <div class="bara-jos" id="bara-jos"><a class="btn btn--rosu" href="#aplica">Vreau mostra gratis <span class="sag" aria-hidden="true">→</span></a></div>
 
 <script src="/lp/comun.js"></script>
+<script src="/lp/dinamic.js"></script>
 <script>
 (function () {
   'use strict';
