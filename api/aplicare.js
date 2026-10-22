@@ -1,8 +1,8 @@
-// POST /api/aplicare → aplicările din paginile de campanie (/liber, /dovada): RPC aplicare_noua (sql/aplicari.sql) + webhook n8n pentru mesajul instant.
+// POST /api/aplicare → aplicările din paginile de campanie (/liber, /dovada, /alesystem): RPC aplicare_noua (sql/aplicari.sql) + webhook n8n pentru mesajul instant.
 import { URL_SB, KEY_SB, H, HW, ipDin, bodyDin } from '../lib/sb.js';
 
 const WEBHOOK = process.env.N8N_WEBHOOK_APLICARI || 'https://alesignco.app.n8n.cloud/webhook/aplicari';
-const VARIANTE = ['liber', 'dovada'];
+const VARIANTE = ['liber', 'dovada', 'alesystem'];
 const CANALE = ['whatsapp', 'telefon', 'email'];
 const UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid', 'ttclid'];
 const txt = (v, n) => String(v ?? '').trim().slice(0, n);

@@ -29,7 +29,7 @@
 
   // ---------- apariția la scroll ----------
   function apare() {
-    if (!A.miscare || !('IntersectionObserver' in window)) return;
+    if (!A.miscare || !('IntersectionObserver' in window) || document.querySelector('[data-r]')) return; // pagina are aparițiile ei
     var el = $$('main > section:not(.erou):not(.galerie):not(.ziua) > .wrap > *').concat($$('.munci > li, .drumuri > *, .focus > *, .fapte > li, .potrivire > *, .grupe > *, .pierdut-grid > *, .bonus > li'));
     var o = new IntersectionObserver(function (intrari) {
       intrari.forEach(function (i) {
@@ -182,11 +182,12 @@
       var co = g.dataset.campOras && document.querySelector(g.dataset.campOras);
       if (co && !co.value) co.value = g.dataset.oras || '';
       $$(g.dataset.campNisa || '_').forEach(function (c) {
-        if (c.tagName === 'SELECT') c.value = g.dataset.nisa;
+        if (c.tagName === 'SELECT' || c.type === 'hidden') c.value = g.dataset.nisa;
         else if (c.value === g.dataset.nisa) c.checked = true;
       });
     });
   }
 
-  galerie(); ziua(); generator(); apare();
+  poze(document); galerie(); ziua(); generator(); apare();
+  A.poze = poze;
 })();

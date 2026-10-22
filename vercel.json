@@ -134,6 +134,10 @@
       "destination": "/dovada.html"
     },
     {
+      "source": "/alesystem",
+      "destination": "/alesystem.html"
+    },
+    {
       "source": "/api/aplicare",
       "destination": "/api/aplicare"
     },

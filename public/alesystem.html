@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AleSystem Design · Alexandru Pavăl</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Clienții nu aleg cel mai bun. Aleg pe cine văd primul. AleSystem Design face ca afacerea ta premium să se vadă la fel de bine cum lucrează. Scrie-i numele și vezi.">
+<meta property="og:title" content="Nu pentru ei. Pentru Instagram.">
+<meta property="og:description" content="E 23:47 și încă lucrezi la marketing. AleSystem Design preia partea asta. Tu doar zici da sau nu.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0c0c0d">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=JetBrains+Mono:wght@500;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="/lp/dinamic.css">
+<style>
+  /* Layout: un film în șapte scene. Noaptea, nedreptatea, dimineața, încercarea, omul, pașii, decizia. Puțin text, mult de privit. */
+  :root {
+    --ink: #0c0c0d; --ink2: #121216; --card: #16171c; --card2: #1d1e24; --text: #f4f1ea; --dim: #a8a39a; --stins: #6f6a62; --linie: #2a2b31;
+    --rosu: #ff2a2e; --aur: #e8c468; --verde: #7fbf6b; --ivoriu: #f5f2ec;
+    --f-display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+    --f-text: Manrope, 'Segoe UI', system-ui, sans-serif;
+    --f-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    --d-card: var(--card); --d-card2: var(--card2); --d-text: var(--text); --d-dim: var(--dim); --d-linie: var(--linie); --d-titlu: var(--f-display); --d-greutate: 600;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ink); color: var(--text); font-family: var(--f-text); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 90; background: var(--ink); }
+  /* granulație de film */
+  body::after { content: ""; position: fixed; inset: 0; z-index: 85; pointer-events: none; opacity: 0.07; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  a { color: inherit; }
+  h1, h2, h3, p, ol, ul { margin: 0; }
+  h1, h2 { font-family: var(--f-display); font-weight: 600; letter-spacing: -0.015em; line-height: 0.98; text-wrap: balance; }
+  h1 em, h2 em { font-style: italic; font-weight: 500; color: var(--rosu); }
+  :focus-visible { outline: 2px solid var(--rosu); outline-offset: 3px; border-radius: 6px; }
+  .wrap { width: min(1180px, 100%); margin-inline: auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--f-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+  .eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--rosu); }
+  .h2 { font-size: clamp(42px, 6.4vw, 92px); margin-top: 18px; }
+  .lead { margin-top: 22px; font-size: clamp(18px, 1.6vw, 21px); line-height: 1.55; color: #cfcac0; max-width: 56ch; }
+  .lead b { color: var(--text); }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 17px 28px; border-radius: 999px; font: inherit; font-size: 16px; font-weight: 800; text-decoration: none; cursor: pointer; border: 1px solid transparent; transition: transform 0.25s, box-shadow 0.25s, background 0.25s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn--rosu { background: var(--rosu); color: #fff; box-shadow: 0 18px 44px -16px rgba(255, 42, 46, 0.95); }
+  .btn--alb { background: var(--text); color: var(--ink); }
+  .btn--contur { border-color: rgba(244, 241, 234, 0.35); color: var(--text); }
+  .btn--contur:hover { border-color: var(--text); }
+  .btn .sag { transition: transform 0.25s; }
+  .btn:hover .sag { transform: translateX(4px); }
+
+  /* ---------- apariții ---------- */
+  html.js [data-r] { opacity: 0; transform: translateY(34px); transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1); transition-delay: calc(var(--r, 0) * 130ms); }
+  html.js [data-r].in { opacity: 1; transform: none; }
+
+  /* ---------- bara de progres și antetul ---------- */
+  .progres-pagina { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; height: 2px; z-index: 80; pointer-events: none; }
+  .progres-pagina i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--aur), var(--rosu)); }
+  .top { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: 70; transition: background 0.4s, border-color 0.4s, backdrop-filter 0.4s; border-bottom: 1px solid transparent; }
+  .top.solid { background: rgba(12, 12, 13, 0.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom-color: rgba(244, 241, 234, 0.08); }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 14px; height: 66px; }
+  .marca { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; line-height: 1.1; }
+  .marca svg { width: 28px; height: 28px; flex: none; }
+  .marca .punct { transform-box: view-box; transform-origin: 28px 28px; }
+  .marca b { display: block; font-weight: 800; font-size: 14.5px; }
+  .marca small { display: block; font-size: 11px; color: var(--dim); }
+  .top-dreapta { display: flex; align-items: center; gap: 18px; }
+  .top-tel { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14.5px; text-decoration: none; }
+  .top-tel svg { width: 16px; height: 16px; color: var(--rosu); }
+  @media (max-width: 720px) { .top-tel { display: none; } }
+  .top .btn { padding: 10px 18px; font-size: 14px; }
+
+  /* ---------- scenele ---------- */
+  .scena { position: relative; isolation: isolate; min-height: 100vh; min-height: 100svh; display: grid; align-items: center; padding-block: 120px 90px; overflow: hidden; }
+  .fundal { position: absolute; inset: -4%; z-index: -2; background: #1a1714 center / cover no-repeat; }
+  .voal { position: absolute; inset: 0; z-index: -1; }
+  @media (prefers-reduced-motion: no-preference) { .fundal { animation: kenburns 26s ease-in-out infinite alternate; } }
+  @keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.12) translate3d(-1.5%, -1%, 0); } }
+
+  /* 01 · noaptea */
+  .s-noapte .voal { background: radial-gradient(600px 420px at 70% 75%, rgba(255, 170, 80, 0.16), transparent 70%), linear-gradient(180deg, rgba(6, 8, 18, 0.88), rgba(6, 8, 18, 0.6) 45%, rgba(6, 8, 18, 0.94)); }
+  .ceas { display: inline-flex; align-items: center; gap: 12px; font-family: var(--f-mono); font-size: 14px; letter-spacing: 0.08em; color: #cfcac0; }
+  .ceas b { font-weight: 500; color: var(--text); font-variant-numeric: tabular-nums; }
+  .ceas::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--rosu); animation: puls 2s infinite; }
+  .randuri { margin-top: 34px; display: grid; gap: 4px; }
+  .rand-mic { font-family: var(--f-display); font-size: clamp(28px, 3.6vw, 48px); line-height: 1.15; color: rgba(244, 241, 234, 0.72); }
+  .s-noapte h1 { margin-top: 26px; font-size: clamp(52px, 10vw, 150px); line-height: 0.92; }
+  .s-noapte h1 em { display: block; }
+  .erou-jos { margin-top: 44px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 26px; }
+  .link-sub { font-weight: 700; font-size: 15px; text-decoration: none; border-bottom: 1px solid rgba(244, 241, 234, 0.4); padding-bottom: 2px; }
+  .indiciu { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); display: grid; justify-items: center; gap: 10px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); }
+  .indiciu::after { content: ""; width: 1px; height: 38px; background: linear-gradient(180deg, var(--dim), transparent); }
+  html.js .s-noapte [data-t] { opacity: 0; transform: translateY(26px); }
+  @media (prefers-reduced-motion: no-preference) {
+    html.js .s-noapte [data-t] { animation: intraT 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: calc(var(--t) * 1s); }
+    .indiciu::after { animation: coboara 2.2s ease-in-out infinite; }
+  }
+  @media (prefers-reduced-motion: reduce) { html.js .s-noapte [data-t] { opacity: 1; transform: none; } }
+  @keyframes intraT { to { opacity: 1; transform: none; } }
+  @keyframes coboara { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+
+  /* 02 · nedreptatea */
+  .s-google { background: radial-gradient(800px 500px at 85% 50%, rgba(255, 42, 46, 0.1), transparent 70%), var(--ink2); }
+  .google-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+  @media (max-width: 920px) { .google-grid { grid-template-columns: minmax(0, 1fr); } }
+  .s-google .h2 { font-size: clamp(42px, 5.6vw, 80px); }
+  .dur { margin-top: 26px; font-family: var(--f-display); font-style: italic; font-size: clamp(26px, 2.6vw, 34px); color: var(--text); line-height: 1.2; }
+  .cautare { border-radius: 24px; background: #fff; color: #1f1f1f; padding: 18px; box-shadow: 0 60px 120px -50px rgba(0, 0, 0, 0.9); font-family: Manrope, Arial, sans-serif; }
+  .bara-cautare { display: flex; align-items: center; gap: 10px; padding: 13px 16px; border-radius: 999px; border: 1px solid #dfe1e5; box-shadow: 0 2px 6px rgba(32, 33, 36, 0.12); font-size: 15px; }
+  .bara-cautare svg { width: 18px; height: 18px; flex: none; color: #70757a; }
+  .bara-cautare span::after { content: ""; display: inline-block; width: 1px; height: 18px; margin-left: 2px; vertical-align: -3px; background: #1f1f1f; animation: clipeste 1s steps(1) infinite; }
+  @keyframes clipeste { 50% { opacity: 0; } }
+  .rez-cap { margin: 16px 4px 8px; font-size: 12px; color: #70757a; }
+  .rezultate { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+  .rezultat { display: grid; grid-template-columns: minmax(0, 1fr) 54px; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 14px; border: 1px solid transparent; transition: opacity 0.5s, transform 0.5s; }
+  html.js .rezultat { opacity: 0; transform: translateY(10px); }
+  html.js .rezultat.vazut { opacity: 1; transform: none; }
+  .rezultat b { display: block; font-size: 15px; color: #1a0dab; font-weight: 700; }
+  .rezultat .stele { font-size: 12.5px; color: #4d5156; }
+  .rezultat .stele i { font-style: normal; color: #fbbc04; letter-spacing: 1px; }
+  .rezultat small { display: block; font-size: 12px; color: #70757a; }
+  .rezultat .mini { width: 54px; height: 54px; border-radius: 10px; background: #eceae6 center / cover no-repeat; }
+  .rezultat--tu { position: relative; border-color: var(--rosu); background: #fff5f4; }
+  .rezultat--tu b { color: #141414; }
+  .eticheta-tu { position: absolute; top: -12px; right: 12px; padding: 3px 10px; border-radius: 999px; background: var(--rosu); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.04em; }
+  html.js .rezultat--tu .eticheta-tu { opacity: 0; transition: opacity 0.5s 0.6s; }
+  html.js .rezultat--tu.vazut .eticheta-tu { opacity: 1; }
+  .nota-ilustratie { margin-top: 14px; font-size: 13px; color: var(--stins); }
+
+  /* 03 · dimineața */
+  .s-zi { color: var(--ink); }
+  .s-zi .voal { background: linear-gradient(90deg, rgba(245, 242, 236, 0.94), rgba(245, 242, 236, 0.8) 55%, rgba(245, 242, 236, 0.35)); }
+  .s-zi .eyebrow { color: #6b675f; }
+  .s-zi .h2 { color: var(--ink); max-width: 14ch; }
+  .lista-zi { margin-top: 38px; padding: 0; list-style: none; display: grid; gap: 14px; max-width: 560px; }
+  .lista-zi li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 16px; align-items: center; font-size: clamp(17px, 1.6vw, 20px); font-weight: 600; color: #26231e; }
+  .lista-zi li span { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--ink); color: #fff; }
+  .lista-zi svg { width: 20px; height: 20px; }
+  .tu-doar { margin-top: 38px; font-family: var(--f-display); font-style: italic; font-size: clamp(30px, 3.4vw, 46px); line-height: 1.15; color: var(--ink); }
+  .tu-doar em { color: var(--rosu); }
+
+  /* 04 · încearcă */
+  .incearca { padding-block: clamp(90px, 11vw, 140px); background: var(--ink); border-block: 1px solid rgba(244, 241, 234, 0.06); }
+  .incearca .gen-final { background: #050506; }
+
+  /* 05 · omul */
+  .s-omul { padding-block: clamp(90px, 11vw, 140px); background: var(--ink2); }
+  .s-omul .h2 { font-size: clamp(40px, 5.4vw, 78px); max-width: 20ch; }
+  .bento { margin-top: 48px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
+  .bento > div { position: relative; overflow: hidden; display: grid; gap: 14px; align-content: start; padding: 24px; border-radius: 24px; background: linear-gradient(180deg, var(--card2), var(--card)); border: 1px solid var(--linie); min-width: 0; }
+  .b-orbita { grid-column: span 3; grid-row: span 2; align-content: space-between !important; }
+  .b-live, .b-lant { grid-column: span 3; }
+  .b-raport, .b-om, .b-semn { grid-column: span 2; }
+  @media (max-width: 960px) { .bento { grid-template-columns: minmax(0, 1fr); } .bento > div { grid-column: auto !important; grid-row: auto !important; } }
+  .b-tit { font-family: var(--f-mono); font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); }
+  .b-mare { font-family: var(--f-display); font-size: clamp(26px, 2.6vw, 34px); font-weight: 600; line-height: 1.12; }
+  .b-text { font-size: 15px; color: #cfcac0; }
+
+  .orbita { position: relative; width: min(100%, 400px); aspect-ratio: 1; margin: 6px auto; }
+  .inel { position: absolute; inset: 0; border-radius: 50%; border: 1px dashed rgba(244, 241, 234, 0.16); }
+  .inel-2 { inset: 18%; border-style: solid; border-color: rgba(244, 241, 234, 0.08); }
+  .rotor { position: absolute; inset: 0; }
+  @media (prefers-reduced-motion: no-preference) { .rotor { animation: roteste 60s linear infinite; } }
+  .rotor i { position: absolute; left: 50%; top: 50%; width: 12px; height: 12px; margin: -6px; border-radius: 50%; background: #3a3b42; border: 2px solid var(--card); transition: background 0.4s, box-shadow 0.4s, transform 0.4s; }
+  .rotor i.activ { background: var(--rosu); box-shadow: 0 0 0 6px rgba(255, 42, 46, 0.18), 0 0 24px var(--rosu); }
+  .centru-orb { position: absolute; inset: 24%; display: grid; place-content: center; text-align: center; gap: 6px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 42, 46, 0.12), transparent 70%); }
+  .centru-orb small { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+  .centru-orb b { font-family: var(--f-display); font-size: clamp(26px, 3vw, 36px); font-weight: 600; line-height: 1; transition: opacity 0.35s; }
+  .centru-orb span { font-size: 13px; color: #cfcac0; max-width: 20ch; margin-inline: auto; transition: opacity 0.35s; }
+  .centru-orb.schimba b, .centru-orb.schimba span { opacity: 0; }
+
+  .cifra-live { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .cifra-live b { font-family: var(--f-display); font-size: clamp(64px, 7vw, 96px); font-weight: 600; line-height: 0.9; font-variant-numeric: lining-nums tabular-nums; }
+  .punct-live { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); }
+  .punct-live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--rosu); animation: puls 2s infinite; }
+  .ex { justify-self: start; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--aur); border: 1px solid rgba(232, 196, 104, 0.4); border-radius: 999px; padding: 2px 10px; }
+
+  .lant { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; }
+  .lant li { position: relative; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; align-items: center; padding: 8px 0; font-size: 15px; font-weight: 600; color: var(--stins); transition: color 0.4s; }
+  .lant li::before { content: ""; width: 12px; height: 12px; margin-left: 7px; border-radius: 50%; border: 2px solid #3a3b42; background: var(--card); transition: all 0.4s; z-index: 1; }
+  .lant li::after { content: ""; position: absolute; left: 12px; top: 26px; bottom: -10px; width: 2px; background: #2c2d33; }
+  .lant li:last-child::after { display: none; }
+  .lant li.facut { color: #cfcac0; }
+  .lant li.facut::before { background: var(--verde); border-color: var(--verde); }
+  .lant li.acum { color: var(--text); }
+  .lant li.acum::before { background: var(--rosu); border-color: var(--rosu); box-shadow: 0 0 16px var(--rosu); }
+
+  .spark { width: 100%; height: 60px; display: block; overflow: visible; }
+  .b-raport a { font-weight: 700; font-size: 14.5px; text-decoration: none; border-bottom: 1px solid var(--rosu); justify-self: start; padding-bottom: 2px; }
+  .om-lista { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+  .om-lista li { padding: 6px 11px; border-radius: 999px; border: 1px solid var(--linie); background: rgba(255, 255, 255, 0.03); font-size: 12.5px; font-weight: 700; }
+  .b-semn { background: linear-gradient(160deg, rgba(255, 42, 46, 0.16), var(--card) 60%) !important; border-color: rgba(255, 42, 46, 0.35) !important; }
+  .semn-cap { display: flex; align-items: center; gap: 14px; }
+  .avatar { position: relative; width: 64px; height: 64px; flex: none; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-display); font-style: italic; font-size: 30px; color: var(--ink); background: radial-gradient(circle at 32% 28%, #fff, #ece6da 60%, #c9c2b2); box-shadow: 0 0 0 3px rgba(255, 42, 46, 0.45); }
+  .semn-cap b { display: block; font-size: 17px; }
+  .semn-cap > span:last-child > span { font-size: 13px; color: var(--dim); }
+  .semn-fraza { font-family: var(--f-display); font-style: italic; font-size: 24px; line-height: 1.2; }
+
+  /* 06 · pașii */
+  .s-pasi { padding-block: clamp(90px, 11vw, 140px); background: var(--ink); }
+  .pasi3 { margin-top: 50px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; padding: 0; list-style: none; counter-reset: p; }
+  @media (max-width: 860px) { .pasi3 { grid-template-columns: minmax(0, 1fr); } }
+  .pasi3 li { counter-increment: p; display: grid; gap: 12px; align-content: start; padding: 28px 26px; border-radius: 26px; border: 1px solid var(--linie); background: var(--card); }
+  .pasi3 li::before { content: counter(p); font-family: var(--f-display); font-style: italic; font-size: 92px; line-height: 0.8; color: transparent; -webkit-text-stroke: 1.5px var(--rosu); }
+  .pasi3 h3 { font-family: var(--f-display); font-size: 34px; font-weight: 600; line-height: 1.05; }
+  .pasi3 p { font-size: 16px; color: #cfcac0; }
+  .pasi3 li:first-child { border-color: rgba(255, 42, 46, 0.45); background: linear-gradient(180deg, rgba(255, 42, 46, 0.1), var(--card)); }
+
+  /* 07 · decizia */
+  .s-final .voal { background: linear-gradient(90deg, rgba(8, 8, 10, 0.94), rgba(8, 8, 10, 0.7) 45%, rgba(8, 8, 10, 0.25)), linear-gradient(180deg, rgba(8, 8, 10, 0.3), rgba(8, 8, 10, 0.75)); }
+  .s-final .fundal { background-position: 70% 40%; }
+  .final-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+  @media (max-width: 920px) { .final-grid { grid-template-columns: minmax(0, 1fr); } }
+  .s-final .h2 { font-size: clamp(48px, 7vw, 104px); }
+  .linistitor { margin-top: 30px; padding: 0; list-style: none; display: grid; gap: 12px; font-size: 17px; }
+  .linistitor li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; align-items: center; }
+  .linistitor li::before { content: "✓"; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--verde); color: var(--ink); font-size: 12px; font-weight: 800; }
+  .pret-mic { margin-top: 22px; font-size: 14px; color: var(--dim); }
+  .contact-card { display: grid; gap: 14px; padding: clamp(22px, 3vw, 30px); border-radius: 28px; background: rgba(18, 18, 22, 0.72); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border: 1px solid rgba(244, 241, 234, 0.14); box-shadow: 0 60px 120px -50px rgba(0, 0, 0, 0.95); }
+  .tel-mare { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 14px; align-items: center; padding: 16px; border-radius: 20px; background: var(--text); color: var(--ink); text-decoration: none; transition: transform 0.2s; }
+  .tel-mare:hover { transform: translateY(-2px); }
+  .tel-mare span:first-child { width: 54px; height: 54px; border-radius: 16px; display: grid; place-items: center; background: var(--rosu); color: #fff; }
+  .tel-mare svg { width: 24px; height: 24px; }
+  .tel-mare b { display: block; font-family: var(--f-display); font-size: 34px; font-weight: 600; line-height: 1; letter-spacing: 0.01em; }
+  .tel-mare small { display: block; margin-top: 4px; font-size: 13px; font-weight: 600; color: #4a463f; }
+  .wa { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 18px; border-radius: 16px; background: #1fae54; color: #fff; font-weight: 800; text-decoration: none; transition: transform 0.2s; }
+  .wa:hover { transform: translateY(-2px); }
+  .wa svg { width: 22px; height: 22px; }
+  .sau { display: flex; align-items: center; gap: 12px; font-size: 12.5px; color: var(--dim); }
+  .sau::before, .sau::after { content: ""; flex: 1; height: 1px; background: rgba(244, 241, 234, 0.14); }
+  .form-scurt { display: grid; gap: 10px; }
+  .form-scurt .rand2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  @media (max-width: 460px) { .form-scurt .rand2 { grid-template-columns: minmax(0, 1fr); } }
+  .form-scurt input[type=text], .form-scurt input[type=tel] { width: 100%; font: inherit; font-size: 16px; font-weight: 600; padding: 14px 15px; border-radius: 14px; border: 1px solid rgba(244, 241, 234, 0.16); background: rgba(255, 255, 255, 0.05); color: var(--text); }
+  .form-scurt input::placeholder { color: var(--stins); }
+  .form-scurt input:focus { outline: none; border-color: var(--text); }
+  .acord { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; font-size: 12.5px; color: var(--dim); }
+  .acord input { width: 18px; height: 18px; margin: 1px 0 0; accent-color: var(--rosu); }
+  .capcana { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .form-scurt .btn { width: 100%; }
+  .eroare { padding: 11px 13px; border-radius: 12px; background: rgba(255, 42, 46, 0.14); border: 1px solid rgba(255, 42, 46, 0.4); font-size: 13.5px; }
+  .eroare a { font-weight: 800; }
+  .succes { display: grid; gap: 10px; justify-items: start; padding: 6px 0; }
+  .succes .bifa { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: var(--verde); color: var(--ink); font-size: 26px; font-weight: 800; }
+  .succes h3 { font-family: var(--f-display); font-size: 32px; font-weight: 600; line-height: 1.05; }
+  .succes p { font-size: 15px; color: #cfcac0; }
+
+  /* ---------- subsol ---------- */
+  .subsol { background: #070708; color: #cfcac0; padding-block: 60px calc(30px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid rgba(244, 241, 234, 0.06); }
+  .subsol-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; align-items: start; }
+  @media (max-width: 820px) { .subsol-grid { grid-template-columns: minmax(0, 1fr); } }
+  .subsol-marca { display: grid; gap: 16px; justify-items: start; }
+  .subsol .marca svg { width: 40px; height: 40px; }
+  .subsol .marca b { font-size: 19px; }
+  .subsol-motto { font-family: var(--f-display); font-size: clamp(24px, 2.6vw, 30px); line-height: 1.2; color: var(--text); max-width: 22ch; }
+  .subsol-motto em { color: var(--rosu); }
+  .semnat { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; }
+  .semnat b { color: var(--text); }
+  .contact { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 0; margin: 0; list-style: none; }
+  @media (max-width: 460px) { .contact { grid-template-columns: minmax(0, 1fr); } }
+  .contact a { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: center; padding: 14px; border-radius: 18px; border: 1px solid rgba(244, 241, 234, 0.12); background: rgba(244, 241, 234, 0.03); text-decoration: none; transition: border-color 0.2s, transform 0.2s; }
+  .contact a:hover { border-color: rgba(244, 241, 234, 0.32); transform: translateY(-2px); }
+  .ic-c { width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center; background: rgba(255, 42, 46, 0.16); color: #ff6b6e; flex: none; }
+  .ic-c svg { width: 21px; height: 21px; }
+  .contact small { display: block; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stins); }
+  .contact span span { display: block; color: var(--text); font-weight: 700; font-size: 15px; overflow-wrap: anywhere; }
+  .subsol-jos { margin-top: 36px; padding-top: 20px; border-top: 1px solid rgba(244, 241, 234, 0.08); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 20px; font-size: 13px; color: var(--stins); }
+  .subsol-jos a { color: var(--dim); text-decoration: none; }
+
+  /* ---------- bara de jos, pe telefon ---------- */
+  .bara-jos { position: fixed; left: 0; right: 0; bottom: 0; z-index: 75; display: none; grid-template-columns: 1fr 1fr 1.4fr; gap: 8px; padding: 10px max(12px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); background: rgba(12, 12, 13, 0.9); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-top: 1px solid rgba(244, 241, 234, 0.1); transition: transform 0.3s; }
+  .bara-jos a { display: flex; align-items: center; justify-content: center; gap: 7px; padding: 13px 8px; border-radius: 14px; font-size: 14px; font-weight: 800; text-decoration: none; }
+  .bara-jos svg { width: 17px; height: 17px; }
+  .bj-tel { background: var(--text); color: var(--ink); }
+  .bj-wa { background: #1fae54; color: #fff; }
+  .bj-mostra { background: var(--rosu); color: #fff; }
+  .bara-jos.ascunsa { transform: translateY(110%); }
+  @media (max-width: 760px) { .bara-jos { display: grid; } }
+
+  @keyframes puls { 0% { box-shadow: 0 0 0 0 rgba(255, 42, 46, 0.6); } 100% { box-shadow: 0 0 0 10px rgba(255, 42, 46, 0); } }
+  @keyframes roteste { to { transform: rotate(360deg); } }
+  @keyframes rotire { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: no-preference) { .marca .punct { animation: rotire 9s linear infinite; } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    html.js [data-r], html.js .rezultat { opacity: 1; transform: none; transition: none; }
+    .ceas::before, .punct-live::before { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progres-pagina" aria-hidden="true"><i id="progres"></i></div>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="marca" href="https://alesign.net">
+      <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><circle cx="28" cy="28" r="20"/><circle cx="28" cy="28" r="5" fill="currentColor" stroke="none"/><g class="punct"><circle cx="42.1" cy="13.9" r="6" fill="#ff2a2e" stroke="none"/></g></svg>
+      <span><b>AleSystem Design</b><small>de Alexandru Pavăl</small></span>
+    </a>
+    <div class="top-dreapta">
+      <a class="top-tel" href="tel:+40755367084"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>0755 367 084</a>
+      <a class="btn btn--rosu" href="#contact">Mostra gratis</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- 01 · noaptea -->
+  <section class="scena s-noapte" id="sus">
+    <div class="fundal" data-foto="spa-lumanare"></div>
+    <div class="voal"></div>
+    <div class="wrap">
+      <p class="ceas" data-t style="--t:0.2"><b id="ceas">23:47:00</b> · marți seara</p>
+      <div class="randuri">
+        <p class="rand-mic" data-t style="--t:0.7">Ai închis acum trei ore.</p>
+        <p class="rand-mic" data-t style="--t:1.5">Clienții au plecat mulțumiți.</p>
+        <p class="rand-mic" data-t style="--t:2.3">Și tu încă lucrezi.</p>
+      </div>
+      <h1 data-t style="--t:3.3">Nu pentru ei. <em>Pentru Instagram.</em></h1>
+      <div class="erou-jos" data-t style="--t:4.3">
+        <a class="btn btn--rosu" href="#vizibil">Arată-mi cum poate fi altfel <span class="sag" aria-hidden="true">→</span></a>
+        <a class="link-sub" href="#contact">sau sună-mă direct</a>
+      </div>
+    </div>
+    <span class="indiciu" aria-hidden="true">derulează</span>
+  </section>
+
+  <!-- 02 · nedreptatea -->
+  <section class="scena s-google" id="vizibil">
+    <div class="wrap google-grid">
+      <div>
+        <p class="eyebrow" data-r>Partea care doare</p>
+        <h2 class="h2" data-r style="--r:1">Clienții nu aleg cel mai bun. <em>Aleg pe cine văd primul.</em></h2>
+        <p class="lead" data-r style="--r:2">Tu lucrezi mai bine. Ai clienți care revin de ani de zile. Dar cine te caută azi pe telefon nu știe asta. Vede cinci nume înaintea ta, cu mai multe recenzii, un site care se deschide repede și postări de ieri.</p>
+        <p class="dur" data-r style="--r:3">Nu e corect. Dar așa merge.<br>Și se poate repara.</p>
+      </div>
+      <div data-r style="--r:2">
+        <div class="cautare" id="cautare" aria-label="Ilustrație: o căutare pe telefon în care afacerea ta apare a șasea">
+          <div class="bara-cautare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span id="interogare">salon premium lângă mine</span></div>
+          <p class="rez-cap">Rezultate în apropiere</p>
+          <ol class="rezultate">
+            <li class="rezultat"><span><b>Salonul de vizavi</b><span class="stele">4,2 <i>★★★★</i> (418)</span><small>Deschis · Programare online</small></span><span class="mini"></span></li>
+            <li class="rezultat"><span><b>Salonul de pe bulevard</b><span class="stele">4,0 <i>★★★★</i> (296)</span><small>Deschis · Site</small></span><span class="mini"></span></li>
+            <li class="rezultat"><span><b>Lanțul cu promoții</b><span class="stele">3,9 <i>★★★★</i> (1.204)</span><small>Reduceri în fiecare săptămână</small></span><span class="mini"></span></li>
+            <li class="rezultat"><span><b>Salonul din mall</b><span class="stele">4,1 <i>★★★★</i> (187)</span><small>Deschis până la 22:00</small></span><span class="mini"></span></li>
+            <li class="rezultat"><span><b>Cel care postează zilnic</b><span class="stele">4,3 <i>★★★★</i> (142)</span><small>Site · Instagram activ</small></span><span class="mini"></span></li>
+            <li class="rezultat rezultat--tu"><span class="eticheta-tu">Tu · cel mai bun din listă</span><span><b>Afacerea ta</b><span class="stele">4,9 <i>★★★★★</i> (37)</span><small>Site vechi · ultima postare acum 3 luni</small></span><span class="mini" data-foto="salon-interior"></span></li>
+          </ol>
+        </div>
+        <p class="nota-ilustratie">Ilustrație. Dar probabil știi exact despre cine vorbesc.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · dimineața -->
+  <section class="scena s-zi" id="altfel">
+    <div class="fundal" data-foto="spa-marmura"></div>
+    <div class="voal"></div>
+    <div class="wrap">
+      <p class="eyebrow" data-r>Acum imaginează-ți altfel</p>
+      <h2 class="h2" data-r style="--r:1">Ce-ar fi dacă partea asta <em><span style="white-space:nowrap">s-ar</span> face singură?</em></h2>
+      <ul class="lista-zi">
+        <li data-r style="--r:2"><span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3.5"/></svg></span>Postările ies la timp, scrise pe vocea ta.</li>
+        <li data-r style="--r:3"><span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg></span>Fiecare recenzie primește răspuns în aceeași zi.</li>
+        <li data-r style="--r:4"><span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/></svg></span>Reclamele merg doar în zona ta, cu plafonul tău.</li>
+        <li data-r style="--r:5"><span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>La final de lună afli exact ce a adus clienți.</li>
+      </ul>
+      <p class="tu-doar" data-r style="--r:6">Tu doar zici <em>da</em> sau <em>nu</em>.<br>De pe telefon.</p>
+    </div>
+  </section>
+
+  <!-- 04 · încearcă -->
+  <section class="incearca" id="incearca" data-firma="#c-firma" data-camp-nisa="#c-nisa">
+    <div class="wrap">
+      <p class="eyebrow" data-r>Nu-ți cer să mă crezi</p>
+      <h2 class="h2" data-r style="--r:1">Scrie numele afacerii tale. <em>Uite cum ar arăta mâine.</em></h2>
+      <p class="lead" data-r style="--r:2">Zece secunde. Fără cont, fără email, nu se trimite nimic. Doar tu, numele tău și ce poate ieși din el.</p>
+      <div class="gen" data-r style="--r:3">
+        <form class="gen-form" novalidate>
+          <div><label for="gen-nume">Cum se numește afacerea ta?</label><input class="gen-nume" id="gen-nume" maxlength="40" autocomplete="organization" placeholder="ex. Atelier Lumière"></div>
+          <fieldset><legend>Ce faci?</legend>
+            <div class="gen-cipuri">
+              <label class="gen-cip"><input type="radio" name="gen-dom" value="frumusete" checked><span>Salon</span></label>
+              <label class="gen-cip"><input type="radio" name="gen-dom" value="barber"><span>Barbershop</span></label>
+              <label class="gen-cip"><input type="radio" name="gen-dom" value="spa"><span>Spa &amp; wellness</span></label>
+              <label class="gen-cip"><input type="radio" name="gen-dom" value="clinica"><span>Clinică</span></label>
+              <label class="gen-cip"><input type="radio" name="gen-dom" value="alt"><span>Altceva premium</span></label>
+            </div>
+          </fieldset>
+          <div><label for="gen-oras">În ce oraș?</label><input class="gen-oras" id="gen-oras" maxlength="40" autocomplete="address-level2" placeholder="București"></div>
+          <button class="gen-porneste" type="submit"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg><span>Pornește AleSystem</span></button>
+          <p class="gen-nota">Previzualizare rapidă, făcută în browserul tău. Mostra reală o fac eu, pe datele tale reale.</p>
+        </form>
+        <div class="gen-scena gol" aria-live="polite">
+          <div class="browser">
+            <div class="browser-bara"><i></i><i></i><i></i><span class="browser-url"><svg viewBox="0 0 14 18" fill="#5e6472" aria-hidden="true"><path d="M3 8V5.5a4 4 0 0 1 8 0V8h.5A1.5 1.5 0 0 1 13 9.5v6a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 1 15.5v-6A1.5 1.5 0 0 1 2.5 8zm1.6 0h4.8V5.5a2.4 2.4 0 0 0-4.8 0z"/></svg><span>afacereata.ro</span></span></div>
+            <div class="site-erou">
+              <div class="site-foto"></div>
+              <div class="site-nav"><span class="site-logo"><b>A</b><span>Numele afacerii tale</span></span><span class="site-linkuri"><span>Servicii</span><span>Despre</span><span>Contact</span></span></div>
+              <div><p class="site-mic">București</p><p class="site-nume">Numele afacerii tale</p><p class="site-tag"></p><span class="site-btn">Programează-te</span></div>
+            </div>
+            <div class="site-servicii"><span></span><span></span><span></span></div>
+          </div>
+          <div class="gen-jos">
+            <div class="ig-rand"><div class="ig"><div class="ig-cap"><b>A</b><span>@numele</span></div><div class="ig-foto"><p></p></div><div class="ig-jos">programată · luni, 19:30</div></div><div class="ig"><div class="ig-cap"><b>A</b><span>@numele</span></div><div class="ig-foto"><p></p></div><div class="ig-jos">programată · miercuri, 12:00</div></div><div class="ig"><div class="ig-cap"><b>A</b><span>@numele</span></div><div class="ig-foto"><p></p></div><div class="ig-jos">programată · vineri, 18:00</div></div></div>
+            <div class="rec"><div class="rec-sus"><b>Client</b><span aria-label="5 stele">★★★★★</span></div><p></p><div class="rec-rasp"><small>Răspuns pregătit de AleSystem</small><p></p></div></div>
+          </div>
+          <span class="gen-astept">Postările și recenzia apar după ce pornești AleSystem</span>
+          <div class="consola">
+            <div class="consola-cutie"><header><span>AleSystem · simulare</span><b>● lucrează</b></header><ol class="consola-pasi"><li></li><li></li><li></li><li></li><li></li><li></li></ol></div>
+          </div>
+        </div>
+      </div>
+      <div class="gen-final" hidden><p class="gen-final-text"></p><a class="gen-final-btn" href="#contact"><span>Vreau mostra reală</span> <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <!-- 05 · omul -->
+  <section class="s-omul" id="omul">
+    <div class="wrap">
+      <p class="eyebrow" data-r>Cine e în spate</p>
+      <h2 class="h2" data-r style="--r:1">Nu am o agenție cu 40 de oameni. <em>Am construit sistemul care face munca lor.</em></h2>
+      <p class="lead" data-r style="--r:2">Mă cheamă Alexandru Pavăl. Am construit AleSystem bucată cu bucată și îl rulez în fiecare zi pe propria firmă. <b>Nu ți-l vând din prezentare. Ți-l arăt cum lucrează.</b></p>
+      <div class="bento">
+        <div class="b-orbita" data-r>
+          <p class="b-tit">AleSystem, pe dinăuntru</p>
+          <div class="orbita" id="orbita">
+            <div class="inel"></div><div class="inel inel-2"></div>
+            <div class="rotor" id="rotor"></div>
+            <div class="centru-orb" id="centru-orb"><small>pe rând, fiecare cu meseria lui</small><b id="bot-nume">Creierul</b><span id="bot-job">împarte munca la fiecare 15 minute</span></div>
+          </div>
+          <p class="b-mare">15 boți. Fiecare cu o singură meserie. <span style="color:var(--dim)">Unul îi coordonează pe toți.</span></p>
+        </div>
+        <div class="b-live" data-r style="--r:1">
+          <p class="punct-live">Rulează chiar acum</p>
+          <div class="cifra-live"><b id="live-cifra">—</b></div>
+          <p class="b-text" id="live-text">firme analizate de AleSystem în ultimele 30 de zile. Fără nume, fără date despre cineva.</p>
+          <span class="ex" id="live-ex" hidden>Date exemplu · previzualizare</span>
+        </div>
+        <div class="b-lant" data-r style="--r:2">
+          <p class="b-tit">Partea plictisitoare e automată</p>
+          <ol class="lant" id="lant">
+            <li>Alegi pachetul</li>
+            <li>Contractul se generează singur</li>
+            <li>Semnezi online</li>
+            <li>Factura pleacă singură</li>
+            <li>Sistemul începe să lucreze pentru tine</li>
+          </ol>
+          <p class="b-text">Așa timpul meu merge pe ce contează: tu.</p>
+        </div>
+        <div class="b-raport" data-r style="--r:1">
+          <p class="b-tit">Raportul tău, lunar</p>
+          <svg class="spark" viewBox="0 0 200 60" aria-hidden="true"><defs><linearGradient id="gr" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ff2a2e" stop-opacity=".35"/><stop offset="1" stop-color="#ff2a2e" stop-opacity="0"/></linearGradient></defs><path d="M0 52 L40 46 L80 36 L120 28 L160 16 L200 8 L200 60 L0 60Z" fill="url(#gr)"/><path id="spark-l" d="M0 52 L40 46 L80 36 L120 28 L160 16 L200 8" fill="none" stroke="#ff2a2e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="200" cy="8" r="4" fill="#ff2a2e"/></svg>
+          <p class="b-text">Fiecare cifră cu sursa ei. Unde nu sunt date, scrie „fără date”. Nu umflu nimic.</p>
+          <a href="https://demo.alesign.net/r/9adaf472ae7c48b19bac3be4569a54cd" target="_blank" rel="noopener">Deschide un raport exemplu →</a>
+        </div>
+        <div class="b-om" data-r style="--r:2">
+          <p class="b-tit">12 decizii rămân la un om</p>
+          <ul class="om-lista"><li>Strategia ta</li><li>Bugetul</li><li>Orice reclamă</li><li>Recenziile negative</li><li>Mostra ta</li><li>Regulile din domeniu</li></ul>
+          <p class="b-text">Banii, reputația și direcția nu le las niciodată pe mâna unui bot.</p>
+        </div>
+        <div class="b-semn" data-r style="--r:3">
+          <div class="semn-cap"><span class="avatar" aria-hidden="true">A<img class="foto-fondator" src="/lp/alexandru.jpg" alt="" onerror="this.remove()"></span><span><b>Alexandru Pavăl</b><span>fondator AleSign&amp;Co</span></span></div>
+          <p class="semn-fraza">„Răspund eu la telefon. Nu un call center, nu un bot.”</p>
+          <a class="btn btn--alb" href="tel:+40755367084">Sună-mă acum</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · pașii -->
+  <section class="s-pasi" id="pasi">
+    <div class="wrap">
+      <p class="eyebrow" data-r>Cum începem</p>
+      <h2 class="h2" data-r style="--r:1">Trei pași. <em>Primul e gratis.</em></h2>
+      <ol class="pasi3">
+        <li data-r style="--r:2"><h3>Îmi lași numele și numărul.</h3><p>Două câmpuri. Sau mă suni direct. Atât.</p></li>
+        <li data-r style="--r:3"><h3>Îți fac mostra.</h3><p>Ce am observat la tine, un site demo cu numele tău și ce aș face în prima lună. Gratis.</p></li>
+        <li data-r style="--r:4"><h3>Decizi tu.</h3><p>Îți place, începem. Nu-ți place, ne strângem mâna. Fără telefoane insistente, fără presiune.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 07 · decizia -->
+  <section class="scena s-final" id="contact">
+    <div class="fundal" data-foto="salon-proprietara"></div>
+    <div class="voal"></div>
+    <div class="wrap final-grid">
+      <div>
+        <p class="eyebrow" data-r>Ultima întrebare</p>
+        <h2 class="h2" data-r style="--r:1">Ce ai de pierdut? <em>Două minute.</em></h2>
+        <p class="lead" data-r style="--r:2">Și ce poți câștiga: o afacere care se vede la fel de bine cum lucrează.</p>
+        <ul class="linistitor">
+          <li data-r style="--r:3">Mostra e gratis și e făcută doar pentru tine.</li>
+          <li data-r style="--r:4">Nu semnezi nimic până nu vezi și nu-ți place.</li>
+          <li data-r style="--r:5">Vorbești cu omul care a construit sistemul.</li>
+        </ul>
+        <p class="pret-mic" id="pret-mic" data-r style="--r:6">Prețurile sunt la vedere, fără costuri ascunse.</p>
+      </div>
+      <div class="contact-card" data-r style="--r:2">
+        <a class="tel-mare" href="tel:+40755367084"><span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg></span><span><b>0755 367 084</b><small>Sună-mă. Răspund eu.</small></span></a>
+        <a class="wa" id="wa" href="https://wa.me/40755367084?text=Salut%2C%20Alexandru!%20Am%20v%C4%83zut%20AleSystem%20%C8%99i%20vreau%20o%20mostr%C4%83." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3zm0 1.6a7.4 7.4 0 1 1-3.8 13.8l-.3-.2-2.7.7.7-2.6-.2-.3A7.4 7.4 0 0 1 12 4.6zm4.2 9.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6 6 0 0 1-3-2.6c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.9 2.3 1 2.5s1.7 2.6 4.1 3.6c1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1s.2-1 .1-1.1-.2-.2-.4-.3z"/></svg>Scrie-mi pe WhatsApp</a>
+        <p class="sau">sau te sun eu</p>
+        <form class="form-scurt" id="formular" novalidate>
+          <div class="rand2">
+            <input type="text" id="c-nume" name="nume" autocomplete="given-name" placeholder="Prenumele tău" aria-label="Prenumele tău">
+            <input type="tel" id="c-tel" name="telefon" autocomplete="tel" inputmode="tel" placeholder="Telefon" aria-label="Telefon">
+          </div>
+          <input type="hidden" id="c-firma" name="firma"><input type="hidden" id="c-nisa" name="nisa">
+          <div class="capcana" aria-hidden="true"><label for="c-website2">Lasă gol</label><input id="c-website2" name="website2" tabindex="-1" autocomplete="off"></div>
+          <label class="acord" for="c-acord"><input id="c-acord" type="checkbox" name="acord"><span>Sunt de acord să mă contacteze AleSign&amp;Co despre mostra mea. Mă pot răzgândi oricând.</span></label>
+          <div class="eroare" id="c-eroare" role="alert" hidden></div>
+          <button class="btn btn--rosu" type="submit" id="c-trimite">Vreau mostra gratis <span class="sag" aria-hidden="true">→</span></button>
+        </form>
+        <div class="succes" id="c-succes" hidden tabindex="-1">
+          <span class="bifa" aria-hidden="true">✓</span>
+          <h3 id="succes-titlu">Mersi! Am primit.</h3>
+          <p id="succes-text">Te sun azi. Dacă nu răspunzi, îți las un mesaj pe WhatsApp.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="subsol">
+  <div class="wrap subsol-grid">
+    <div class="subsol-marca">
+      <a class="marca" href="https://alesign.net" target="_blank" rel="noopener">
+        <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><circle cx="28" cy="28" r="20"/><circle cx="28" cy="28" r="5" fill="currentColor" stroke="none"/><g class="punct"><circle cx="42.1" cy="13.9" r="6" fill="#ff2a2e" stroke="none"/></g></svg>
+        <span><b>AleSign&amp;Co</b><small>AleSystem Design</small></span>
+      </a>
+      <p class="subsol-motto">Compania din spatele companiei tale. <em>Construită din boți, condusă de un om.</em></p>
+      <p class="semnat"><span class="ic-c" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><span>Construit de <b>Alexandru Pavăl</b>, fondator AleSign&amp;Co</span></p>
+    </div>
+    <ul class="contact">
+      <li><a href="https://alesign.net" target="_blank" rel="noopener"><span class="ic-c" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg></span><span><small>Site</small><span>alesign.net</span></span></a></li>
+      <li><a href="tel:+40755367084"><span class="ic-c" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg></span><span><small>Telefon</small><span>0755 367 084</span></span></a></li>
+      <li><a href="https://wa.me/40755367084?text=Salut%2C%20Alexandru!" target="_blank" rel="noopener"><span class="ic-c" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3zm0 1.6a7.4 7.4 0 1 1-3.8 13.8l-.3-.2-2.7.7.7-2.6-.2-.3A7.4 7.4 0 0 1 12 4.6zm4.2 9.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6 6 0 0 1-3-2.6c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.9 2.3 1 2.5s1.7 2.6 4.1 3.6c1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1s.2-1 .1-1.1-.2-.2-.4-.3z"/></svg></span><span><small>WhatsApp</small><span>Scrie-mi direct</span></span></a></li>
+      <li><a href="mailto:info@alesign.net"><span class="ic-c" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></svg></span><span><small>Email</small><span>info@alesign.net</span></span></a></li>
+    </ul>
+  </div>
+  <div class="wrap subsol-jos">
+    <span>© 2026 AleSign&amp;Co · AleSystem Design. Toate drepturile rezervate.</span>
+    <a href="#sus">Înapoi sus ↑</a>
+  </div>
+</footer>
+
+<nav class="bara-jos" id="bara-jos" aria-label="Contact rapid">
+  <a class="bj-tel" href="tel:+40755367084"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>Sună</a>
+  <a class="bj-wa" href="https://wa.me/40755367084?text=Salut%2C%20Alexandru!%20Am%20v%C4%83zut%20AleSystem%20%C8%99i%20vreau%20o%20mostr%C4%83." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3zm0 1.6a7.4 7.4 0 1 1-3.8 13.8l-.3-.2-2.7.7.7-2.6-.2-.3A7.4 7.4 0 0 1 12 4.6z"/></svg>WhatsApp</a>
+  <a class="bj-mostra" href="#contact">Mostra gratis</a>
+</nav>
+
+<script src="/lp/comun.js"></script>
+<script src="/lp/dinamic.js"></script>
+<script>
+(function () {
+  'use strict';
+  var A = window.AleSign, $ = function (s) { return document.querySelector(s); }, $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+  var io = 'IntersectionObserver' in window;
+  var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+  var de = function (n) { var r = n % 100; return r >= 20 || (n >= 100 && r === 0) ? n + ' de' : String(n); };
+
+  // ---------- bara de progres și antetul ----------
+  var top = $('#top'), progres = $('#progres'), cerut = false;
+  function scroll() {
+    cerut = false;
+    var h = document.documentElement, max = h.scrollHeight - h.clientHeight;
+    progres.style.width = (max > 0 ? h.scrollTop / max * 100 : 0) + '%';
+    top.classList.toggle('solid', h.scrollTop > 40);
+  }
+  window.addEventListener('scroll', function () { if (!cerut) { cerut = true; requestAnimationFrame(scroll); } }, { passive: true });
+  scroll();
+
+  // ---------- ceasul de la 23:47 ----------
+  var sec = 0;
+  setInterval(function () { sec++; var m = 47 + Math.floor(sec / 60); $('#ceas').textContent = '23:' + pad(m % 60) + ':' + pad(sec % 60); }, 1000);
+
+  // ---------- aparițiile ----------
+  var r = $$('[data-r]');
+  if (!io || !A.miscare) r.forEach(function (e) { e.classList.add('in'); });
+  else {
+    var o = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); o.unobserve(e.target); } }); }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    r.forEach(function (e) { o.observe(e); });
+  }
+
+  // ---------- căutarea: tu apari al șaselea ----------
+  var rez = $$('.rezultat'), q = $('#interogare'), textQ = q.textContent;
+  function cautare() {
+    if (!A.miscare) { rez.forEach(function (x) { x.classList.add('vazut'); }); return; }
+    q.textContent = '';
+    var i = 0;
+    (function scrie() {
+      q.textContent = textQ.slice(0, ++i);
+      if (i < textQ.length) setTimeout(scrie, 45 + Math.random() * 50);
+      else rez.forEach(function (x, j) { setTimeout(function () { x.classList.add('vazut'); }, 350 + j * (j === rez.length - 1 ? 520 : 260)); });
+    })();
+  }
+  A.laVedere($('#cautare'), cautare, 0.45);
+
+  // ---------- orbita: cei 15 boți, pe rând ----------
+  var BOTI = [
+    ['Creierul', 'împarte munca la fiecare 15 minute'], ['Research', 'caută firme noi la fiecare 30 de minute'], ['Audit', 'măsoară viteza site-ului și cum arată pe mobil'],
+    ['Website', 'construiește site-ul, rapid pe telefon'], ['Landing', 'o pagină, un buton, o campanie'], ['Strategie', 'găsește ce te face diferit'],
+    ['Plan', 'canale, buget și 90 de zile'], ['Conținut', 'postările lunii, gata pe 23'], ['Reclame', 'le propune și le urmărește'],
+    ['CRM', 'ține minte tot, cu backup zilnic'], ['Suport', 'răspunde la întrebările simple'], ['Raportare', 'cifrele lunii, cu sursă'],
+    ['Reputație', 'citește recenziile la fiecare 6 ore'], ['Verificatorul', 'dă notă la tot ce iese'], ['Comunicare', 'mesajele pe toate canalele, în pregătire']
+  ];
+  var rotor = $('#rotor'), centru = $('#centru-orb');
+  BOTI.forEach(function (b, i) {
+    var u = i / BOTI.length * Math.PI * 2 - Math.PI / 2, d = document.createElement('i');
+    d.style.left = (50 + Math.cos(u) * 50).toFixed(2) + '%'; d.style.top = (50 + Math.sin(u) * 50).toFixed(2) + '%';
+    d.title = b[0]; rotor.appendChild(d);
+  });
+  var puncte = $$('#rotor i'), bi = 0;
+  function bot(i) {
+    puncte.forEach(function (p, j) { p.classList.toggle('activ', j === i); });
+    centru.classList.add('schimba');
+    setTimeout(function () { $('#bot-nume').textContent = BOTI[i][0]; $('#bot-job').textContent = BOTI[i][1]; centru.classList.remove('schimba'); }, 320);
+  }
+  bot(0);
+  if (A.miscare) A.laVedere($('#orbita'), function () { setInterval(function () { bi = (bi + 1) % BOTI.length; bot(bi); }, 2000); }, 0.3);
+
+  // ---------- lanțul automat ----------
+  var verigi = $$('#lant li'), vi = -1;
+  function lant() {
+    vi = (vi + 1) % (verigi.length + 2);
+    verigi.forEach(function (v, j) { v.className = j < vi ? 'facut' : j === vi ? 'acum' : ''; });
+  }
+  if (A.miscare) A.laVedere($('#lant'), function () { lant(); setInterval(lant, 1100); }, 0.4);
+  else verigi.forEach(function (v) { v.className = 'facut'; });
+
+  // ---------- raportul: linia se desenează ----------
+  var sl = $('#spark-l');
+  if (A.miscare && sl.getTotalLength) A.laVedere(sl, function () { var L = sl.getTotalLength(); sl.style.strokeDasharray = L; sl.style.strokeDashoffset = L; sl.getBoundingClientRect(); sl.style.transition = 'stroke-dashoffset 1.6s ease'; sl.style.strokeDashoffset = 0; }, 0.5);
+
+  // ---------- cifrele live și prețul de pornire ----------
+  A.date().then(function (d) {
+    if (!d) return;
+    var c = d.cifre;
+    if (c) {
+      var serie = Array.isArray(c.research_zilnic) ? c.research_zilnic : [];
+      var n = serie.length ? serie.reduce(function (s, x) { return s + (Number(x.n) || 0); }, 0) : c.firme_analizate;
+      if (typeof n === 'number') {
+        $('#live-text').textContent = (serie.length ? 'firme analizate de AleSystem în ultimele ' + de(serie.length) + ' zile' : 'firme analizate de AleSystem până acum') + '. Fără nume, fără date despre cineva.';
+        $('#live-ex').hidden = !c.exemplu;
+        A.laVedere($('#live-cifra'), function () { A.numara($('#live-cifra'), n, null, 1800); }, 0.5);
+      }
+    }
+    var P = A.pachete(d.catalog);
+    if (P.lunare.length) $('#pret-mic').textContent = 'Abonamentele pornesc de la ' + A.RON.format(P.lunare[0].pret) + ' RON pe lună. Prețurile sunt la vedere, fără costuri ascunse.';
+  });
+
+  // ---------- WhatsApp cu numele afacerii, după generator ----------
+  var waBaza = 'https://wa.me/40755367084?text=';
+  document.addEventListener('click', function (ev) {
+    if (!ev.target.closest('.gen-final-btn')) return;
+    var firma = $('#incearca').dataset.nume;
+    if (firma) $$('#wa, .bj-wa').forEach(function (a) { a.href = waBaza + encodeURIComponent('Salut, Alexandru! Am încercat AleSystem pe „' + firma + '” și vreau mostra reală.'); });
+  });
+
+  // ---------- formularul scurt ----------
+  var f = $('#formular'), er = $('#c-eroare'), btn = $('#c-trimite');
+  function eroare(t) { er.innerHTML = t; er.hidden = !t; }
+  f.addEventListener('submit', function (ev) {
+    ev.preventDefault(); eroare('');
+    var b = { nume: $('#c-nume').value.trim(), telefon: $('#c-tel').value.trim(), firma: $('#c-firma').value.trim(), nisa: $('#c-nisa').value, canal: 'telefon', acord: $('#c-acord').checked, website2: $('#c-website2').value, mesaj: 'A cerut să fie sunat, din pagina AleSystem.' };
+    if (b.nume.length < 2) { eroare('Spune-mi cum te cheamă, ca să știu pe cine sun.'); $('#c-nume').focus(); return; }
+    if (b.telefon.replace(/\D/g, '').length < 9) { eroare('Numărul pare că-i lipsește o cifră.'); $('#c-tel').focus(); return; }
+    if (!b.acord) { eroare('Bifează acordul, altfel n-am voie să te sun.'); $('#c-acord').focus(); return; }
+    btn.disabled = true; btn.firstChild.textContent = 'Trimit… ';
+    A.trimite('alesystem', b).then(function (r) {
+      btn.disabled = false; btn.firstChild.textContent = 'Vreau mostra gratis ';
+      if (r.ok) {
+        f.hidden = true;
+        $('#succes-titlu').textContent = 'Mersi, ' + b.nume.split(' ')[0] + '! Am primit.';
+        $('#succes-text').textContent = r.previzualizare
+          ? 'Previzualizare: de aici nu pleacă nimic. Pe pagina reală, Alexandru primește numărul și te sună.'
+          : 'Te sun azi' + (b.firma ? ' despre ' + b.firma : '') + '. Dacă nu răspunzi, îți las un mesaj pe WhatsApp.';
+        $('#c-succes').hidden = false; $('#c-succes').focus();
+        return;
+      }
+      eroare(r.motiv === 'prea multe cereri' ? 'Am primit deja numărul tău azi. Te sun cât pot de repede.' : 'Nu s-a trimis. Sună-mă direct la <a href="tel:+40755367084">0755 367 084</a> sau scrie-mi pe <a href="' + $('#wa').href + '" target="_blank" rel="noopener">WhatsApp</a>.');
+    });
+  });
+
+  // ---------- bara de jos dispare la final ----------
+  if (io) {
+    var vazut = {};
+    var ob = new IntersectionObserver(function (es) { es.forEach(function (e) { vazut[e.target.id || 'x'] = e.isIntersecting; }); $('#bara-jos').classList.toggle('ascunsa', !!(vazut.contact || vazut.sus)); }, { threshold: 0.3 });
+    ob.observe($('#contact')); ob.observe($('#sus'));
+  }
+})();
+</script>
+</body>
+</html>

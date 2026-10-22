@@ -5,7 +5,7 @@
 create table if not exists public.aplicari (
   id          bigint generated always as identity primary key,
   creat_la    timestamptz not null default now(),
-  varianta    text not null,               -- 'liber' | 'dovada'
+  varianta    text not null,               -- 'liber' | 'dovada' | 'alesystem'
   nume        text not null,
   firma       text,
   oras        text,
