@@ -102,6 +102,14 @@
       "destination": "/api/spatiu-aproba"
     },
     {
+      "source": "/api/spatiu-firma",
+      "destination": "/api/spatiu-firma"
+    },
+    {
+      "source": "/api/spatiu-directie",
+      "destination": "/api/spatiu-directie"
+    },
+    {
       "source": "/api/transe-plan",
       "destination": "/api/transe-plan"
     },
