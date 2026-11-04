@@ -2,6 +2,22 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/sistem",
+      "destination": "/api/sistem"
+    },
+    {
+      "source": "/sistem/:token",
+      "destination": "/api/sistem?token=:token"
+    },
+    {
+      "source": "/api/sistem-actiune",
+      "destination": "/api/sistem-actiune"
+    },
+    {
+      "source": "/api/sistem-webhook",
+      "destination": "/api/sistem-webhook"
+    },
+    {
       "source": "/poze/(.*)",
       "destination": "/poze/$1"
     },
