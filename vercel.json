@@ -2,6 +2,10 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/api/sistem-oglinda",
+      "destination": "/api/sistem-oglinda"
+    },
+    {
       "source": "/sistem",
       "destination": "/api/sistem"
     },
