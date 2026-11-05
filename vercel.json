@@ -2,6 +2,14 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/oferta.pdf",
+      "destination": "/api/oferta?f=pdf"
+    },
+    {
+      "source": "/oferta",
+      "destination": "/api/oferta"
+    },
+    {
       "source": "/api/sistem-oglinda",
       "destination": "/api/sistem-oglinda"
     },
