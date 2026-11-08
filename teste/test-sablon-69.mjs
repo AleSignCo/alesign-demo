@@ -68,5 +68,13 @@ t('7 aplicaFapte: prețul din text ajunge în pagina Servicii', aplicaFapte(pies
 const pagini = paginiStatice(piesa, dosar, { baza: 'https://cabinet-radu.ro', fonturi: '/_f' });
 t('8 pagini statice: 5 (4 + 404), fără umplutură', pagini.length === 5 && pagini.every((p) => !/Numele firmei|undefined|\[object/.test(p.html)));
 
+// 9. subsolul legal (L4) și pictograma SAL (L6): datele legale din Dosar sau din contract, imaginea în caseta de 250×50, fără deformare
+{ const legal = { denumire: 'Cabinet Dr. Radu', cui: '00000000', reg_com: 'J40/0000/2026', sediu: 'Str. Teiului nr. 12, Sector 2, București', b2c: true };
+  const h = randeazaSite(piesa, { ...dosar, legal }, { mod: 'static', pagina: 'acasa', baza: 'https://cabinet-radu.ro', fonturi: '/_f', sal_img: '/_alesign/anpc-sal.png' });
+  t('9 subsol: CUI, Reg. Com., sediu', /CUI 00000000/.test(h) && /J40\/0000\/2026/.test(h) && /Sediu: Str\. Teiului/.test(h));
+  t('9 SAL: link reclamatiisal, 250×50, object-fit contain', /<a href="https:\/\/reclamatiisal\.anpc\.ro\/"[^>]*><img src="\/_alesign\/anpc-sal\.png" width="250" height="50" style="object-fit:contain;object-position:left center"/.test(h));
+  const fara = randeazaSite(piesa, { ...dosar, legal }, { mod: 'static', pagina: 'acasa', baza: 'https://cabinet-radu.ro', fonturi: '/_f' });
+  t('9 fără imagine SAL: rămâne linkul text (L6 pică, corect)', /reclamatiisal\.anpc\.ro\/" rel="noopener" target="_blank">ANPC/.test(fara)); }
+
 console.log(`\n${n - picate} / ${n} trec`);
 process.exit(picate ? 1 : 0);

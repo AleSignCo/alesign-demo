@@ -164,18 +164,23 @@ export default async function handler(req, res) {
     const proiectNume = numeProiect(l.demo_slug || l.firma || 'client-' + s.lead_id);
     const domeniu = String(I.domeniu || '').replace(/^https?:\/\//, '').replace(/\/.*$/, '');
     const baza = domeniu ? `https://${domeniu}` : `https://${proiectNume}.vercel.app`;
-    const dosar = { firma: I.firma || l.firma, nisa: I.nisa || l.nisa, identitate: I, legal: I.cui ? { denumire: I.denumire_legala, cui: I.cui, reg_com: I.reg_com, sediu: I.sediu, b2c: I.b2c !== false } : null,
+    const K = s.contract_id ? ((await (await fetch(`${SB}/rest/v1/contracte?id=eq.${s.contract_id}&select=gazduire,vercel_echipa,client_tip,client_denumire,client_cui,client_regcom,client_adresa`, { headers: hs() })).json())[0] || {}) : {};
+    // datele legale (L4, subsolul, politica): din Dosar; dacă Dosarul nu le are, din contractul semnat (clientul își scrie CUI-ul la semnare). 8 nov. 2026
+    const legal = I.cui ? { denumire: I.denumire_legala || I.firma, cui: I.cui, reg_com: I.reg_com, sediu: I.sediu, b2c: I.b2c !== false }
+      : K.client_cui && K.client_tip !== 'persoana_fizica' ? { denumire: K.client_denumire || I.firma, cui: K.client_cui, reg_com: K.client_regcom || null, sediu: K.client_adresa || null, b2c: I.b2c !== false } : null;
+    const dosar = { firma: I.firma || l.firma, nisa: I.nisa || l.nisa, identitate: I, legal,
       adresare: Br.adresare || '', telefon: I.telefon, email: I.email, adresa: I.adresa, program: I.program, oferta: D.oferta, cifre: D.cifre, brand: Br };
     let sharp = null; try { sharp = (await import('sharp')).default; } catch (e) { sharp = null; }
-    const K = s.contract_id ? ((await (await fetch(`${SB}/rest/v1/contracte?id=eq.${s.contract_id}&select=gazduire,vercel_echipa`, { headers: hs() })).json())[0] || {}) : {};
+    // L6: pictograma SAL oficială (ANPC, 201×50, afișată în caseta de 250×50); implicit copia noastră din public/, SAL_IMG_URL o poate înlocui
+    let salDate = null; try { salDate = await aduce(process.env.SAL_IMG_URL || 'https://demo.alesign.net/anpc-sal.png'); } catch (e) { salDate = null; }
     const gaz = s.tip === 'landing' ? 'alesign' : (K.gazduire || 'alesign'); // landingul stă mereu la noi (campania)
     // la fișierele predate, site-ul nu depinde de nimic de la noi: contactul pe email și telefon, fără formularul central și fără /_m (același build în preview și la predare)
     const formular = gaz !== 'client_fisiere' && process.env.FORMULAR_URL ? { actiune: process.env.FORMULAR_URL, site: '' } : null;
     const rez = await construiesteSite({ piesa: s.continut, dosar, dosarAnterior: (s.detalii && s.detalii.actualizare && s.detalii.actualizare.dosar_anterior) || null, baza, preview: !productie, formular, aduce, sharp, sarcina: s.id, versiune: s.versiune, retras: retragere, masurare: gaz === 'client_fisiere' ? null : (process.env.MASURARE_URL || null),
-      salImg: process.env.SAL_IMG_URL ? '/_alesign/anpc-sal.png' : null,
+      salImg: salDate ? '/_alesign/anpc-sal.png' : null,
       poze: poze.map((p, i) => ({ id: p.id || p.cale, sursa: p.sursa || 'client', licenta: p.licenta || null, oameni: p.oameni, declaratie_oameni: p.declaratie_oameni, inainte_dupa: p.inainte_dupa, acord_scris: p.acord_scris, alt: p.alt || p.descriere || '', url: sem[p.cale] })),
       logo: Br.logo && Br.logo.cale && sem[Br.logo.cale] ? { id: Br.logo.cale, sursa: 'client', url: sem[Br.logo.cale], alt: '' } : null });
-    if (process.env.SAL_IMG_URL) rez.fisiere.push({ cale: '_alesign/anpc-sal.png', date: await aduce(process.env.SAL_IMG_URL), tip: 'image/png' });
+    if (salDate) rez.fisiere.push({ cale: '_alesign/anpc-sal.png', date: salDate, tip: 'image/png' });
     if (productie && !retragere && s.build && rez.build !== s.build) { res.status(409).json({ ok: false, motiv: `build-ul refăcut (${rez.build}) diferă de cel aprobat (${s.build}): ceva s-a schimbat după Poarta C` }); return; }
     const V0 = vercel({ token: process.env.VERCEL_TOKEN, echipa: process.env.VERCEL_TEAM_SITES || null });
     // predarea ca fișiere: arhiva build-ului aprobat (verificată prin restaurare pe un preview al nostru) e livrabilul; nimic pe domeniu
