@@ -2,6 +2,18 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/materiale",
+      "destination": "/materiale.html"
+    },
+    {
+      "source": "/descarca/ghid",
+      "destination": "/materiale/ghid-5-semne-firma-premium.pdf"
+    },
+    {
+      "source": "/descarca/overview",
+      "destination": "/materiale/alesystem-design-overview.pdf"
+    },
+    {
       "source": "/ghid.pdf",
       "destination": "/api/brosura?b=ghid&f=pdf"
     },
@@ -217,6 +229,40 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/descarca/ghid",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"Ghid-5-semne-firma-premium.pdf\""
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/descarca/overview",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"AleSystem-Design-Overview.pdf\""
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
         }
       ]
     }

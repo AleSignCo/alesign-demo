@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lista SISTEM · materialele tale</title>
+<meta name="description" content="Ghidul „5 semne că firma ta premium arată ieftin online” și overview-ul AleSystem Design, în PDF.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Lista SISTEM · materialele tale">
+<meta property="og:description" content="Ghidul „5 semne că firma ta premium arată ieftin online” și overview-ul AleSystem Design.">
+<meta property="og:image" content="https://demo.alesign.net/materiale/coperta-ghid.jpg">
+<meta name="theme-color" content="#111111">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap">
+<style>
+  :root { --bg:#111111; --s:#181818; --s2:#1e1e1e; --b:#2a2a2a; --g:#E7C377; --g2:#F1D69C; --t:#F3EFE6; --d:#A7A399; --f:#6E6A62; }
+  * { box-sizing: border-box; }
+  html, body { overflow-x: hidden; }
+  body { margin: 0; background: var(--bg); color: var(--t); font-family: Inter, -apple-system, 'Segoe UI', Arial, sans-serif; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: max(28px, env(safe-area-inset-top)) 16px 64px; position: relative; isolation: isolate; }
+  .wrap::before { content: ""; position: absolute; top: -80px; right: -60px; width: min(380px, 90vw); height: min(380px, 90vw); z-index: -1; pointer-events: none; background: radial-gradient(circle, rgba(231,195,119,.14), transparent 65%); animation: plutire 10s ease-in-out infinite alternate; }
+  @keyframes plutire { from { transform: translate(0,0); } to { transform: translate(-36px, 28px); } }
+  .sus { display: flex; justify-content: space-between; gap: 12px; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--g); }
+  h1 { font-size: clamp(34px, 8vw, 56px); line-height: 1.04; letter-spacing: -.025em; font-weight: 800; margin: 48px 0 14px; }
+  h1 em { font-style: normal; color: var(--g); }
+  .linie { width: 72px; height: 2px; background: var(--g); margin: 0 0 18px; transform-origin: left; animation: creste .9s .2s ease both; }
+  @keyframes creste { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .lead { font-size: clamp(17px, 2.4vw, 19px); color: var(--d); margin: 0 0 32px; max-width: 560px; }
+  .doc { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 16px; align-items: start; background: var(--s); border: 1px solid var(--b); border-radius: 18px; padding: 16px; margin: 0 0 14px; transition: border-color .3s ease, transform .3s ease; }
+  .doc:hover { border-color: rgba(231,195,119,.55); transform: translateY(-2px); }
+  .coperta { width: 104px; aspect-ratio: 640 / 904; border-radius: 8px; overflow: hidden; border: 1px solid var(--b); box-shadow: 0 14px 30px -14px rgba(0,0,0,.8); background: #0c0c0c; }
+  .coperta img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .tip { font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--g); margin: 2px 0 6px; }
+  .doc h2 { font-size: clamp(18px, 2.8vw, 22px); line-height: 1.25; letter-spacing: -.01em; margin: 0 0 6px; font-weight: 800; }
+  .doc p { margin: 0 0 14px; color: var(--d); font-size: 15px; }
+  .actiuni { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+  .btn { display: inline-flex; align-items: center; gap: 9px; background: var(--g); color: #111; font-weight: 800; font-size: 15px; padding: 12px 18px; border-radius: 12px; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; }
+  .btn:hover { background: var(--g2); transform: translateY(-1px); box-shadow: 0 10px 26px -8px rgba(231,195,119,.45); }
+  .btn svg { width: 18px; height: 18px; flex: none; }
+  .deschide { color: var(--d); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--f); }
+  .deschide:hover { color: var(--t); }
+  .lista { margin-top: 30px; padding: 22px 18px; border-radius: 18px; border: 1px solid var(--b); background: linear-gradient(160deg, var(--s2), var(--bg)); }
+  .lista .tip { margin-bottom: 8px; }
+  .lista p { margin: 0 0 16px; color: var(--d); }
+  .lista p b { color: var(--t); }
+  .btn2 { background: transparent; color: var(--g); border: 1px solid var(--g); }
+  .btn2:hover { background: rgba(231,195,119,.1); box-shadow: none; }
+  .jos { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--b); color: var(--f); font-size: 13px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; }
+  .jos a { color: var(--d); }
+  .rv { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+  .rv.in { opacity: 1; transform: none; }
+  @media (min-width: 640px) {
+    .wrap { padding: 48px 24px 80px; }
+    .doc { grid-template-columns: 132px minmax(0, 1fr); gap: 22px; padding: 20px; }
+    .coperta { width: 132px; }
+    .lista { padding: 28px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wrap::before, .linie { animation: none; }
+    .rv { opacity: 1; transform: none; transition: none; }
+    .doc, .btn { transition: none; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="sus"><span>Lista SISTEM</span><span>AleSystem Design</span></div>
+
+  <h1>Materialele <em>tale.</em></h1>
+  <div class="linie" aria-hidden="true"></div>
+  <p class="lead">Ghidul și overview-ul, în PDF. Le descarci acum și le citești când ai 15 minute.</p>
+
+  <article class="doc rv">
+    <div class="coperta"><img src="/materiale/coperta-ghid.jpg" width="640" height="904" alt="Coperta ghidului: 5 semne că firma ta premium arată ieftin online"></div>
+    <div>
+      <div class="tip">Ghid gratuit · 8 pagini</div>
+      <h2>5 semne că firma ta premium arată ieftin online</h2>
+      <p>Și cum le verifici singur, în 15 minute. La final îți faci scorul.</p>
+      <div class="actiuni">
+        <a class="btn" href="/descarca/ghid" download="Ghid-5-semne-firma-premium.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>Descarcă PDF</a>
+        <a class="deschide" href="/materiale/ghid-5-semne-firma-premium.pdf">sau deschide-l aici</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="doc rv">
+    <div class="coperta"><img src="/materiale/coperta-overview.jpg" width="640" height="904" alt="Coperta overview-ului AleSystem Design"></div>
+    <div>
+      <div class="tip">Overview · 6 pagini</div>
+      <h2>AleSystem Design</h2>
+      <p>Ce este ecosistemul, cum lucrează și ce pachete are.</p>
+      <div class="actiuni">
+        <a class="btn" href="/descarca/overview" download="AleSystem-Design-Overview.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>Descarcă PDF</a>
+        <a class="deschide" href="/materiale/alesystem-design-overview.pdf">sau deschide-l aici</a>
+      </div>
+    </div>
+  </article>
+
+  <section class="lista rv">
+    <div class="tip">27 noiembrie · 20:00</div>
+    <p>Pe 27 noiembrie, la 20:00, lansez AleSystem Design. <b>Cei de pe lista SISTEM află primii ofertele de lansare.</b> Și pentru 3 dintre voi am pregătit ceva special.</p>
+    <a class="btn btn2" id="inscriere" href="https://tally.so/r/bZ9qe6?sursa=materiale">Intră pe lista SISTEM</a>
+  </section>
+
+  <footer class="jos">
+    <span>Întrebări? Scrie-mi pe Instagram, <a href="https://instagram.com/eusuntpav">@eusuntpav</a>. Alex</span>
+    <span>AleSign&amp;Co · <a href="https://alesign.net">alesign.net</a></span>
+  </footer>
+</main>
+<noscript><style>.rv{opacity:1;transform:none}</style></noscript>
+<script>
+  (function () {
+    // sursa și username-ul din linkul ManyChat merg mai departe în formularul Tally (aceleași reguli ca la /ghid și /overview)
+    try {
+      var q = new URLSearchParams(location.search);
+      var sursa = String(q.get('sursa') || '').toLowerCase().replace(/[^a-z0-9_]/g, '').slice(0, 40) || 'materiale';
+      var ig = String(q.get('instagram') || '').trim().replace(/^@/, '').replace(/[^A-Za-z0-9._]/g, '').slice(0, 60);
+      var u = new URL('https://tally.so/r/bZ9qe6');
+      u.searchParams.set('sursa', sursa);
+      if (ig) u.searchParams.set('instagram', ig);
+      document.getElementById('inscriere').href = u.toString();
+    } catch (e) {}
+    var el = document.querySelectorAll('.rv');
+    try {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: .1 });
+      el.forEach(function (x, i) { x.style.transitionDelay = (i * 90) + 'ms'; io.observe(x); });
+    } catch (e) {}
+    setTimeout(function () { el.forEach(function (x) { x.classList.add('in'); }); }, 1200);
+  })();
+</script>
+</body>
+</html>
