@@ -126,5 +126,26 @@ for (const [cheie, N] of Object.entries(NISE)) t(`11 înfățișarea „${cheie}
   } else t('12 (sharp lipsește: testele de build sărite)', true);
 }
 
+// 13. standardul de specialist (10 nov. 2026): Echipa, textul de sub buton, Mulțumim din hartă, telefon apelabil, WhatsApp cu mesaj
+{
+  const cu = JSON.parse(JSON.stringify(piesa));
+  cu.site.despre.oameni = [{ nume: 'Dr. Andrei Radu', titlu: 'medic', text: 'Vă primește la fiecare consultație.' }, { nume: 'Maria Ionescu', titlu: 'asistentă', text: '' }];
+  cu.site.multumim = { titlu: 'Am primit cererea', text: 'Vă sunăm în aceeași zi lucrătoare.' };
+  cu.indemn = { ...cu.indemn, dupa: 'Vă răspundem în programul cabinetului.' };
+  const despre = st('despre', dosar, cu); const acasa13 = st('acasa', dosar, cu); const mult = st('multumim', dosar, cu);
+  t('13 Echipa apare când harta are oameni', /class="echipa"/.test(despre) && despre.includes('Dr. Andrei Radu') && despre.includes('class="rol">medic'));
+  t('13 titlul Echipei urmează adresarea', despre.includes('Oamenii pe care îi întâlniți'));
+  t('13 omul fără text nu lasă paragraf gol', !/<p><\/p>/.test(despre));
+  t('13 fără oameni, Despre rămâne ca înainte', !/class="echipa"/.test(st('despre')));
+  t('13 textul de sub buton apare doar când harta îl are', /class="dupa"[^>]*>Vă răspundem în programul cabinetului\./.test(acasa13) && !/class="dupa"/.test(st('acasa')));
+  t('13 Mulțumim ia textele din hartă', mult.includes('Am primit cererea') && mult.includes('Vă sunăm în aceeași zi lucrătoare.'));
+  t('13 Mulțumim de rezervă: fără semn de exclamare', !/Mulțumim!/.test(st('multumim')));
+  t('13 telefonul din erou e apelabil', /class="alt"[^>]*>[^<]*<a href="tel:\+40/.test(acasa13));
+  const wa = JSON.parse(JSON.stringify(piesa)); wa.indemn = { text: 'Scrieți-ne', tip: 'whatsapp', tinta: '0744 387 384', mesaj: 'Bună ziua, aș dori o programare.' };
+  t('13 WhatsApp cu mesaj precompletat', /https:\/\/wa\.me\/40744387384\?text=Bun%C4%83%20ziua/.test(st('acasa', dosar, wa)));
+  const wa2 = JSON.parse(JSON.stringify(wa)); delete wa2.indemn.mesaj;
+  t('13 WhatsApp fără mesaj rămâne ca înainte', /href="https:\/\/wa\.me\/40744387384"/.test(st('acasa', dosar, wa2)));
+}
+
 console.log(`\n${n - picate} / ${n} trec`);
 process.exit(picate ? 1 : 0);
