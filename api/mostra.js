@@ -4,7 +4,7 @@ import { randeazaMostra, mostraExpirata, mostraDejaClient } from '../lib/mostra.
 const URL_SB = process.env.SUPABASE_URL;
 const KEY_SB = process.env.SUPABASE_KEY;
 const H = () => ({ apikey: KEY_SB, Authorization: `Bearer ${KEY_SB}`, 'Content-Type': 'application/json' });
-const TERMEN = { beauty: 'salon', wellness: 'spa', spa: 'spa', barbershop: 'barbershop' };
+const TERMEN = { beauty: 'salon', salon: 'salon', wellness: 'spa', spa: 'spa', barbershop: 'barbershop', frizerie: 'frizerie', horeca: 'restaurant', restaurant: 'restaurant', cafenea: 'cafenea', medical: 'clinică', clinica: 'clinică', dental: 'cabinet stomatologic', stomatologie: 'cabinet stomatologic', estetic: 'clinică de estetică', imobiliare: 'agenție imobiliară', fitness: 'sală de fitness' };
 const rpc = async (fn, body) => { const r = await fetch(`${URL_SB}/rest/v1/rpc/${fn}`, { method: 'POST', headers: H(), body: JSON.stringify(body) }); if (!r.ok) return null; const t = await r.text(); try { return t ? JSON.parse(t) : null; } catch { return null; } };
 
 export default async function handler(req, res) {
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
     const host = req.headers.host || 'demo.alesign.net';
     const d = {
       slug, firma: m.firma, zona: m.zona, rating: m.rating, nr_recenzii: m.nr_recenzii,
-      termen: TERMEN[String(m.nisa || '').toLowerCase()] || 'salon',
+      termen: TERMEN[String(m.nisa || '').toLowerCase()] || 'firmă',
       ramura, scor: scor == null && ramura === 'site_slab' ? 0 : scor,
       probleme: Array.isArray(m.audit_probleme) ? m.audit_probleme : [],
       demo_url: `https://${host}/${m.demo_slug}`,
@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       // ramura decide ce recomand: fără site → Growth (cu Launch ca punct de pornire); site slab → Growth; site bun → Growth
       recomandat: 'crestere',
     };
-    if (ramura === 'site_slab' && scor == null) d.probleme = [{ vazut: 'Site-ul nu s-a încărcat când l-am testat.', costa: 'Un client care dă de o pagină moartă nu mai încearcă a doua oară.', facem: 'Îl repunem pe picioare în prima săptămână.' }, ...d.probleme];
+    if (ramura === 'site_slab' && scor == null) d.probleme = [{ vazut: 'Site-ul nu s-a încărcat când l-am testat.', costa: 'Cine a intrat în acel moment a dat de o pagină care nu se deschide.', facem: 'Îl repunem pe picioare odată cu Website Refresh.' }, ...d.probleme];
 
     res.setHeader('Cache-Control', 'private, no-store');
     res.status(200).send(randeazaMostra(d));
