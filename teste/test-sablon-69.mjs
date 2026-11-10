@@ -147,5 +147,31 @@ for (const [cheie, N] of Object.entries(NISE)) t(`11 înfățișarea „${cheie}
   t('13 WhatsApp fără mesaj rămâne ca înainte', /href="https:\/\/wa\.me\/40744387384"/.test(st('acasa', dosar, wa2)));
 }
 
+// 14. galeria, antetul fără text dublat, detaliile serviciului (10 nov. 2026, standardul de specialist)
+{
+  const pz = (i, alt = 'Poza ' + i) => ({ url: '/img/p' + i + '.webp', alt, w: 1200, h: 900, srcset: '/img/p' + i + '-480.webp 480w, /img/p' + i + '.webp 1200w' });
+  const d5 = { ...dosar, poze: [pz(0), pz(1), pz(2), pz(3), pz(4)] };
+  const a5 = st('acasa', d5);
+  t('14 galeria apare de la a treia poză', /class="galerie"/.test(a5) && /class="gal n3"/.test(a5) && (a5.match(/<figure class="poza">/g) || []).length === 3);
+  t('14 pozele din galerie au descriere, dimensiuni și încărcare leneșă', /<figure class="poza"><img src="\/img\/p2\.webp" alt="Poza 2" width="1200" height="900" srcset="[^"]+" sizes="[^"]+" loading="lazy" decoding="async">/.test(a5));
+  t('14 primele două poze nu se repetă în galerie', !/<figure class="poza"><img src="\/img\/p[01]\.webp"/.test(a5));
+  t('14 o singură poză în plus nu face galerie', !/class="galerie"/.test(st('acasa', { ...dosar, poze: [pz(0), pz(1), pz(2)] })));
+  t('14 fără poze în plus, Acasă rămâne fără galerie', !/class="galerie"/.test(st('acasa')));
+  t('14 poza fără descriere nu intră pe site-ul publicat', (st('acasa', { ...dosar, poze: [pz(0), pz(1), pz(2), pz(3, ''), pz(4)] }).match(/<figure class="poza">/g) || []).length === 2);
+  t('14 cel mult șase poze în galerie', (st('acasa', { ...dosar, poze: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => pz(i)) }).match(/<figure class="poza">/g) || []).length === 6);
+  const cuTitlu = JSON.parse(JSON.stringify(piesa)); cuTitlu.site.acasa.galerie = { titlu: 'Cabinetul, pe dinăuntru' };
+  t('14 titlul galeriei vine din hartă', /<p class="ochi">Galerie<\/p><h2 class="h2">Cabinetul, pe dinăuntru<\/h2>/.test(st('acasa', d5, cuTitlu)));
+  t('14 fără titlu, „Galerie” apare o singură dată', (a5.match(/>Galerie</g) || []).length === 1);
+  const faq = acasa.match(/<section><div class="w">(?:<p class="ochi">[^<]*<\/p>)?<h2 class="h2">[^<]*<\/h2><div class="faq">/);
+  t('14 la Întrebări titlul nu mai e scris de două ori', !!faq && !/class="ochi"/.test(faq[0]));
+  t('14 secțiunile cu titlu propriu păstrează eticheta mică', /<p class="ochi">[^<]+<\/p><h2 class="h2">De ce Cabinet Dr\. Radu<\/h2>/.test(acasa));
+  const cuDet = JSON.parse(JSON.stringify(piesa)); cuDet.site.servicii.lista[0].durata = '30 de minute'; cuDet.site.servicii.lista[0].cine = 'Dr. Andrei Radu';
+  const serv = st('servicii', dosar, cuDet);
+  t('14 durata și omul apar la serviciul care le are', /<p class="det">Durată: 30[^<]*de minute · Cu cine: Dr\.[^<]*Andrei Radu<\/p>/.test(serv) && (serv.match(/class="det"/g) || []).length === 1);
+  t('14 fără durată și om, pagina Servicii rămâne ca înainte', !/class="det"/.test(st('servicii')));
+  const plin = randeazaSite(piesa, { ...d5, nisa: 'restaurant', identitate: { ...dosar.identitate, nisa: 'restaurant', reglementat: '' } }, { mod: 'static', pagina: 'acasa', baza: 'https://exemplu.ro', fonturi: '/_f' });
+  t('14 poza din eroul pe toată lățimea are dimensiuni', !/class="erou plin"/.test(plin) || /class="erou plin"[\s\S]{0,200}<img src="\/img\/p0\.webp" alt="Poza 0" width="1200" height="900" srcset=/.test(plin));
+}
+
 console.log(`\n${n - picate} / ${n} trec`);
 process.exit(picate ? 1 : 0);
