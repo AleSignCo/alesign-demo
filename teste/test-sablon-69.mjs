@@ -1,6 +1,6 @@
 // Testele șablonului după constatările testului valului (sarcina 69, 6 nov. 2026): node teste/test-sablon-69.mjs
 // Verifică HTML-ul generat (static și previzualizare), nu pixelii: antetul, adresarea, panourile goale, programul, grilele, fonturile, prețurile din text.
-import { randeazaSite, eFormal, paginiStatice, stivaCuRezerve, NISE } from '../lib/sablon.js';
+import { randeazaSite, eFormal, paginiStatice, stivaCuRezerve, NISE, programSchema } from '../lib/sablon.js';
 import { serviciiDin, fapteQa, aplicaFapte, construiesteSite, dosarPentruBuild, pozePentruBuild, LATIME_MAX } from '../lib/site-build.js';
 
 let n = 0, picate = 0;
@@ -171,6 +171,49 @@ for (const [cheie, N] of Object.entries(NISE)) t(`11 înfățișarea „${cheie}
   t('14 fără durată și om, pagina Servicii rămâne ca înainte', !/class="det"/.test(st('servicii')));
   const plin = randeazaSite(piesa, { ...d5, nisa: 'restaurant', identitate: { ...dosar.identitate, nisa: 'restaurant', reglementat: '' } }, { mod: 'static', pagina: 'acasa', baza: 'https://exemplu.ro', fonturi: '/_f' });
   t('14 poza din eroul pe toată lățimea are dimensiuni', !/class="erou plin"/.test(plin) || /class="erou plin"[\s\S]{0,200}<img src="\/img\/p0\.webp" alt="Poza 0" width="1200" height="900" srcset=/.test(plin));
+}
+
+// 15. SEO (11 nov. 2026, standardul de specialist): datele structurate descriu ce se vede pe pagină; fiecare pagină are titlul și descrierea ei
+{
+  const blocuri = (html) => [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
+  const meta = (html) => ({ titlu: (html.match(/<title>([^<]*)<\/title>/) || [])[1], descriere: (html.match(/<meta name="description" content="([^"]*)"/) || [])[1] });
+  const dS = { ...dosar, identitate: { ...dosar.identitate, oras: 'București', instagram: 'https://www.instagram.com/cabinetradu', facebook: 'cabinetradu' } };
+  const acasaS = st('acasa', dS); const serviciiS = st('servicii', dS); const despreS = st('despre', dS); const contactS = st('contact', dS);
+  const firma = blocuri(acasaS).find((b) => b.name === 'Cabinet Dr. Radu');
+  t('15 firma are identificator și programul din Dosar', !!firma && firma['@id'] === 'https://cabinet-radu.ro/#firma' && Array.isArray(firma.openingHoursSpecification) && firma.openingHoursSpecification.length === 2
+    && firma.openingHoursSpecification[0].dayOfWeek.join() === 'Monday,Tuesday,Wednesday,Thursday,Friday' && firma.openingHoursSpecification[0].opens === '09:00' && firma.openingHoursSpecification[0].closes === '18:00'
+    && firma.openingHoursSpecification[1].dayOfWeek.join() === 'Saturday' && firma.openingHoursSpecification[1].closes === '13:00');
+  t('15 duminica închisă nu apare în program', !JSON.stringify(firma.openingHoursSpecification).includes('Sunday'));
+  t('15 profilurile: doar adresele https din Dosar', Array.isArray(firma.sameAs) && firma.sameAs.length === 1 && firma.sameAs[0] === 'https://www.instagram.com/cabinetradu');
+  t('15 telefonul din datele structurate e cel din pagină', firma.telephone === '+40744387384');
+  const faq = blocuri(acasaS).find((b) => b['@type'] === 'FAQPage');
+  t('15 întrebările de pe Acasă sunt și în datele structurate', !!faq && faq.mainEntity.length === 1 && faq.mainEntity[0].name === 'Cum fac o programare?' && faq.mainEntity[0].acceptedAnswer.text === 'Sunați la cabinet.' && acasaS.includes('Cum fac o programare?'));
+  t('15 fără întrebări, fără FAQPage', !blocuri(st('acasa', dS, { ...piesa, site: { ...piesa.site, acasa: { ...piesa.site.acasa, intrebari: [] } } })).some((b) => b['@type'] === 'FAQPage'));
+  const cat = blocuri(serviciiS).find((b) => b.hasOfferCatalog);
+  const oferte = cat ? cat.hasOfferCatalog.itemListElement : [];
+  t('15 serviciile de pe pagina Servicii sunt în datele structurate, cu prețul în lei', !!cat && cat['@id'] === 'https://cabinet-radu.ro/#firma' && cat.telephone === '+40744387384' && oferte.length === piesa.site.servicii.lista.length
+    && oferte[0].itemOffered.name === 'Consultație medicină generală' && oferte[0].price === 250 && oferte[0].priceCurrency === 'RON');
+  t('15 „de la 80 lei” nu devine preț fix', oferte.filter((o) => o.price === 80).length === 0);
+  t('15 fiecare serviciu din datele structurate se vede pe pagină', oferte.every((o) => serviciiS.includes(o.itemOffered.name)));
+  const fir = blocuri(serviciiS).find((b) => b['@type'] === 'BreadcrumbList');
+  t('15 firul paginii: Acasă → Servicii', !!fir && fir.itemListElement.length === 2 && fir.itemListElement[0].item === 'https://cabinet-radu.ro/' && fir.itemListElement[1].item === 'https://cabinet-radu.ro/servicii');
+  t('15 Contact are firma și programul', blocuri(contactS).some((b) => b['@id'] === 'https://cabinet-radu.ro/#firma' && Array.isArray(b.openingHoursSpecification)));
+  t('15 toate blocurile sunt valide', [acasaS, serviciiS, despreS, contactS].every((h) => blocuri(h).every((b) => b['@context'] === 'https://schema.org' && b['@type'])));
+  const M = [acasaS, serviciiS, despreS, contactS].map(meta);
+  t('15 fiecare pagină are altă descriere', new Set(M.map((m) => m.descriere)).size === 4 && M.every((m) => m.descriere && m.descriere.length <= 155), M.map((m) => m.descriere.length).join(','));
+  t('15 fiecare pagină are alt titlu, de cel mult 60 de caractere', new Set(M.map((m) => m.titlu)).size === 4 && M.every((m) => m.titlu && m.titlu.length <= 60), M.map((m) => m.titlu).join(' | '));
+  t('15 titlul paginilor din interior spune orașul', /București/.test(M[1].titlu) && /București/.test(M[3].titlu));
+  t('15 descrierea paginii Servicii numește serviciile', /Consultație medicină generală/.test(M[1].descriere) && /EKG/.test(M[1].descriere));
+  t('15 descrierea paginii Contact are adresa și telefonul', /Str\. Exemplu 1/.test(M[3].descriere) && /0744 387 384/.test(M[3].descriere));
+  const cuMeta = { ...piesa, pagini: [{ pagina: 'Servicii', slug: '/servicii', meta_titlu: 'Consultații și EKG în București · Cabinet Dr. Radu', meta_descriere: 'Descrierea scrisă de om.' }] };
+  t('15 titlul și descrierea din hartă au întâietate', meta(st('servicii', dS, cuMeta)).titlu === 'Consultații și EKG în București · Cabinet Dr. Radu' && meta(st('servicii', dS, cuMeta)).descriere === 'Descrierea scrisă de om.');
+  // programul: se scrie doar când fiecare rând se citește sigur
+  t('15 program: zilnic', JSON.stringify(programSchema('Zilnic 10:00–22:00')) === JSON.stringify([{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '10:00', closes: '22:00' }]));
+  t('15 program: prescurtări și ore fără minute', (() => { const r = programSchema('L-V: 9-18; S 10-14'); return !!r && r.length === 2 && r[0].dayOfWeek.length === 5 && r[0].opens === '09:00' && r[1].dayOfWeek[0] === 'Saturday' && r[1].closes === '14:00'; })());
+  t('15 program: închidere la miezul nopții', programSchema('Vineri–Sâmbătă 18:00–24:00')[0].closes === '23:59');
+  t('15 program: un rând neclar oprește tot', programSchema('Luni–Vineri 09:00–18:00\nSâmbăta, după program') === null && programSchema('Luni, Miercuri 9–17') === null && programSchema('') === null);
+  t('15 program neclar: firma rămâne fără ore în datele structurate, dar cu ele în pagină', (() => { const p2 = { ...piesa, site: { ...piesa.site, contact: { ...piesa.site.contact, program: 'Luni–Vineri 09:00–18:00\nSâmbăta, după program' } } }; const h = st('contact', dS, p2); return !blocuri(h).some((b) => b.openingHoursSpecification) && h.includes('după program'); })());
+  t('15 previzualizarea nu are date structurate și nu se indexează', (() => { const pv = randeazaSite(piesa, dS, { mod: 'previzualizare' }); return !/ld\+json/.test(pv) && /noindex/.test(pv); })());
 }
 
 console.log(`\n${n - picate} / ${n} trec`);
