@@ -1,8 +1,9 @@
-// POST /api/semneaza {slug, client{denumire,cui,regcom,adresa,reprezentant,email,telefon,tip,incepere}, nume, plata_mod, acord}
+// POST /api/semneaza {slug, client{denumire,cui,regcom,adresa,reprezentant,email,telefon,tip,incepere; la persoane fizice: strada,localitate,judet}, nume, plata_mod, acord}
 // tip: 'firma' | 'persoana_fizica' (consumator: fără CUI; incepere = cererea expresă de începere în termenul de retragere, SQL 75)
 // → RPC semneaza_contract → webhook n8n (tip: semnat) → dacă e card și Stripe e activ: {url} către Checkout.
 import { rpc, anunta, slugCurat, ipDin, bodyDin } from '../lib/sb.js';
 import { sesiuneCheckout, stripeConfigurat } from '../lib/stripe.js';
+import { compuneAdresa } from '../lib/adresa.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') { res.status(405).json({ ok: false }); return; }
@@ -11,6 +12,14 @@ export default async function handler(req, res) {
     const slug = slugCurat(b.slug);
     const c = b.client || {};
     const client = { denumire: String(c.denumire || '').trim().slice(0, 200), cui: String(c.cui || '').trim().slice(0, 40), regcom: String(c.regcom || '').trim().slice(0, 40), adresa: String(c.adresa || '').trim().slice(0, 300), reprezentant: String(c.reprezentant || '').trim().slice(0, 120), email: String(c.email || '').trim().slice(0, 160), telefon: String(c.telefon || '').trim().slice(0, 40), tip: c.tip === 'persoana_fizica' ? 'persoana_fizica' : 'firma', incepere: c.incepere === true || c.incepere === 'on' };
+    // 15 nov. 2026: la persoane fizice formularul trimite strada, localitatea și județul; serverul le așază într-un singur rând, mereu
+    // în aceeași formă, ca fluxul de facturi să poată citi localitatea și județul (e-Factura le cere separat). Un formular vechi,
+    // rămas deschis la client, trimite doar „adresa”: rămâne cum a scris-o omul.
+    if (client.tip === 'persoana_fizica' && (c.strada || c.localitate || c.judet)) {
+      const a = compuneAdresa({ strada: c.strada, localitate: c.localitate, judet: c.judet });
+      if (!a.ok) { res.status(400).json({ ok: false, motiv: a.motiv }); return; }
+      client.adresa = a.adresa;
+    }
     const nume = String(b.nume || '').trim().slice(0, 120);
     const mod = b.plata_mod === 'card' ? 'card' : 'transfer';
     if (!slug || b.acord !== true || nume.length < 3 || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(client.email)) { res.status(400).json({ ok: false, motiv: 'date lipsa' }); return; }
