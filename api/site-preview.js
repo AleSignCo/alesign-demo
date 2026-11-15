@@ -36,7 +36,9 @@ export default async function handler(req, res) {
     const pozeClient = (Array.isArray(d.poze_cai) ? d.poze_cai : []).map((c) => semnate[c]).filter(Boolean);
     const publice = (Array.isArray(d.poze_publice) ? d.poze_publice : []).filter((u) => /^https?:\/\//i.test(String(u || '')));
     const idn = d.identitate || {};
-    const dosar = { firma: d.firma, nisa: d.nisa, identitate: idn, logo_url: d.logo_cale ? semnate[d.logo_cale] : '', poze: [...pozeClient, ...publice].slice(0, 8), telefon: idn.telefon, email: idn.email, adresa: idn.adresa, program: idn.program };
+    const dosar = { firma: d.firma, nisa: d.nisa, identitate: idn, logo_url: d.logo_cale ? semnate[d.logo_cale] : '', poze: [...pozeClient, ...publice].slice(0, 8), telefon: idn.telefon, email: idn.email, adresa: idn.adresa, program: idn.program,
+      // 15 nov. 2026: culorile identității aprobate, ca previzualizarea să arate ce va arăta site-ul construit (spatiu_site, SQL 61)
+      brand: { jetoane: d.jetoane || null } };
     res.status(200).send(randeazaSite(d.continut, dosar, { mod: 'preview', inapoi: `/s/${token}` }));
   } catch (e) { res.status(500).send(spatiuInchis()); }
 }
