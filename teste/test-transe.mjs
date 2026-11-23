@@ -1,0 +1,31 @@
+// Testele pragului de tranșe (16 nov. 2026): node teste/test-transe.mjs
+// Regula: sub 1.900 lei integral; 1.900–19.999 lei, proiect de site, 50 / 50; de la 20.000 lei 40 / 30 / 30; abonamentele și plata anuală, integral.
+const { transeDin, PRAG_TRANSE } = await import('../lib/contract-text.js');
+let n = 0, picate = 0;
+const t = (nume, ok, d = '') => { n++; if (!ok) picate++; console.log(`${ok ? 'trece' : 'PICĂ '} ${nume}${d ? ' · ' + d : ''}`); };
+const site = (total, cod = 'website') => [{ tip: 'pachet', cod, total, recurent: false }];
+const sume = (T) => T.map((x) => `${x.procent}%=${x.suma}`).join(' + ');
+const pornit = { transe_active: 'true', semnat_la: '2026-11-16' };
+t('pragul e 1.900', PRAG_TRANSE === 1900);
+let T = transeDin({ ...pornit }, site(1900), 1900);
+t('site de 1.900 lei: 50 / 50, a doua la aprobarea site-ului', T.length === 2 && T[0].suma === 950 && T[1].suma === 950 && T[0].cand === 'la semnare' && T[1].poarta === 'C', sume(T));
+T = transeDin({ ...pornit }, site(1899), 1899);
+t('site de 1.899 lei: integral', T.length === 1 && T[0].procent === 100 && T[0].suma === 1899, sume(T));
+T = transeDin({ ...pornit }, site(4900), 4900);
+t('site de 4.900 lei: 50 / 50 (înainte era integral)', T.length === 2 && T[0].suma === 2450 && T[1].suma === 2450, sume(T));
+T = transeDin({ ...pornit }, site(19999), 19999);
+t('site de 19.999 lei: 50 / 50, suma întreagă', T.length === 2 && Math.round((T[0].suma + T[1].suma) * 100) === 1999900, sume(T));
+T = transeDin({ ...pornit }, site(20000, 'signature'), 20000);
+t('site de 20.000 lei: 40 / 30 / 30', T.length === 3 && T[0].suma === 8000 && T[1].suma === 6000 && T[2].suma === 6000 && T[1].poarta === 'A', sume(T));
+T = transeDin({ transe_active: 'false' }, site(8000), 8000);
+t('tranșele oprite din Setări: integral, orice sumă', T.length === 1 && T[0].suma === 8000);
+T = transeDin({ ...pornit }, [{ tip: 'pachet', cod: 'branding', total: 3000, recurent: false }], 3000);
+t('ce nu e proiect de site: integral', T.length === 1 && T[0].suma === 3000);
+T = transeDin({ ...pornit, plata_anual: true }, site(5000), 5000);
+t('plata anuală: integral', T.length === 1);
+T = transeDin({ ...pornit }, [{ tip: 'pachet', cod: 'an_crestere', total: 30000, recurent: false }, ...site(5000)], 35000);
+t('Growth Year: integral', T.length === 1);
+T = transeDin({ ...pornit }, [{ tip: 'modul', cod: 'pagina', total: 400, recurent: false }], 400);
+t('o pagină în plus de 400 de lei: integral', T.length === 1 && T[0].suma === 400);
+console.log(`\n${n - picate} din ${n} trec`);
+process.exit(picate ? 1 : 0);
