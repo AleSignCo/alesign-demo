@@ -1,4 +1,4 @@
-// Vercel serverless: /s/<token> → RPC spatiu_date → spațiul clientului (Site-ul meu, aprobări, calendar, materiale, contracte, mesaje). Fără login: tokenul e cheia.
+// Vercel serverless: /s/<token> → RPC spatiu_date → spațiul clientului (Site-ul tău, aprobări, calendar, materiale, contracte, mesaje). Fără login: tokenul e cheia.
 // SEC6: fiecare deschidere intră în spatiu_jurnal (oră, IP); tokenul revocat din Founder OS dă 404 imediat (pagina e no-store).
 import { randeazaSpatiu, spatiuInchis } from '../lib/spatiu.js';
 
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'private, no-store');
   res.setHeader('X-Robots-Tag', 'noindex, nofollow');
   if (!token || token.length < 16) { res.status(404).send(spatiuInchis()); return; }
-  if (!URL_SB || !KEY_SB) { res.status(500).send('<p style="font-family:sans-serif">Lipsesc variabilele SUPABASE_URL / SUPABASE_KEY.</p>'); return; }
+  if (!URL_SB || !KEY_SB) { console.error('spatiu: lipsesc SUPABASE_URL / SUPABASE_KEY'); res.status(500).send(spatiuInchis()); return; }
   try {
     const r = await fetch(`${URL_SB}/rest/v1/rpc/spatiu_date`, { method: 'POST', headers: { apikey: KEY_SB, Authorization: `Bearer ${KEY_SB}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_token: token }) });
     if (!r.ok) { res.status(404).send(spatiuInchis()); return; }
@@ -44,5 +44,5 @@ export default async function handler(req, res) {
     await fetch(`${URL_SB}/rest/v1/rpc/spatiu_jurnal_adauga`, { method: 'POST', headers: { apikey: KEY_SB, Authorization: `Bearer ${KEY_SB}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_token: token, p_ip: ip, p_ce: 'deschis', p_ua: String(req.headers['user-agent'] || '').slice(0, 200) }) }).catch(() => {});
     const meta = String(req.query.meta || '').replace(/[^a-z_]/g, '').slice(0, 20);
     res.status(200).send(randeazaSpatiu(d, token, meta ? { meta, m: String(req.query.m || '').slice(0, 80) } : {}));
-  } catch (e) { res.status(500).send(spatiuInchis()); }
+  } catch (e) { console.error('spatiu', e); res.status(500).send(spatiuInchis()); }
 }

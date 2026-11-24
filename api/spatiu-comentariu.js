@@ -4,8 +4,10 @@
 // La trimitere, baza pinge n8n „Livrare · evenimente” (SQL 54), cu antetul secret din Vault; Alex află pe loc. Regulile (cine, când, câte runde) sunt în bază.
 const URL_SB = process.env.SUPABASE_URL;
 const KEY_SB = process.env.SUPABASE_KEY;
-// mesajele bazei pe care clientul le poate vedea (restul devin „nu am putut salva”)
+// mesajele bazei pe care clientul le poate vedea, spuse pe înțeles; orice altă eroare devine EROARE (glosar-ecosistem)
 const CUNOSCUTE = ['site-ul nu așteaptă comentarii', 'comentariul e gol', 'nu ai scris niciun comentariu'];
+const PE_INTELES = { 'site-ul nu așteaptă comentarii': 'Site-ul nu mai așteaptă comentarii acum. Reîncarcă pagina.', 'comentariul e gol': 'Scrie comentariul, apoi trimite-l.', 'nu ai scris niciun comentariu': 'Încă n-ai scris niciun comentariu.' };
+export const EROARE = 'Nu s-a trimis. Mai încearcă o dată; dacă nu merge nici acum, scrie-mi la Mesaje și rezolv eu.';
 export const ipDin = (req) => String(req.headers['x-forwarded-for'] || '').split(',')[0].trim().slice(0, 64) || null;
 export async function rpc(nume, corp) {
   const r = await fetch(`${URL_SB}/rest/v1/rpc/${nume}`, { method: 'POST', headers: { apikey: KEY_SB, Authorization: `Bearer ${KEY_SB}`, 'Content-Type': 'application/json' }, body: JSON.stringify(corp) });
@@ -19,27 +21,27 @@ export const corpDin = (req) => { try { return typeof req.body === 'string' ? JS
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'POST') { res.status(405).json({ ok: false }); return; }
-  if (!URL_SB || !KEY_SB) { res.status(500).json({ ok: false, motiv: 'neconfigurat' }); return; }
+  if (!URL_SB || !KEY_SB) { res.status(500).json({ ok: false, motiv: EROARE }); return; }
   const b = corpDin(req);
-  if (!b) { res.status(400).json({ ok: false, motiv: 'date invalide' }); return; }
+  if (!b) { res.status(400).json({ ok: false, motiv: EROARE }); return; }
   const token = String(b.token || '').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 64);
   const id = parseInt(b.sarcina_id, 10);
   const actiune = b.actiune === 'trimite' ? 'trimite' : b.actiune === 'comentariu' ? 'comentariu' : null;
-  if (token.length < 16 || !(id > 0) || !actiune) { res.status(400).json({ ok: false, motiv: 'date lipsă' }); return; }
+  if (token.length < 16 || !(id > 0) || !actiune) { res.status(400).json({ ok: false, motiv: EROARE }); return; }
   try {
     if (actiune === 'comentariu') {
       const sectiune = String(b.sectiune || '').replace(/[^a-z0-9_.]/gi, '').slice(0, 80) || 'general';
       const text = String(b.text || '').trim().slice(0, 2000);
-      if (text.length < 2) { res.status(400).json({ ok: false, motiv: 'Scrie comentariul.' }); return; }
+      if (text.length < 2) { res.status(400).json({ ok: false, motiv: 'Scrie comentariul, apoi trimite-l.' }); return; }
       const r = await rpc('site_comentariu', { p_token: token, p_sarcina_id: id, p_sectiune: sectiune, p_text: text, p_ip: ipDin(req) });
-      if (r.eroare) { res.status(400).json({ ok: false, motiv: r.eroare }); return; }
+      if (r.eroare) { res.status(400).json({ ok: false, motiv: PE_INTELES[r.eroare] || EROARE }); return; }
       await jurnal(token, req, 'comentariu');
       res.status(200).json({ ok: true, n: r.date && r.date.n }); return;
     }
     const r = await rpc('site_trimite_comentarii', { p_token: token, p_sarcina_id: id, p_ip: ipDin(req) });
-    if (r.eroare) { res.status(400).json({ ok: false, motiv: r.eroare }); return; }
+    if (r.eroare) { res.status(400).json({ ok: false, motiv: PE_INTELES[r.eroare] || EROARE }); return; }
     const extra = !!(r.date && r.date.extra);
     await jurnal(token, req, 'trimite');
     res.status(200).json({ ok: true, extra });
-  } catch (e) { res.status(500).json({ ok: false, motiv: 'eroare' }); }
+  } catch (e) { console.error('spatiu-comentariu', e); res.status(500).json({ ok: false, motiv: EROARE }); }
 }

@@ -32,12 +32,13 @@ export function verificaStare(state, maxVechime = 20 * 60 * 1000) {
 export default async function handler(req, res) {
   const token = tokenCurat(req.query.token);
   res.setHeader('Cache-Control', 'private, no-store');
-  if (!token || token.length < 16) { res.status(404).send('Linkul nu e valabil.'); return; }
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  if (!token || token.length < 16) { res.status(404).send('Linkul nu mai merge. Scrie-mi și îți trimit linkul bun în aceeași zi.'); return; }
   // fără secret (conectarea nu e pornită încă): clientul se întoarce în spațiul lui cu un mesaj omenesc, nu pe o pagină albă
-  if (!APP_SECRET) { res.statusCode = 302; res.setHeader('Location', `/s/${token}?meta=eroare&m=${encodeURIComponent('conectarea nu e pornită încă')}#conturi`); res.end(); return; }
+  if (!APP_SECRET) { res.statusCode = 302; res.setHeader('Location', `/s/${token}?meta=oprit#conturi`); res.end(); return; }
   let l;
   try { l = await rpc('spatiu_lead', { p_token: token }); } catch { l = null; }
-  if (!l || !l.lead_id) { res.status(404).send('Linkul nu e valabil.'); return; }
+  if (!l || !l.lead_id) { res.status(404).send('Linkul nu mai merge. Scrie-mi și îți trimit linkul bun în aceeași zi.'); return; }
   const state = semneazaStare(token, l.lead_id);
   const url = `https://www.facebook.com/${VERSIUNE}/dialog/oauth?client_id=${encodeURIComponent(APP_ID)}&redirect_uri=${encodeURIComponent(RETUR)}&state=${encodeURIComponent(state)}&config_id=${encodeURIComponent(CONFIG_ID)}&response_type=code&override_default_response_type=true`;
   res.statusCode = 302;

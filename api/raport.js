@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'private, no-store');
   if (!slug || slug.length < 16) { res.status(404).send(raportIndisponibil()); return; }
-  if (!URL_SB || !KEY_SB) { res.status(500).send('<p style="font-family:sans-serif">Lipsesc variabilele SUPABASE_URL / SUPABASE_KEY.</p>'); return; }
+  if (!URL_SB || !KEY_SB) { console.error('raport: lipsesc SUPABASE_URL / SUPABASE_KEY'); res.status(500).send(raportIndisponibil()); return; }
   try {
     const d = await rpc('raport_date', { p_slug: slug });
     if (!d || !d.id) { res.status(404).send(raportIndisponibil()); return; }
@@ -17,6 +17,7 @@ export default async function handler(req, res) {
     try { surse = (await rpc('raport_surse', { p_slug: slug })) || {}; } catch { surse = {}; }
     res.status(200).send(randeazaRaport({ ...d, surse }));
   } catch (e) {
+    console.error('raport', e);
     res.status(500).send(raportIndisponibil());
   }
 }

@@ -34,10 +34,11 @@ const inapoi = (res, token, q) => { res.statusCode = 302; res.setHeader('Locatio
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'private, no-store');
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
   const st = verificaStare(req.query.state);
-  if (!st) { res.status(400).send('Linkul de întoarcere nu e valabil sau a expirat. Reia conectarea din spațiul tău.'); return; }
+  if (!st) { res.status(400).send('Fereastra de conectare a expirat. Întoarce-te în spațiul tău și apasă din nou „Conectez Facebook și Instagram”.'); return; }
   if (req.query.error || !req.query.code) { inapoi(res, st.token, 'meta=anulat'); return; }
-  if (!APP_SECRET) { inapoi(res, st.token, 'meta=eroare&m=config'); return; }
+  if (!APP_SECRET) { inapoi(res, st.token, 'meta=oprit'); return; }
   try {
     // 1. codul → token scurt → token cu viață lungă (≈ 60 de zile; tokenurile de pagină derivate din el nu expiră)
     const scurt = await graph('/oauth/access_token', { client_id: APP_ID, client_secret: APP_SECRET, redirect_uri: RETUR, code: String(req.query.code) });
@@ -51,6 +52,8 @@ export default async function handler(req, res) {
     await rpc('acces_meta_salveaza', { p_token: st.token, p_pagini: pagini, p_user_token: userToken });
     inapoi(res, st.token, 'meta=conectat');
   } catch (e) {
-    inapoi(res, st.token, `meta=eroare&m=${encodeURIComponent(String(e.message || 'eroare').slice(0, 80))}`);
+    // motivul tehnic rămâne în jurnalul Vercel; clientul vede doar mesajul omenesc din spațiu
+    console.error('meta-callback', e && e.cod, String((e && e.message) || '').slice(0, 200));
+    inapoi(res, st.token, 'meta=eroare');
   }
 }

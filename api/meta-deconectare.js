@@ -4,10 +4,11 @@ import { tokenCurat } from './meta-connect.js';
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'private, no-store');
-  if (req.method !== 'POST') { res.status(405).send('metodă'); return; }
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  if (req.method !== 'POST') { res.status(405).send(''); return; }
   const b = bodyDin(req);
   const token = tokenCurat(b.token || req.query.token);
-  if (!token || token.length < 16) { res.status(404).send('Linkul nu e valabil.'); return; }
+  if (!token || token.length < 16) { res.status(404).send('Linkul nu mai merge. Scrie-mi și îți trimit linkul bun în aceeași zi.'); return; }
   try { await rpc('acces_meta_sterge', { p_token: token }); } catch { /* starea rămâne; clientul vede tot „conectat” și poate reîncerca */ }
   res.statusCode = 302; res.setHeader('Location', `/s/${token}?meta=deconectat#conturi`); res.end();
 }

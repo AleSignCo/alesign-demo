@@ -20,25 +20,25 @@ h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;margin:0 0 10px
 .cifre{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px}.cf b{display:block;font-family:'Cormorant Garamond',serif;font-size:38px;line-height:1}.cf span{font-size:12.5px;color:var(--muted)}
 .m{color:var(--muted);font-size:14.5px}.rand{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid var(--line);font-size:14.5px}.rand:first-of-type{border-top:0}
 .btn{display:inline-flex;align-items:center;min-height:48px;padding:12px 22px;border-radius:999px;background:var(--ink);color:#f4f1ea;font-weight:600;text-decoration:none;margin-top:12px}</style></head>
-<body><main><p class="eye">Raportul de la 30 de zile</p><h1>${esc(x.firma)}: prima lună a site-ului nou</h1>
-<p class="m">De la ${esc(dataRo(D.de))} la ${esc(dataRo(D.pana))}.${fara ? ' Măsurarea n-a primit încă date în această perioadă; cifrele apar „—”, nu inventate.' : ''}</p>
-<div class="card"><h2>După</h2><div class="cifre">${cifra(D.vizite, 'vizite')}${cifra(D.vizitatori, 'vizitatori (unici pe zi)')}${cifra(D.cereri, 'cereri din formular')}${cifra(D.telefon, 'clicuri pe telefon')}${cifra(D.whatsapp, 'clicuri pe WhatsApp')}${Number(D.programare) ? cifra(D.programare, 'clicuri pe programare') : ''}</div>
+<body><main><p class="eye">Raportul de la 30 de zile · ${esc(x.firma)}</p><h1>Prima lună cu site-ul nou</h1>
+<p class="m">De la ${esc(dataRo(D.de))} la ${esc(dataRo(D.pana))}.${fara ? ' Site-ul n-a trimis încă date pentru perioada asta, așa că unde lipsește o cifră vezi o liniuță.' : ''}</p>
+<div class="card"><h2>Ce s-a întâmplat în 30 de zile</h2><div class="cifre">${cifra(D.vizite, 'vizite')}${cifra(D.vizitatori, 'vizitatori diferiți, pe zi')}${cifra(D.cereri, 'cereri din formular')}${cifra(D.telefon, 'clicuri pe telefon')}${cifra(D.whatsapp, 'clicuri pe WhatsApp')}${Number(D.programare) ? cifra(D.programare, 'clicuri pe programare') : ''}</div>
 ${pagini.length ? `<p class="m" style="margin-top:14px">Paginile cele mai citite</p>${pagini.map((p) => `<div class="rand"><span>${esc(p.cale)}</span><span>${nr(p.vizite)}</span></div>`).join('')}` : ''}
 ${surse.length ? `<p class="m" style="margin-top:14px">De unde au venit</p>${surse.map((p) => `<div class="rand"><span>${esc(p.ref)}</span><span>${nr(p.vizite)}</span></div>`).join('')}` : ''}</div>
-${I.audit_scor != null ? `<div class="card"><h2>Înainte</h2><p>Auditul site-ului vechi${I.audit_la ? ` (${esc(dataRo(I.audit_la))})` : ''}: <b>${esc(String(I.audit_scor))}/10</b>.</p>${prio.length ? prio.slice(0, 3).map((p, i) => `<div class="rand"><span>${i + 1}. ${esc(p.ce || '')}</span><span class="m">rezolvat în site-ul nou</span></div>`).join('') : ''}</div>` : ''}
-${x.recomandare ? `<div class="card"><h2>Ce îți recomand acum</h2><p><b>${esc((x.abonament && x.abonament.nume) || x.recomandare)}</b></p>${x.nota ? `<p style="margin-top:8px">${esc(x.nota)}</p>` : ''}${x.token ? `<a class="btn" href="/s/${esc(x.token)}#mesaje">Vorbim despre asta</a>` : ''}</div>` : ''}
-<p class="m" style="margin-top:22px">Cifrele vin din măsurarea site-ului, fără cookie-uri și fără date personale, și din cererile primite prin formular. Alexandru, AleSign&amp;Co</p></main></body></html>`;
+${I.audit_scor != null ? `<div class="card"><h2>Cum era înainte</h2><p>Auditul site-ului vechi${I.audit_la ? ` (${esc(dataRo(I.audit_la))})` : ''}: <b>${esc(String(I.audit_scor))}/10</b>.</p>${prio.length ? prio.slice(0, 3).map((p, i) => `<div class="rand"><span>${i + 1}. ${esc(p.ce || '')}</span><span class="m">rezolvat în site-ul nou</span></div>`).join('') : ''}</div>` : ''}
+${x.recomandare ? `<div class="card"><h2>Ce îți recomand acum</h2><p><b>${esc((x.abonament && x.abonament.nume) || x.recomandare)}</b></p>${x.nota ? `<p style="margin-top:8px">${esc(x.nota)}</p>` : ''}${x.token ? `<a class="btn" href="/s/${esc(x.token)}#mesaje">Vreau să vorbim despre asta</a>` : ''}</div>` : ''}
+<p class="m" style="margin-top:22px">Cifrele vin din două locuri: măsurarea site-ului, care nu folosește cookie-uri și nu păstrează date personale, și cererile primite prin formular. Alexandru, AleSign</p></main></body></html>`;
 }
 
 export default async function handler(req, res) {
   res.setHeader('Content-Type', 'text/html; charset=utf-8'); res.setHeader('Cache-Control', 'private, no-store'); res.setHeader('X-Robots-Tag', 'noindex, nofollow');
   const slug = String((req.query && req.query.slug) || '').toLowerCase().replace(/[^a-f0-9]/g, '').slice(0, 64);
-  const nu = () => res.status(404).send('<!doctype html><p style="font-family:sans-serif;padding:40px">Raportul nu e disponibil. Scrie-mi la info@alesign.net.</p>');
+  const nu = () => res.status(404).send('<!doctype html><p style="font-family:sans-serif;padding:40px">Linkul nu deschide raportul. Scrie-mi la info@alesign.net și îți trimit linkul bun în aceeași zi.</p>');
   if (slug.length !== 24 || !SB || !ANON) { nu(); return; }
   try {
     const r = await fetch(`${SB}/rest/v1/rpc/raport_site_public`, { method: 'POST', headers: { apikey: ANON, Authorization: `Bearer ${ANON}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_slug: slug }) });
     const x = r.ok ? await r.json() : null;
     if (!x || !x.firma) { nu(); return; }
     res.status(200).send(paginaRaport(x));
-  } catch (e) { res.status(500).send('<!doctype html><p style="font-family:sans-serif;padding:40px">A apărut o problemă. Încearcă din nou.</p>'); }
+  } catch (e) { console.error('raport-site', e); res.status(500).send('<!doctype html><p style="font-family:sans-serif;padding:40px">Raportul nu s-a încărcat. Mai încearcă o dată peste un minut; dacă nu merge nici atunci, scrie-mi la info@alesign.net și rezolv eu.</p>'); }
 }
