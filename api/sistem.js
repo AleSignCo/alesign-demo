@@ -9,7 +9,7 @@ const HS = () => ({ apikey: KEY_SERV, Authorization: `Bearer ${KEY_SERV}`, 'Cont
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'private, no-store');
   res.setHeader('X-Robots-Tag', 'noindex, nofollow');
-  if (!URL_SB || !KEY_SERV) { res.status(500).send('<p style="font-family:sans-serif">Lipsesc SUPABASE_URL / SUPABASE_SERVICE_KEY.</p>'); return; }
+  if (!URL_SB || !KEY_SERV) { res.status(500).send('<p style="font-family:sans-serif">Pagina nu se deschide acum. Mai încearcă peste câteva minute.</p>'); return; }
   const r = String(req.query.r || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 12);
   if (r) {
     let tally = process.env.SISTEM_TALLY_URL || '';

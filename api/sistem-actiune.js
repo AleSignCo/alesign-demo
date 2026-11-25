@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') { res.status(405).end(); return; }
   res.setHeader('Cache-Control', 'private, no-store');
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  if (!URL_SB || !KEY_SERV) { res.status(500).send(paginaMultumesc('Nu merge acum', 'Lipsesc SUPABASE_URL / SUPABASE_SERVICE_KEY.', '')); return; }
+  if (!URL_SB || !KEY_SERV) { res.status(500).send(paginaMultumesc('Nu merge acum', 'Mai încearcă peste câteva minute. Dacă nu merge nici atunci, răspunde la mailul cu linkul tău și rezolv eu.', '')); return; }
   const b = campuri(req);
   const token = String(b.token || '').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 64);
   const actiune = String(b.actiune || '');
@@ -40,9 +40,9 @@ export default async function handler(req, res) {
       const t = await q.text();
       if (!q.ok) { let m = t; try { m = JSON.parse(t).message || t; } catch {} res.status(400).send(paginaMultumesc('Nu a mers', String(m).slice(0, 300), inapoi)); return; }
       const o = JSON.parse(t || '{}');
-      if (o && o.lista_asteptare) { res.status(200).send(paginaMultumesc('Ești pe lista de așteptare', o.mesaj || 'Locurile lunii s-au ocupat. Revenim când se eliberează un loc.', inapoi)); return; }
-      res.status(200).send(paginaMultumesc('Am primit', 'Alexandru îți trimite contractul pe email, cu prețul din oferta ta. Nimic nu se plătește până nu semnezi.', inapoi)); return;
+      if (o && o.lista_asteptare) { res.status(200).send(paginaMultumesc('Ești pe lista de așteptare', o.mesaj || 'Locurile lunii s-au ocupat. Te anunț eu când se eliberează un loc.', inapoi)); return; }
+      res.status(200).send(paginaMultumesc('Am primit', 'Îți trimit contractul pe email, cu prețul din oferta ta. Nu plătești nimic până nu semnezi.', inapoi)); return;
     }
     res.status(400).send(paginaMultumesc('Acțiune necunoscută', '', inapoi));
-  } catch (e) { res.status(500).send(paginaMultumesc('Nu merge acum', 'Încearcă din nou peste un minut.', inapoi)); }
+  } catch (e) { res.status(500).send(paginaMultumesc('Nu merge acum', 'Mai încearcă o dată peste un minut. Dacă nu merge, răspunde la mailul cu linkul tău și rezolv eu.', inapoi)); }
 }

@@ -6,7 +6,7 @@
 // client_fisiere (fără formular central și fără măsurare; la Poarta D, build-ul se arhivează și se predă, nimic nu se publică la noi).
 import dns from 'dns/promises';
 import tls from 'tls';
-import { construiesteSite, dosarPentruBuild, pozePentruBuild } from '../lib/site-build.js';
+import { construiesteSite, dosarPentruBuild, pozePentruBuild, caiLogo, logoPentruBuild, cuEtichetaGsc } from '../lib/site-build.js';
 import { vercel, numeProiect } from '../lib/vercel.js';
 import { arhiveaza, citesteArhiva } from '../lib/arhiva.js';
 
@@ -16,10 +16,11 @@ const hs = () => ({ apikey: SERV, Authorization: `Bearer ${SERV}`, 'Content-Type
 const echipaDin = (p) => (p && p.echipa) || process.env.VERCEL_TEAM_SITES || null; // site-urile din echipa clientului își păstrează echipa în publicare
 
 export async function aduce(u) { const r = await fetch(u); if (!r.ok) throw new Error(`${u.split('?')[0]}: ${r.status}`); return Buffer.from(await r.arrayBuffer()); }
-async function semneaza(cai) {
+// bucketul: „onboarding” (pozele și logoul păstrat de client) sau „brand” (logoul și faviconul livrate de noi, SQL 110–111)
+async function semneaza(cai, bucket = 'onboarding') {
   if (!cai.length) return {};
-  const r = await fetch(`${SB}/storage/v1/object/sign/onboarding`, { method: 'POST', headers: hs(), body: JSON.stringify({ expiresIn: 600, paths: cai }) });
-  if (!r.ok) throw new Error('semnarea pozelor: ' + r.status);
+  const r = await fetch(`${SB}/storage/v1/object/sign/${bucket}`, { method: 'POST', headers: hs(), body: JSON.stringify({ expiresIn: 600, paths: cai }) });
+  if (!r.ok) throw new Error(`semnarea fișierelor din ${bucket}: ` + r.status);
   return Object.fromEntries((await r.json()).filter((x) => x.signedURL).map((x) => [x.path, `${SB}/storage/v1${x.signedURL}`]));
 }
 
@@ -108,6 +109,11 @@ export async function verificaArhiva({ V, proiect, build, fisiere, sb, cheie, f 
   } catch (e) { return { verificare: { cod: 'V4', trecut: false, motiv: 'arhiva: ' + e.message }, arhiva: null }; }
 }
 
+// eticheta de verificare Search Console (SQL 121): din Dosarul de acum, nu din instantaneul sarcinii (n8n o pune după publicare)
+async function etichetaGsc(lead) {
+  try { const x = await (await fetch(`${SB}/rest/v1/dosare?lead_id=eq.${lead}&select=gsc:identitate->>gsc_meta`, { headers: hs() })).json(); return (x && x[0] && x[0].gsc) || null; } catch (e) { return null; }
+}
+
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'POST') { res.status(405).json({ ok: false }); return; }
@@ -153,6 +159,29 @@ export default async function handler(req, res) {
       await fetch(`${SB}/rest/v1/rpc/site_domeniu_stare`, { method: 'POST', headers: hs(), body: JSON.stringify({ p_sarcina_id: s.id, p_dns_ok: dnsOk, p_verificari: verificari, p_cerinte: d.cerinte || [], p_expira_la: expiraLa }) }).catch(() => null);
       res.status(200).json({ ok: true, domeniu: d.domeniu, dns_ok: dnsOk, verificari, expira_la: expiraLa }); return;
     }
+    // eticheta Search Console pe un site deja publicat (n8n „SEO · Search Console”, după ce a pus eticheta în Dosar): același build din arhivă,
+    // cu eticheta în pagina principală; build-ul (versiune.json) rămâne același, iar arhiva se rescrie cu eticheta, ca o revenire să n-o piardă
+    if (b.gsc_eticheta) {
+      const p = (s && s.publicare) || {};
+      if (!s || !['publicat', 'livrat'].includes(s.stare) || !p.proiect_vercel || !/^[a-z0-9-]+\/[0-9a-z]+\.tar$/.test(String(p.arhiva || ''))) { res.status(409).json({ ok: false, motiv: 'eticheta se pune pe un site publicat la noi, cu arhivă' }); return; }
+      const cod = await etichetaGsc(s.lead_id);
+      if (!/^[A-Za-z0-9_-]{20,120}$/.test(String(cod || ''))) { res.status(409).json({ ok: false, motiv: 'Dosarul nu are eticheta Search Console (identitate.gsc_meta)' }); return; }
+      const fis = await citesteArhiva({ sb: SB, cheie: SERV, cale: p.arhiva });
+      const idx = fis.find((f) => f.cale === 'index.html');
+      if (!idx) { res.status(409).json({ ok: false, motiv: 'arhiva nu are pagina principală' }); return; }
+      idx.date = Buffer.from(cuEtichetaGsc(idx.date.toString('utf8'), cod));
+      const build = p.arhiva.split('/').pop().replace(/\.tar$/, '');
+      const V = vercel({ token: process.env.VERCEL_TOKEN, echipa: echipaDin(p) });
+      const proiect = await V.proiect(p.proiect_vercel);
+      const dep = await V.deploy({ proiect, fisiere: fis, productie: true, meta: { sarcina: s.id, build, gsc: 'eticheta' } });
+      const gata = await V.asteapta(dep.id);
+      let are = false; let v = null;
+      try { are = (await (await fetch(`https://${gata.url}/`, { cache: 'no-store' })).text()).includes(`content="${cod}"`); } catch (e) { are = false; }
+      try { v = await (await fetch(`https://${gata.url}/versiune.json`, { cache: 'no-store' })).json(); } catch (e) { v = null; }
+      const ok = are && !!v && v.build === build;
+      if (ok) await arhiveaza({ sb: SB, cheie: SERV, proiect: p.arhiva.split('/')[0], build, fisiere: fis });
+      res.status(200).json({ ok, build, deploy_id: dep.id, url: `https://${gata.url}`, motiv: ok ? null : (are ? 'versiune.json nu arată build-ul publicat' : 'eticheta nu se vede în pagina principală') }); return;
+    }
     if (!s || !s.detalii || !s.detalii.dosar) { res.status(404).json({ ok: false, motiv: 'sarcina sau instantaneul Dosarului lipsește' }); return; }
     // L2: un landing expirat se retrage singur: pagina „Oferta s-a încheiat” (noindex) înlocuiește oferta pe același domeniu
     if (retragere && (s.tip !== 'landing' || !['publicat', 'livrat'].includes(s.stare || 'publicat'))) { res.status(409).json({ ok: false, motiv: 'doar un landing publicat se retrage' }); return; }
@@ -160,7 +189,11 @@ export default async function handler(req, res) {
     const l = (await (await fetch(`${SB}/rest/v1/leaduri?id=eq.${s.lead_id}&select=id,firma,demo_slug,nisa`, { headers: hs() })).json())[0] || {};
     const D = s.detalii.dosar; const I = D.identitate || {}; const Br = D.brand || {};
     const poze = (Array.isArray(Br.poze) ? Br.poze : []).filter((p) => p && p.cale);
-    const sem = await semneaza([...(Br.logo && Br.logo.cale ? [Br.logo.cale] : []), ...poze.map((p) => p.cale)]);
+    // logoul și faviconul (1.5): din bucketul lor; un logo care nu se poate semna nu oprește build-ul (site-ul rămâne cu numele firmei, ca înainte)
+    const CL = caiLogo(Br.logo);
+    const sem = await semneaza([...(CL.bucket === 'onboarding' ? CL.cai : []), ...poze.map((p) => p.cale)]);
+    let semLogo = sem; if (CL.bucket === 'brand') { try { semLogo = await semneaza(CL.cai, 'brand'); } catch (e) { semLogo = {}; } }
+    const LB = logoPentruBuild(Br.logo, semLogo);
     const proiectNume = numeProiect(l.demo_slug || l.firma || 'client-' + s.lead_id);
     const domeniu = String(I.domeniu || '').replace(/^https?:\/\//, '').replace(/\/.*$/, '');
     const baza = domeniu ? `https://${domeniu}` : `https://${proiectNume}.vercel.app`;
@@ -176,7 +209,7 @@ export default async function handler(req, res) {
     const rez = await construiesteSite({ piesa: s.continut, dosar, dosarAnterior: (s.detalii && s.detalii.actualizare && s.detalii.actualizare.dosar_anterior) || null, baza, preview: !productie, formular, aduce, sharp, sarcina: s.id, versiune: s.versiune, retras: retragere, masurare: gaz === 'client_fisiere' ? null : (process.env.MASURARE_URL || null),
       sal: salDate,
       poze: pozePentruBuild(Br, sem, s.continut),
-      logo: Br.logo && Br.logo.cale && sem[Br.logo.cale] ? { id: Br.logo.cale, sursa: 'client', url: sem[Br.logo.cale], alt: '' } : null });
+      logo: LB.logo, favicon: LB.favicon, gscMeta: productie && !retragere && gaz !== 'client_fisiere' ? await etichetaGsc(s.lead_id) : null });
     if (productie && !retragere && s.build && rez.build !== s.build) { res.status(409).json({ ok: false, motiv: `build-ul refăcut (${rez.build}) diferă de cel aprobat (${s.build}): ceva s-a schimbat după Poarta C` }); return; }
     const V0 = vercel({ token: process.env.VERCEL_TOKEN, echipa: process.env.VERCEL_TEAM_SITES || null });
     // predarea ca fișiere: arhiva build-ului aprobat (verificată prin restaurare pe un preview al nostru) e livrabilul; nimic pe domeniu

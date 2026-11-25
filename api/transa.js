@@ -23,7 +23,7 @@ main{max-width:560px;margin:0 auto}.eye{font-size:11px;letter-spacing:.22em;text
 .ok{color:var(--ok);font-weight:600}.rand{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14.5px}.rand:first-of-type{border-top:0}</style></head>
 <body><main><p class="eye">Contract ${esc(t.contract)}</p><h1>Tranșa ${esc(t.nr)} din ${esc(t.din)}</h1>
 ${mesaj ? `<p class="${ok ? 'ok' : 'm'}" role="status">${esc(mesaj)}</p>` : ''}
-<div class="card"><p class="suma">${nr(cuTva)} RON</p><p class="m">${Number(t.tva_procent) > 0 ? `${nr(t.suma)} RON + TVA ${esc(t.tva_procent)}% · ` : ''}${esc(t.cand || '')}</p>
+<div class="card"><p class="suma">${nr(cuTva)} lei</p><p class="m">${Number(t.tva_procent) > 0 ? `${nr(t.suma)} lei + TVA ${esc(t.tva_procent)}% · ` : ''}${esc(t.cand || '')}</p>
 ${platita ? `<p class="ok" style="margin-top:12px">Plătită${t.platita_la ? ` pe ${esc(dataRo(t.platita_la))}` : ''}. Mulțumesc!</p>` : `<p class="m" style="margin-top:8px">${t.scadenta ? `Termen de plată: ${esc(dataRo(t.scadenta))}.` : ''}</p>`}
 ${card ? `<form method="post"><button class="btn" type="submit">Plătește cu cardul</button></form>` : ''}</div>
 ${platita ? '' : `<div class="card"><p style="font-weight:600">Sau prin transfer bancar</p>
@@ -57,5 +57,5 @@ export default async function handler(req, res) {
       html(200, paginaTransa(t, { mesaj: 'Nu văd încă plata confirmată. Dacă ai plătit, reîncarcă pagina peste un minut.' })); return;
     }
     html(200, paginaTransa(t, { mesaj: req.query && req.query.anulat ? 'Plata a fost anulată. Poți încerca din nou oricând.' : '' }));
-  } catch (e) { html(500, '<!doctype html><p style="font-family:sans-serif;padding:40px">A apărut o problemă. Încearcă din nou peste câteva minute.</p>'); }
+  } catch (e) { html(500, '<!doctype html><p style="font-family:sans-serif;padding:40px">Pagina nu s-a deschis. Mai încearcă peste câteva minute; dacă nu merge nici atunci, scrie-mi și rezolv eu.</p>'); }
 }

@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       // ramura decide ce recomand: fără site → Growth (cu Launch ca punct de pornire); site slab → Growth; site bun → Growth
       recomandat: 'crestere',
     };
-    if (ramura === 'site_slab' && scor == null) d.probleme = [{ vazut: 'Site-ul nu s-a încărcat când l-am testat.', costa: 'Cine a intrat în acel moment a dat de o pagină care nu se deschide.', facem: 'Îl repunem pe picioare odată cu Website Refresh.' }, ...d.probleme];
+    if (ramura === 'site_slab' && scor == null) d.probleme = [{ vazut: 'Site-ul nu s-a încărcat când l-am testat.', costa: 'Cine a intrat în acel moment a dat de o pagină care nu se deschide.', facem: 'Îl repun pe picioare odată cu Website Refresh.' }, ...d.probleme];
 
     res.setHeader('Cache-Control', 'private, no-store');
     res.status(200).send(randeazaMostra(d));

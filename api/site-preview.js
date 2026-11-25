@@ -7,10 +7,10 @@ const URL_SB = process.env.SUPABASE_URL;
 const KEY_SB = process.env.SUPABASE_KEY;
 const KEY_SERV = process.env.SUPABASE_SERVICE_KEY;
 
-async function semneaza(cai) {
+async function semneaza(cai, bucket = 'onboarding') {
   if (!KEY_SERV || !cai.length) return {};
   try {
-    const r = await fetch(`${URL_SB}/storage/v1/object/sign/onboarding`, { method: 'POST', headers: { apikey: KEY_SERV, Authorization: `Bearer ${KEY_SERV}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ expiresIn: 60 * 60 * 24, paths: cai }) });
+    const r = await fetch(`${URL_SB}/storage/v1/object/sign/${bucket}`, { method: 'POST', headers: { apikey: KEY_SERV, Authorization: `Bearer ${KEY_SERV}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ expiresIn: 60 * 60 * 24, paths: cai }) });
     if (!r.ok) return {};
     const lista = await r.json(); const map = {};
     (Array.isArray(lista) ? lista : []).forEach((x) => { if (x && x.path && x.signedURL) map[x.path] = `${URL_SB}/storage/v1${x.signedURL}`; });
@@ -33,10 +33,18 @@ export default async function handler(req, res) {
     if (!d || !d.continut) { res.status(404).send(spatiuInchis()); return; }
     const cai = [d.logo_cale, ...(Array.isArray(d.poze_cai) ? d.poze_cai : [])].filter(Boolean).slice(0, 12);
     const semnate = await semneaza(cai);
+    // logoul livrat de noi stă în bucketul „brand” (SQL 111); faviconul e în același kit, la web/favicon.svg
+    let logoUrl = d.logo_cale ? semnate[d.logo_cale] : '';
+    let faviconUrl = '';
+    if (d.logo_cale && (!logoUrl || d.logo_bucket === 'brand')) {
+      const fav = /\/svg\/[^/]+\.svg$/.test(d.logo_cale) ? d.logo_cale.replace(/\/svg\/[^/]+\.svg$/, '/web/favicon.svg') : null;
+      const b = await semneaza([d.logo_cale, ...(fav ? [fav] : [])], 'brand');
+      logoUrl = b[d.logo_cale] || logoUrl; faviconUrl = (fav && b[fav]) || '';
+    }
     const pozeClient = (Array.isArray(d.poze_cai) ? d.poze_cai : []).map((c) => semnate[c]).filter(Boolean);
     const publice = (Array.isArray(d.poze_publice) ? d.poze_publice : []).filter((u) => /^https?:\/\//i.test(String(u || '')));
     const idn = d.identitate || {};
-    const dosar = { firma: d.firma, nisa: d.nisa, identitate: idn, logo_url: d.logo_cale ? semnate[d.logo_cale] : '', poze: [...pozeClient, ...publice].slice(0, 8), telefon: idn.telefon, email: idn.email, adresa: idn.adresa, program: idn.program,
+    const dosar = { firma: d.firma, nisa: d.nisa, identitate: idn, logo_url: logoUrl || '', favicon_url: faviconUrl, poze: [...pozeClient, ...publice].slice(0, 8), telefon: idn.telefon, email: idn.email, adresa: idn.adresa, program: idn.program,
       // 15 nov. 2026: culorile identității aprobate, ca previzualizarea să arate ce va arăta site-ul construit (spatiu_site, SQL 61)
       brand: { jetoane: d.jetoane || null } };
     res.status(200).send(randeazaSite(d.continut, dosar, { mod: 'preview', inapoi: `/s/${token}` }));

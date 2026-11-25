@@ -73,24 +73,24 @@
   var DOM = {
     frumusete: { et: 'salon de frumusețe', nisa: 'Beauty & Wellness', foto: ['salon-interior', 'salon-oglinda', 'salon-foarfeca', 'salon-coafat'],
       tag: 'Frumusețe lucrată cu răbdare, în {oras}.', cta: 'Programează-te', serv: ['Tuns & styling', 'Colorare', 'Tratamente'],
-      post: ['Înainte și după. Culoarea de toamnă, lucrată la {nume}.', 'Detaliile fac diferența. Ne vedem săptămâna asta?', 'Mai avem locuri joi după-amiază. Scrie-ne „joi”.'],
-      rec: ['Andreea M.', '„Am ieșit exact cum mi-am dorit. Revin sigur!”'], rasp: 'Mulțumim, Andreea! Ne bucurăm că ai plecat zâmbind de la {nume}. Te așteptăm data viitoare.' },
+      post: ['Înainte și după. Culoarea de toamnă, lucrată la {nume}.', 'Un balayage refăcut azi, cu răbdare. Se vede în lumina zilei.', 'Mai avem locuri joi după-amiază. Scrie-ne „joi”.'],
+      rec: ['Andreea M.', '„Am ieșit exact cum mi-am dorit. Revin sigur.”'], rasp: 'Mulțumim, Andreea. În primele zile spală-ți părul cu apă călduță, ca să țină culoarea. Te așteptăm la {nume}.' },
     barber: { et: 'barbershop', nisa: 'Beauty & Wellness', foto: ['barber-scaune', 'barber-barba', 'barber-unelte', 'barber-tuns'],
       tag: 'Tunsori clasice și bărbierit ca la carte, în {oras}.', cta: 'Rezervă un scaun', serv: ['Tuns', 'Barbă', 'Bărbierit clasic'],
-      post: ['Fade proaspăt, lucrat azi la {nume}.', 'Uneltele contează. Le curățăm după fiecare client.', 'Sâmbătă dimineață mai avem două locuri.'],
-      rec: ['Mihai R.', '„Cea mai bună tunsoare din ultimul an.”'], rasp: 'Mersi, Mihai! Te așteptăm peste trei săptămâni la {nume}.' },
+      post: ['Fade proaspăt, lucrat azi la {nume}.', 'Foarfecile și mașinile se curăță după fiecare client.', 'Sâmbătă dimineață mai avem două locuri.'],
+      rec: ['Mihai R.', '„M-a tuns exact cum i-am arătat în poză.”'], rasp: 'Mersi, Mihai. Ne vedem peste trei săptămâni la {nume}.' },
     spa: { et: 'spa', nisa: 'Beauty & Wellness', foto: ['spa-lounge', 'spa-pietre', 'spa-lumanari', 'spa-cada'],
       tag: 'O oră în care nu te caută nimeni. În {oras}.', cta: 'Rezervă un ritual', serv: ['Masaj', 'Ritualuri', 'Zona de relaxare'],
-      post: ['Ritualul cu pietre calde de la {nume}. 60 de minute doar pentru tine.', 'Lumânări aprinse, telefonul închis. Te așteptăm.', 'Un voucher la {nume} e cadoul care nu se uită.'],
-      rec: ['Ioana P.', '„Am plecat ca nouă. Atmosfera e superbă.”'], rasp: 'Mulțumim, Ioana! Ne bucurăm că ți-ai găsit liniștea la {nume}.' },
+      post: ['Ritualul cu pietre calde de la {nume}. 60 de minute doar pentru tine.', 'Lumânări aprinse, telefonul închis. Te așteptăm.', 'Voucherele de sărbători pentru {nume} se cumpără de la recepție.'],
+      rec: ['Ioana P.', '„Am plecat ca nouă. Atmosfera e superbă.”'], rasp: 'Mulțumim, Ioana. Ne bucurăm că ți-a priit ritualul. Te așteptăm la {nume}.' },
     clinica: { et: 'clinică privată', nisa: 'Medical', foto: ['spa-marmura', 'salon-receptie', 'spa-crema', 'salon-alb'],
       tag: 'Îngrijire atentă, explicată pe înțelesul tău. În {oras}.', cta: 'Programează o consultație', serv: ['Consultații', 'Tratamente', 'Controale periodice'],
       post: ['Ce întrebi la prima consultație? Am făcut o listă scurtă.', 'Așa ne pregătim cabinetul pentru tine, în fiecare dimineață.', 'Programările pentru luna viitoare sunt deschise.'],
-      rec: ['Elena D.', '„Mi s-a explicat totul clar și cu răbdare.”'], rasp: 'Vă mulțumim pentru încredere, doamna Elena! Ne bucurăm că v-ați simțit bine la {nume}.' },
+      rec: ['Elena D.', '„Mi s-a explicat totul clar și cu răbdare.”'], rasp: 'Mulțumim pentru încredere, Elena. Ne bucurăm că ți-am explicat totul pe înțeles. Te așteptăm la control, la {nume}.' },
     alt: { et: 'afacere premium', nisa: 'Alt domeniu premium', foto: ['salon-receptie', 'spa-hol', 'spa-baie', 'salon-negru'],
-      tag: 'Calitate pe care o simți din prima zi. În {oras}.', cta: 'Cere o întâlnire', serv: ['Consultanță', 'Proiecte la comandă', 'Întreținere'],
+      tag: 'Lucru făcut la comandă, cu termenul scris. În {oras}.', cta: 'Cere o întâlnire', serv: ['Consultanță', 'Proiecte la comandă', 'Întreținere'],
       post: ['Din culise: cum arată o zi la {nume}.', 'Un proiect terminat săptămâna asta. Detaliile, în carusel.', 'Ai o întrebare? Îți răspundem în aceeași zi.'],
-      rec: ['Radu T.', '„Profesioniști de la primul telefon până la final.”'], rasp: 'Mulțumim frumos, Radu! Ne bucurăm că ați lucrat cu {nume}.' }
+      rec: ['Radu T.', '„Au venit la ora stabilită și au terminat când au spus.”'], rasp: 'Mulțumim, Radu. Ne bucurăm că am lucrat împreună. Te așteptăm oricând la {nume}.' }
   };
   var slug = function (s) {
     var t = String(s || '').toLowerCase().replace(/&/g, 'si');
@@ -163,8 +163,8 @@
           var sec = ((performance.now() - t0) / 1000).toFixed(1).replace('.', ',');
           rest(x);
           scena.classList.remove('lucreaza', 'gol'); void scena.offsetWidth; scena.classList.add('gata');
-          q('.gen-final-text').innerHTML = 'Asta a durat <b>' + sec + ' secunde</b> și a pornit doar de la un nume. Mostra reală pornește de la afacerea ta: concurenții tăi din ' + A.esc(x.oras) + ', pozele tale, prețurile tale. <b>O fac eu, gratis.</b>';
-          q('.gen-final-btn span').textContent = 'Vreau mostra reală pentru ' + x.nume;
+          q('.gen-final-text').innerHTML = 'Asta a durat <b>' + sec + ' secunde</b> și a pornit doar de la un nume. Mostra adevărată pornește de la afacerea ta, cu pozele și prețurile tale și cu concurenții tăi din ' + A.esc(x.oras) + '. <b>O fac eu și nu te costă nimic.</b>';
+          q('.gen-final-btn span').textContent = 'Vreau Mostra pentru ' + x.nume;
           final.hidden = false;
           g.dataset.nume = x.nume; g.dataset.nisa = x.d.nisa; g.dataset.oras = x.oras;
           lucreaza = false; btn.disabled = false; btn.querySelector('span').textContent = 'Încearcă alt nume';

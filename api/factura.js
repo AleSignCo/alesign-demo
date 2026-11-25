@@ -6,15 +6,15 @@ export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'private, no-store'); res.setHeader('X-Robots-Tag', 'noindex, nofollow');
   const token = String((req.query || {}).t || '').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 64);
   const id = parseInt((req.query || {}).id, 10);
-  if (req.method !== 'GET' || token.length < 24 || !(id > 0)) { res.status(404).send('Nu există.'); return; }
+  if (req.method !== 'GET' || token.length < 24 || !(id > 0)) { res.status(404).send('Linkul nu mai merge. Scrie-mi și îți trimit factura în aceeași zi.'); return; }
   if (!SB || !SERV) { res.status(500).send('Lipsesc SUPABASE_URL sau SUPABASE_SERVICE_KEY.'); return; }
   try {
     const r = await fetch(`${SB}/rest/v1/rpc/factura_pdf_pentru`, { method: 'POST', headers: hs(), body: JSON.stringify({ p_token: token, p_factura_id: id }) });
     const cale = r.ok ? await r.json() : null;
-    if (!cale || typeof cale !== 'string' || !/^[0-9]+\/[A-Za-z0-9-]+\.pdf$/.test(cale)) { res.status(404).send('Nu există.'); return; }
+    if (!cale || typeof cale !== 'string' || !/^[0-9]+\/[A-Za-z0-9-]+\.pdf$/.test(cale)) { res.status(404).send('Linkul nu mai merge. Scrie-mi și îți trimit factura în aceeași zi.'); return; }
     const s = await fetch(`${SB}/storage/v1/object/sign/facturi/${cale}`, { method: 'POST', headers: hs(), body: JSON.stringify({ expiresIn: 60 }) });
     const j = s.ok ? await s.json() : null;
-    if (!j || !j.signedURL) { res.status(404).send('Nu există.'); return; }
+    if (!j || !j.signedURL) { res.status(404).send('Linkul nu mai merge. Scrie-mi și îți trimit factura în aceeași zi.'); return; }
     res.statusCode = 302; res.setHeader('Location', `${SB}/storage/v1${j.signedURL}`); res.end();
-  } catch (e) { res.status(500).send('Încearcă din nou.'); }
+  } catch (e) { res.status(500).send('Factura nu s-a deschis. Mai încearcă peste un minut.'); }
 }

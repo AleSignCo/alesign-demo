@@ -1,7 +1,7 @@
 // Testele șablonului după constatările testului valului (sarcina 69, 6 nov. 2026): node teste/test-sablon-69.mjs
 // Verifică HTML-ul generat (static și previzualizare), nu pixelii: antetul, adresarea, panourile goale, programul, grilele, fonturile, prețurile din text.
-import { randeazaSite, eFormal, paginiStatice, stivaCuRezerve, NISE, programSchema } from '../lib/sablon.js';
-import { serviciiDin, fapteQa, aplicaFapte, construiesteSite, dosarPentruBuild, pozePentruBuild, LATIME_MAX } from '../lib/site-build.js';
+import { randeazaSite, eFormal, paginiStatice, stivaCuRezerve, NISE, programSchema, textPolitica, UI_LIMBI, UTM_CAMPURI, SCRIPT_UTM } from '../lib/sablon.js';
+import { serviciiDin, fapteQa, aplicaFapte, construiesteSite, dosarPentruBuild, pozePentruBuild, LATIME_MAX, svgProblema, svgMarime, caiLogo, logoPentruBuild, cuEtichetaGsc } from '../lib/site-build.js';
 
 let n = 0, picate = 0;
 const t = (nume, ok, detaliu = '') => { n++; if (!ok) picate++; console.log(`${ok ? 'trece' : 'PICĂ '} ${nume}${detaliu ? ' · ' + detaliu : ''}`); };
@@ -214,6 +214,77 @@ for (const [cheie, N] of Object.entries(NISE)) t(`11 înfățișarea „${cheie}
   t('15 program: un rând neclar oprește tot', programSchema('Luni–Vineri 09:00–18:00\nSâmbăta, după program') === null && programSchema('Luni, Miercuri 9–17') === null && programSchema('') === null);
   t('15 program neclar: firma rămâne fără ore în datele structurate, dar cu ele în pagină', (() => { const p2 = { ...piesa, site: { ...piesa.site, contact: { ...piesa.site.contact, program: 'Luni–Vineri 09:00–18:00\nSâmbăta, după program' } } }; const h = st('contact', dS, p2); return !blocuri(h).some((b) => b.openingHoursSpecification) && h.includes('după program'); })());
   t('15 previzualizarea nu are date structurate și nu se indexează', (() => { const pv = randeazaSite(piesa, dS, { mod: 'previzualizare' }); return !/ld\+json/.test(pv) && /noindex/.test(pv); })());
+}
+
+// 16. funnelul (etapa 1), logoul SVG, faviconul și eticheta Search Console (24–25 nov. 2026)
+{ const F = { actiune: 'https://formular.exemplu.ro/api/formular', site: '' };
+  const dSalon = { firma: 'Salon Liniște', nisa: 'salon', adresare: 'tu', identitate: { firma: 'Salon Liniște', nisa: 'salon', telefon: '0744 111 222', email: 'salon@exemplu.ro', politica_confidentialitate: 'https://exemplu.ro/politica', link_recenzie: 'https://g.page/r/abc/review' } };
+  const pSalon = { site: { acasa: { inceput: { titlu: 'Un tuns în care ai timp', subtitlu: 'O singură clientă pe oră.' } }, servicii: { intro: {}, lista: [] }, despre: {}, contact: { titlu: 'Scrie-ne', text: 'Îți răspundem în aceeași zi.' } } };
+  const cu = (pagina, d = dSalon, opt = {}) => randeazaSite(pSalon, d, { mod: 'static', pagina, baza: 'https://salon-liniste.ro', fonturi: '/_f', formular: F, ...opt });
+  const c = cu('contact');
+  t('16 butonul formularului spune ce primește omul, nu „Trimite”', />Vreau să-mi răspundeți<\/button>/.test(c) && !/>Trimite<\/button>/.test(c));
+  t('16 câmpurile ascunse utm_*, goale, toate cinci', UTM_CAMPURI.length === 5 && UTM_CAMPURI.every((k) => c.includes(`<input type="hidden" name="${k}" value="">`)));
+  t('16 pagina din care pleacă cererea e scrisă de șablon', c.includes('<input type="hidden" name="pagina" value="/contact">'));
+  t('16 adresarea „tu” nu trimite a=dvs; „dumneavoastră” da', !/name="a" value="dvs"/.test(c) && /name="a" value="dvs"/.test(cu('contact', { ...dSalon, adresare: 'dumneavoastra' })));
+  t('16 bifa de recenzie: separată, nebifată, fără required', /<input type="checkbox" id="f-recenzie" name="recenzie" value="da"><span>Vreau să primesc de la Salon Liniște un singur email după programare, cu rugămintea de a lăsa o recenzie\.<\/span>/.test(c) && /id="f-acord" name="acord" value="da" required/.test(c));
+  t('16 fără link de recenzie în Dosar, bifa nu apare', !/f-recenzie/.test(cu('contact', { ...dSalon, identitate: { ...dSalon.identitate, link_recenzie: '' } })));
+  const med = cu('contact', { ...dSalon, identitate: { ...dSalon.identitate, reglementat: 'medical' } });
+  t('16 medical: fără bifa de recenzie, butonul „Vreau să mă sunați”', !/f-recenzie/.test(med) && />Vreau să mă sunați<\/button>/.test(med));
+  t('16 scriptul utm pe toate paginile site-ului cu formular, nu în previzualizare', /<script src="\/_alesign\/u\.js" defer><\/script>/.test(cu('acasa')) && /u\.js/.test(c) && !/u\.js/.test(randeazaSite(pSalon, dSalon, { mod: 'preview' })) && !/u\.js/.test(randeazaSite(pSalon, dSalon, { mod: 'static', pagina: 'acasa', baza: 'https://salon-liniste.ro' })));
+  t('16 scriptul utm nu păstrează nimic în browser și nu citește identificatorii de clic', !/localStorage|sessionStorage|document\.cookie|indexedDB|gclid|fbclid|msclkid/.test(SCRIPT_UTM) && /utm_source/.test(SCRIPT_UTM));
+  t('16 previzualizarea: formularul fără câmpuri utm și fără pagină', (() => { const pv = randeazaSite(pSalon, dSalon, { mod: 'preview' }); return !/name="utm_source"/.test(pv) && !/name="pagina"/.test(pv) && /Formularul pornește după publicare\./.test(pv); })());
+  t('16 limbile: cheile noi au traducere în en, de, hu; „Trimite” nu mai e cheie', ['en', 'de', 'hu'].every((l) => ['Vreau să-mi răspundeți', 'Vreau să mă sunați', 'Vreau să primesc de la', 'un singur email după programare, cu rugămintea de a lăsa o recenzie.'].every((k) => typeof UI_LIMBI[l][k] === 'string' && UI_LIMBI[l][k]) && !('Trimite' in UI_LIMBI[l])));
+  t('16 mulțumirea: telefonul sau emailul la nemedical, intervalul ales la medical', /Îți răspundem pe telefonul sau pe emailul lăsat în formular\./.test(cu('multumim')) && /Te sunăm noi, în intervalul pe care l-ai ales\./.test(cu('multumim', { ...dSalon, identitate: { ...dSalon.identitate, reglementat: 'medical' } })));
+  // politica: sursa cererii, mesajele despre cerere, recenzia cu bifa ei, Brevo
+  const leg = { denumire: 'Salon Liniște SRL', cui: '123', sediu: 'Iași' };
+  const pol = textPolitica({ ...dSalon, legal: leg }, { email: 'salon@exemplu.ro' });
+  t('16 politica: eticheta linkului, confirmarea, recenzia, Brevo', /eticheta acelui link/.test(pol) && /o confirmare că am primit cererea/.test(pol) && /căsuța pentru recenzie/.test(pol) && /Brevo \(Sendinblue SAS, Franța\)/.test(pol) && /nu se salvează pe dispozitivul dumneavoastră/.test(pol));
+  const polMed = textPolitica({ ...dSalon, legal: leg }, { medical: true, tel: '0744 111 222' });
+  t('16 politica medicală: fără Brevo, fără recenzie, cu eticheta linkului', !/Brevo/.test(polMed) && !/recenzie/.test(polMed) && /eticheta acelui link/.test(polMed));
+  t('16 politica fără link de recenzie: nu pomenește bifa', !/căsuța pentru recenzie/.test(textPolitica({ ...dSalon, identitate: { ...dSalon.identitate, link_recenzie: '' }, legal: leg }, { email: 'salon@exemplu.ro' })));
+  t('16 politica păstrează cele 7 capitole și temeiurile', (pol.match(/^## \d\. /gm) || []).length === 7 && /art\. 6 alin\. 1 lit\. a din GDPR/.test(pol) && /ANSPDCP/.test(pol) && /cel mult doi ani/.test(pol));
+  // faviconul
+  t('16 fără favicon: „data:,” ca înainte', cu('acasa').includes('<link rel="icon" href="data:,">'));
+  const cuFav = cu('acasa', dSalon, { favicon: { ico: '/favicon.ico', svg: '/img/abc.svg', apple: '/img/def.png' } });
+  t('16 faviconul din kit: ico, svg și iconița Apple', cuFav.includes('<link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" href="/img/abc.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/img/def.png">') && !cuFav.includes('data:,'));
+  t('16 faviconul: forma veche (un șir) și cel din Dosar la previzualizare', cu('acasa', dSalon, { favicon: '/f.png' }).includes('<link rel="icon" href="/f.png">') && randeazaSite(pSalon, { ...dSalon, favicon_url: 'https://x.test/f.svg' }, { mod: 'preview' }).includes('<link rel="icon" href="https://x.test/f.svg" type="image/svg+xml">'));
+  // SVG-ul: doar forme
+  const svgBun = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80"><path d="M0 0h320v80H0z" fill="#1c1b19"/></svg>';
+  const semnBun = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#1c1b19"/></svg>';
+  t('16 svgProblema: un SVG cu forme trece', svgProblema(svgBun) === null && svgProblema(Buffer.from(semnBun)) === null && svgProblema('<svg viewBox="0 0 1 1"><rect fill="url(#g)"/></svg>') === null);
+  t('16 svgProblema: script, onload, imagine, fișier din afară, altceva decât SVG', [svgBun.replace('<path', '<script>alert(1)</script><path'), svgBun.replace('<svg ', '<svg onload="x()" '), svgBun.replace('<path', '<image href="https://x.test/a.png"/><path'), svgBun.replace('<path', '<use href="https://x.test/a.svg#x"/><path'), '<html></html>'].every((x) => typeof svgProblema(x) === 'string'));
+  t('16 svgMarime din viewBox', svgMarime(svgBun).w === 320 && svgMarime(svgBun).h === 80);
+  // căile și obiectele de build din brand.logo
+  const Lb = { bucket: 'brand', cale: '9001/1240/final/svg/orizontal-color.svg', semn: '9001/1240/final/svg/semn-color.svg', favicon: '9001/1240/final/web/favicon.svg', favicon_ico: '9001/1240/final/web/favicon.ico', tip: 'svg', din: 'alesign' };
+  const cl = caiLogo(Lb);
+  t('16 caiLogo: bucketul brand, cu iconița Apple din același folder', cl.bucket === 'brand' && cl.cai.length === 5 && cl.cai.includes('9001/1240/final/web/apple-touch-icon.png'));
+  t('16 caiLogo: logoul clientului rămâne în onboarding', JSON.stringify(caiLogo({ cale: '9001/logo.png', tip: 'image/png' })) === JSON.stringify({ bucket: 'onboarding', cai: ['9001/logo.png'] }) && caiLogo(null).cai.length === 0);
+  const urlPe = Object.fromEntries(cl.cai.map((x) => [x, 'mem://' + x]));
+  const LB = logoPentruBuild(Lb, urlPe);
+  t('16 logoPentruBuild: logoul nostru e „grafic”, cu favicon svg, ico și apple', LB.logo.sursa === 'grafic' && LB.logo.tip === 'svg' && LB.favicon.svg.url.endsWith('web/favicon.svg') && !!LB.favicon.ico && !!LB.favicon.apple);
+  t('16 logoPentruBuild: din logoul clientului e „client”; fără URL semnat, nimic', logoPentruBuild({ ...Lb, din: 'logoul_tau' }, urlPe).logo.sursa === 'client' && logoPentruBuild(Lb, {}).logo === null);
+  // build-ul cu logo SVG, favicon, u.js și eticheta Search Console
+  const aduce = async (u) => { if (u === 'mem://logo') return Buffer.from(svgBun); if (u === 'mem://fav') return Buffer.from(semnBun); if (u === 'mem://ico') return Buffer.from([0, 0, 1, 0]); if (u === 'mem://apple') return Buffer.from('png'); if (u === 'mem://rau') return Buffer.from(svgBun.replace('<path', '<script>1</script><path')); return Buffer.from('font'); };
+  const baza = { piesa: pSalon, dosar: { ...dSalon, legal: leg }, baza: 'https://salon-liniste.ro', preview: false, formular: F, aduce, sharp: null };
+  const fara = await construiesteSite({ ...baza });
+  const cuLogo = await construiesteSite({ ...baza, logo: { id: 'l', sursa: 'grafic', url: 'mem://logo', tip: 'svg', alt: '' }, favicon: { svg: { id: 'f', sursa: 'grafic', url: 'mem://fav', tip: 'svg' }, ico: { id: 'i', sursa: 'grafic', url: 'mem://ico' }, apple: { id: 'a', sursa: 'grafic', url: 'mem://apple' } } });
+  const fis = (r, c) => r.fisiere.find((f) => f.cale === c);
+  const svgL = cuLogo.fisiere.find((f) => /^img\/.+\.svg$/.test(f.cale) && String(f.date) === svgBun);
+  t('16 build: SVG-ul logoului e copiat neschimbat, cu tipul lui', !!svgL && svgL.tip === 'image/svg+xml');
+  const idx = String(fis(cuLogo, 'index.html').date);
+  t('16 build: antetul folosește SVG-ul, iar pagina are faviconul', idx.includes(`<img src="/${svgL.cale}" alt="Salon Liniște" height="36">`) && idx.includes('<link rel="icon" href="/favicon.ico" sizes="32x32">') && /<link rel="icon" href="\/img\/[0-9a-f]{16}\.svg" type="image\/svg\+xml">/.test(idx) && /<link rel="apple-touch-icon" href="\/img\/[0-9a-f]{16}\.png">/.test(idx));
+  t('16 build: favicon.ico la rădăcină; logoul și faviconul au sursă în manifest (D1)', !!fis(cuLogo, 'favicon.ico') && cuLogo.manifest.imagini.filter((x) => ['logo', 'favicon'].includes(x.rol)).length === 4 && cuLogo.manifest.imagini.filter((x) => ['logo', 'favicon'].includes(x.rol)).every((x) => x.sursa === 'grafic'));
+  t('16 build: u.js e în build și CSP-ul îl lasă să ruleze', !!fis(fara, '_alesign/u.js') && String(fis(fara, '_alesign/u.js').date) === SCRIPT_UTM && /script-src 'self'/.test(String(fis(fara, 'vercel.json').date)) && fara.manifest.utm.stocare === false);
+  const faraForm = await construiesteSite({ ...baza, formular: null });
+  t('16 build fără formular: fără u.js, script-src rămâne „none”', !fis(faraForm, '_alesign/u.js') && /script-src 'none'/.test(String(fis(faraForm, 'vercel.json').date)));
+  const rau = await construiesteSite({ ...baza, logo: { id: 'l', sursa: 'client', url: 'mem://rau', tip: 'svg', alt: '' } });
+  t('16 build: un SVG cu script e respins, site-ul rămâne cu numele firmei', !rau.fisiere.some((f) => /\.svg$/.test(f.cale)) && rau.manifest.respinse.length === 1 && String(fis(rau, 'index.html').date).includes('<a class="marca" href="/">Salon Liniște</a>'));
+  const patrat = await construiesteSite({ ...baza, logo: { id: 'l', sursa: 'client', url: 'mem://fav', tip: 'svg', alt: '' } });
+  t('16 build: un logo SVG pătrat ține loc de favicon; unul lat nu', /<link rel="icon" href="\/img\/[0-9a-f]{16}\.svg" type="image\/svg\+xml">/.test(String(fis(patrat, 'index.html').date)) && String(fis(await construiesteSite({ ...baza, logo: { id: 'l', sursa: 'client', url: 'mem://logo', tip: 'svg', alt: '' } }), 'index.html').date).includes('<link rel="icon" href="data:,">'));
+  const COD = 'AbCdEfGhIjKlMnOpQrStUvWxYz0123456789-_abcd';
+  const cuGsc = await construiesteSite({ ...baza, gscMeta: COD });
+  t('16 eticheta Search Console: doar pe pagina principală, cu același build', String(fis(cuGsc, 'index.html').date).includes(`<meta name="google-site-verification" content="${COD}">`) && !String(fis(cuGsc, 'contact/index.html').date).includes('google-site-verification') && cuGsc.build === fara.build);
+  t('16 eticheta Search Console: nu intră pe preview și nu acceptă altceva decât un cod', !String(fis(await construiesteSite({ ...baza, preview: true, gscMeta: COD }), 'index.html').date).includes('google-site-verification') && cuEtichetaGsc('<head></head>', '"><script>') === '<head></head>' && (cuEtichetaGsc(cuEtichetaGsc('<head></head>', COD), COD).match(/google-site-verification/g) || []).length === 1);
 }
 
 console.log(`\n${n - picate} / ${n} trec`);

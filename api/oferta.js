@@ -15,5 +15,5 @@ export default async function handler(req, res) {
     }
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.status(200).send(randeazaOferta(d));
-  } catch (e) { res.status(500).send('Oferta nu e disponibilă acum. Scrie-mi la info@alesign.net.'); }
+  } catch (e) { res.status(500).send('Oferta nu se deschide acum. Mai încearcă peste un minut, iar dacă nu merge, scrie-mi la info@alesign.net.'); }
 }

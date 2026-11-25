@@ -40,7 +40,7 @@
       }
     }
     var P = A.pachete(d.catalog);
-    if (P.lunare.length && $('#pret-mic')) $('#pret-mic').textContent = 'Abonamentele pornesc de la ' + A.RON.format(P.lunare[0].pret) + ' RON pe lună. Prețurile sunt la vedere, fără costuri ascunse.';
+    if (P.lunare.length && $('#pret-mic')) $('#pret-mic').textContent = 'Abonamentele pornesc de la ' + A.RON.format(P.lunare[0].pret) + ' lei pe lună, iar prețurile sunt la vedere, fără costuri ascunse.';
   });
 
   // ---------- WhatsApp cu numele afacerii, după generator ----------
@@ -48,7 +48,7 @@
   document.addEventListener('click', function (ev) {
     if (!ev.target.closest('.gen-final-btn')) return;
     var firma = ($('#incearca') || {}).dataset && $('#incearca').dataset.nume;
-    if (firma) $$('#wa, .bj-wa').forEach(function (a) { a.href = waBaza + encodeURIComponent('Salut, Alexandru! Am încercat AleSystem pe „' + firma + '” și vreau mostra reală.'); });
+    if (firma) $$('#wa, .bj-wa').forEach(function (a) { a.href = waBaza + encodeURIComponent('Salut, Alexandru! Am încercat AleSystem pe „' + firma + '” și vreau Mostra pentru firma mea.'); });
   });
 
   // ---------- formularul scurt: te sun eu ----------
@@ -67,9 +67,9 @@
         btn.disabled = false; btn.firstChild.textContent = textBtn;
         if (r.ok) {
           f.hidden = true;
-          $('#succes-titlu').textContent = 'Mersi, ' + b.nume.split(' ')[0] + '! Am primit.';
+          $('#succes-titlu').textContent = 'Mulțumesc, ' + b.nume.split(' ')[0] + ', am primit.';
           $('#succes-text').textContent = r.previzualizare
-            ? 'Previzualizare: de aici nu pleacă nimic. Pe pagina reală, Alexandru primește numărul și te sună.'
+            ? 'E doar o probă: de aici nu pleacă nimic. Pe pagina adevărată, primesc numărul și te sun.'
             : 'Te sun azi' + (b.firma ? ' despre ' + b.firma : '') + '. Dacă nu răspunzi, îți las un mesaj pe WhatsApp.';
           $('#c-succes').hidden = false; $('#c-succes').focus();
           return;

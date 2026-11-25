@@ -21,7 +21,7 @@ ul{padding-left:18px;margin:10px 0}li{margin:3px 0}.btn{display:inline-flex;alig
 .btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}.ok{color:var(--ok);font-weight:600}.rand{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14.5px}.rand:first-of-type{border-top:0}</style></head>
 <body><main><p class="eye">Contract ${esc(c.contract)}</p><h1>Care pentru site-ul tău, din luna 4</h1>
 ${mesaj ? `<p class="${ok ? 'ok' : 'm'}" role="status">${esc(mesaj)}</p>` : ''}
-<div class="card"><p class="suma">${nr(cuTva)} RON <span class="m">/ lună</span></p><p class="m">${Number(c.tva_procent) > 0 ? `${nr(c.suma)} RON + TVA ${esc(c.tva_procent)}% · ` : ''}de la ${esc(dataRo(c.de_la))}</p>
+<div class="card"><p class="suma">${nr(cuTva)} lei <span class="m">/ lună</span></p><p class="m">${Number(c.tva_procent) > 0 ? `${nr(c.suma)} lei + TVA ${esc(c.tva_procent)}% · ` : ''}de la ${esc(dataRo(c.de_la))}</p>
 <ul><li>găzduirea, certificatul și domeniul legat</li><li>monitorizarea la 5 minute și revenirea automată dacă ceva cade</li><li>arhiva fiecărei versiuni și actualizările tehnice</li><li>faptele le schimbi tu, oricând, din spațiul tău</li></ul>
 ${activ ? `<p class="ok">Care e activ${c.mod === 'card' ? ', cu cardul' : ', pe factură lunară (transfer)'}. Mulțumesc!</p>` : refuzat ? `<p class="m">Ai ales să nu continui. Site-ul rămâne online până pe ${esc(dataRo(c.oprire_la))}; îți trimit exportul și te ajut să-l muți. Dacă te răzgândești, alege mai jos.</p>` : ''}
 ${!activ && !refuzat ? `<p class="m" style="margin-top:10px">Cum scrie în contract: din ${esc(dataRo(c.de_la))}, Care continuă automat, pe factură lunară. Dacă preferi cardul, îl alegi aici.</p>` : ''}
@@ -63,5 +63,5 @@ export default async function handler(req, res) {
       html(200, paginaCare(c, { mesaj: 'Nu văd încă abonamentul confirmat. Reîncarcă pagina peste un minut.' })); return;
     }
     html(200, paginaCare(c, { mesaj: req.query && req.query.anulat ? 'Nu s-a pornit nimic. Poți alege din nou oricând.' : '' }));
-  } catch (e) { html(500, '<!doctype html><p style="font-family:sans-serif;padding:40px">A apărut o problemă. Încearcă din nou peste câteva minute.</p>'); }
+  } catch (e) { html(500, '<!doctype html><p style="font-family:sans-serif;padding:40px">Pagina nu s-a deschis. Mai încearcă peste câteva minute; dacă nu merge nici atunci, scrie-mi și rezolv eu.</p>'); }
 }
