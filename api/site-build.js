@@ -201,8 +201,10 @@ export default async function handler(req, res) {
     // Dosarul de build (cu datele legale din Dosar sau, în lipsa lor, din contractul semnat): lib/site-build.js, comun cu oglinda locală de QA
     const dosar = dosarPentruBuild(D, l, K);
     let sharp = null; try { sharp = (await import('sharp')).default; } catch (e) { sharp = null; }
-    // L6: pictograma SAL oficială (ANPC, sursa de 680 px din public/); intră în build ca imagine din manifest, în WebP (D1, P4). SAL_IMG_URL o poate înlocui
-    let salDate = null; try { salDate = await aduce(process.env.SAL_IMG_URL || 'https://demo.alesign.net/anpc-sal-680.png'); } catch (e) { salDate = null; }
+    // L6: pictograma SAL oficială (ANPC); intră în build ca imagine din manifest, în WebP (D1, P4). SAL_IMG_URL o poate înlocui, dar trebuie să fie modelul din 2026.
+    // 26 nov. 2026 (s3b): modelul nou, din Ordinul ANPC 270/2026 (MO 420 din 19 mai 2026), descărcat de pe anpc.ro/download/sal/SAL-PICTOGRAMA.png (201 × 50 px);
+    // anpc-sal-680.png era modelul din 2022, înlocuit de ordin
+    let salDate = null; try { salDate = await aduce(process.env.SAL_IMG_URL || 'https://demo.alesign.net/anpc-sal-2026.png'); } catch (e) { salDate = null; }
     const gaz = s.tip === 'landing' ? 'alesign' : (K.gazduire || 'alesign'); // landingul stă mereu la noi (campania)
     // la fișierele predate, site-ul nu depinde de nimic de la noi: contactul pe email și telefon, fără formularul central și fără /_m (același build în preview și la predare)
     const formular = gaz !== 'client_fisiere' && process.env.FORMULAR_URL ? { actiune: process.env.FORMULAR_URL, site: '' } : null;

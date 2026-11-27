@@ -61,7 +61,11 @@ const fara = pag({ firma: 'Salon Test', nisa: 'salon', identitate: { firma: 'Sal
 t('8 pagina poartă culorile clientului', /--fundal:#f6f1ea;/.test(cuId) && /--cerneala:#1f1a17;/.test(cuId) && /--accent:#7a3e2b;/.test(cuId) && /--raza:16px/.test(cuId));
 t('8 fără identitate: culorile nișei', /--fundal:#fbf7f3;/.test(fara) && /--accent:#a8594b;/.test(fara));
 t('8 fara_identitate: culorile nișei, deși Dosarul are identitate', /--fundal:#fbf7f3;/.test(faraId));
-t('8 restul paginii e identic (doar rândul de culori diferă)', cuId.replace(/:root\{[^}]*\}/, '') === fara.replace(/:root\{[^}]*\}/, ''));
+// din 27 nov. (s3b), începutul fără poză stă pe un fond nuanțat scos din paletă: și el urmează culorile clientului
+const faraCulori = (h) => h.replace(/:root\{[^}]*\}/, '').replace(/\.erou:has\(>\.w\.una\)\{background:[^\n]*/, '');
+const fondErou = (h) => (h.match(/\.erou:has\(>\.w\.una\)\{background:(#[0-9a-f]{6})\}/) || [])[1];
+t('8 restul paginii e identic (doar culorile diferă: rândul de culori și fondul începutului)', faraCulori(cuId) === faraCulori(fara));
+t('8 fondul începutului fără poză urmează culorile clientului', !!fondErou(cuId) && !!fondErou(fara) && fondErou(cuId) !== fondErou(fara) && fondErou(faraId) === fondErou(fara));
 t('8 paletă respinsă: pagina rămâne pe nișă', /--fundal:#fbf7f3;/.test(pag(cuJetoane({ ...buna, text: '#8A7F76' }))));
 
 // 9. invariant: pe 2.000 de palete la întâmplare, tot ce e folosit trece contrastul și nimic nu aruncă
